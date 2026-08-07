@@ -36,14 +36,14 @@ const SERVICES_MENU: MegaMenuData = {
   description:
     "Specialist studies and analysis across every stage of power system design and operation.",
   items: [
-    { index: "01", title: "Power System Analysis", href: "#services" },
-    { index: "02", title: "Power Quality", href: "#services" },
-    { index: "03", title: "Compliance Studies", href: "#services" },
-    { index: "04", title: "Protection & Arc Flash", href: "#services" },
-    { index: "05", title: "Dynamic & Transients (RMS)", href: "#services" },
-    { index: "06", title: "Electromagnetic Transients (EMT)", href: "#services" },
-    { index: "07", title: "Earthing & Grounding", href: "#services" },
-    { index: "08", title: "Specialist Studies", href: "#services" },
+    { index: "01", title: "Power System Analysis", href: "/services/power-system-analysis" },
+    { index: "02", title: "Power Quality", href: "/services/power-quality" },
+    { index: "03", title: "Compliance Studies", href: "/services/compliance-studies" },
+    { index: "04", title: "Protection & Arc Flash", href: "/services/protection-arc-flash" },
+    { index: "05", title: "Dynamic & Transients (RMS)", href: "/services/dynamic-transients-rms" },
+    { index: "06", title: "Electromagnetic Transients (EMT)", href: "/services/electromagnetic-transients-emt" },
+    { index: "07", title: "Earthing & Grounding", href: "/services/earthing-grounding" },
+    { index: "08", title: "Specialist Studies", href: "/services/specialist-studies" },
   ],
   featured: {
     label: "Reliability",
