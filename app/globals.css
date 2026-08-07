@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0b;
+  --foreground: #fafaf9;
+
+  /* INFOELEX brand */
+  --color-brand: #df2c1c;
+  --color-brand-dim: #b8271a;
+  --color-brand-glow: rgba(223, 44, 28, 0.35);
+
+  /* Premium neutral palette */
+  --color-ink: #08080a;
+  --color-charcoal: #141416;
+  --color-charcoal-light: #1e1e21;
+  --color-graphite: #8a8a8f;
+  --color-mist: #d4d4d2;
+  --color-paper: #fafaf9;
+  --color-offwhite: #f2f1ee;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-brand: var(--color-brand);
+  --color-brand-dim: var(--color-brand-dim);
+  --color-brand-glow: var(--color-brand-glow);
+
+  --color-ink: var(--color-ink);
+  --color-charcoal: var(--color-charcoal);
+  --color-charcoal-light: var(--color-charcoal-light);
+  --color-graphite: var(--color-graphite);
+  --color-mist: var(--color-mist);
+  --color-paper: var(--color-paper);
+  --color-offwhite: var(--color-offwhite);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --animate-marquee: marquee 32s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
 }
