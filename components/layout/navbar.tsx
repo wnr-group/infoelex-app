@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { NavMegaMenu, type MegaMenuData } from "@/components/layout/nav-mega-menu";
@@ -13,7 +14,7 @@ const SECTORS_MENU: MegaMenuData = {
   description:
     "Engineering expertise applied across the industries that power the modern world.",
   items: [
-    { index: "01", title: "Power Generation", href: "#sector" },
+    { index: "01", title: "Power Generation", href: "/sectors/power-generation" },
     { index: "02", title: "Renewables & Energy Storage", href: "#sector" },
     { index: "03", title: "Transmission & Distribution", href: "#sector" },
     { index: "04", title: "Oil, Gas & Petrochemical", href: "#sector" },
@@ -76,6 +77,8 @@ function LogoMark() {
 }
 
 export function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -139,7 +142,7 @@ export function Navbar() {
     };
   }, [openMenu]);
 
-  const chrome = scrolled || openMenu !== null;
+  const chrome = !isHome || scrolled || openMenu !== null;
   const activeMega = NAV_ITEMS.find((item) => item.label === openMenu)?.mega;
 
   return (
