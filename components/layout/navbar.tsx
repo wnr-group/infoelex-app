@@ -63,7 +63,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "Sectors", href: "#sector", mega: SECTORS_MENU },
   { label: "Services", href: "#services", mega: SERVICES_MENU },
-  { label: "About", href: "#about" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -85,6 +85,19 @@ export function Navbar() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [active, setActive] = useState("#home");
   const headerRef = useRef<HTMLElement>(null);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearCloseTimeout = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  };
+
+  const scheduleClose = () => {
+    clearCloseTimeout();
+    closeTimeoutRef.current = setTimeout(() => setOpenMenu(null), 200);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -94,9 +107,9 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = NAV_ITEMS.map((item) =>
-      document.querySelector(item.href)
-    ).filter((el): el is Element => el !== null);
+    const sections = NAV_ITEMS.filter((item) => item.href.startsWith("#"))
+      .map((item) => document.querySelector(item.href))
+      .filter((el): el is Element => el !== null);
 
     if (sections.length === 0) return;
 
@@ -142,6 +155,10 @@ export function Navbar() {
     };
   }, [openMenu]);
 
+  useEffect(() => {
+    return () => clearCloseTimeout();
+  }, []);
+
   const chrome = !isHome || scrolled || openMenu !== null;
   const activeMega = NAV_ITEMS.find((item) => item.label === openMenu)?.mega;
 
@@ -150,7 +167,8 @@ export function Navbar() {
       <header
         ref={headerRef}
         className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6 md:pt-4"
-        onMouseLeave={() => setOpenMenu(null)}
+        onMouseEnter={clearCloseTimeout}
+        onMouseLeave={scheduleClose}
       >
         <div className="relative mx-auto max-w-[1440px]">
           <div
@@ -177,7 +195,10 @@ export function Navbar() {
                       type="button"
                       aria-haspopup="true"
                       aria-expanded={openMenu === item.label}
-                      onMouseEnter={() => setOpenMenu(item.label)}
+                      onMouseEnter={() => {
+                        clearCloseTimeout();
+                        setOpenMenu(item.label);
+                      }}
                       onClick={() =>
                         setOpenMenu((current) =>
                           current === item.label ? null : item.label
@@ -203,7 +224,10 @@ export function Navbar() {
                   <a
                     key={item.href}
                     href={item.href}
-                    onMouseEnter={() => setOpenMenu(null)}
+                    onMouseEnter={() => {
+                      clearCloseTimeout();
+                      setOpenMenu(null);
+                    }}
                     className="group relative rounded-lg px-4 py-2 text-[13px] font-medium uppercase tracking-[0.12em] text-paper/80 transition-colors duration-300 hover:text-paper"
                   >
                     <span className="relative inline-flex items-center gap-2">
