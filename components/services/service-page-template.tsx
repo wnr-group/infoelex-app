@@ -210,34 +210,6 @@ export function ServicePageTemplate({
           </RevealOnScroll>
         </div>
       </section>
-
-      {/* CTA */}
-      <section className="relative overflow-hidden border-t border-black/10 bg-charcoal py-20 text-paper md:py-28">
-        <div
-          className="pointer-events-none absolute inset-0 -z-10"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 0%, rgba(223,44,28,0.16), transparent 60%)",
-          }}
-        />
-        <RevealOnScroll
-          direction="up"
-          className="mx-auto flex max-w-[1440px] flex-col gap-8 px-6 text-center md:px-10"
-        >
-          <h2 className="mx-auto max-w-2xl text-balance text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-            Ready to scope your {title.toLowerCase()} study with Infoelex?
-          </h2>
-          <a
-            href="/#contact"
-            className="group relative mx-auto inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-[4px] border border-brand bg-brand px-7 py-3.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-transparent hover:text-brand"
-          >
-            <span className="relative z-10">Let&apos;s Talk</span>
-            <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
-          </a>
-        </RevealOnScroll>
-      </section>
     </>
   );
 }
