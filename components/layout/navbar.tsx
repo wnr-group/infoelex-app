@@ -64,7 +64,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Sectors", href: "#sector", mega: SECTORS_MENU },
   { label: "Services", href: "#services", mega: SERVICES_MENU },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 function LogoMark() {
@@ -180,7 +180,7 @@ export function Navbar() {
             )}
           >
             <a
-              href="#home"
+              href={isHome ? "#home" : "/"}
               className="flex items-center gap-2.5 text-[15px] font-bold tracking-[0.22em] text-paper"
             >
               <LogoMark />
@@ -223,7 +223,7 @@ export function Navbar() {
                 ) : (
                   <a
                     key={item.href}
-                    href={item.href}
+                    href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                     onMouseEnter={() => {
                       clearCloseTimeout();
                       setOpenMenu(null);
@@ -251,7 +251,7 @@ export function Navbar() {
 
             <div className="hidden md:block">
               <a
-                href="#contact"
+                href="/contact"
                 className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-[4px] border border-brand bg-brand px-6 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-transparent hover:text-brand"
               >
                 <span className="relative z-10">Let&apos;s Talk</span>
@@ -395,7 +395,7 @@ export function Navbar() {
                     </>
                   ) : (
                     <a
-                      href={item.href}
+                      href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                       onClick={() => setMobileOpen(false)}
                       className="flex items-baseline gap-3 py-5 text-3xl font-semibold text-paper/90 transition-colors active:text-brand"
                     >
@@ -416,7 +416,7 @@ export function Navbar() {
               className="relative px-6 pb-10"
             >
               <a
-                href="#contact"
+                href="/contact"
                 onClick={() => setMobileOpen(false)}
                 className="flex w-full items-center justify-center gap-2 rounded-[4px] border border-brand bg-brand px-6 py-4 text-base font-semibold text-white"
               >

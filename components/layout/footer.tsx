@@ -3,12 +3,14 @@
 import { RevealOnScroll } from "@/components/ui/reveal-on-scroll";
 import { SectionLabel } from "@/components/ui/section-label";
 
+import { usePathname } from "next/navigation";
+
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Sector", href: "#sector" },
   { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const LEGAL_LINKS = [
@@ -25,10 +27,11 @@ function LogoMark() {
   );
 }
 
-function FooterLink({ label, href }: { label: string; href: string }) {
+function FooterLink({ label, href, isHome }: { label: string; href: string; isHome: boolean }) {
+  const resolvedHref = href.startsWith("#") ? (isHome ? href : `/${href}`) : href;
   return (
     <a
-      href={href}
+      href={resolvedHref}
       className="group inline-flex w-fit items-center gap-2.5 text-sm text-paper/75 transition-colors duration-300 hover:text-paper"
     >
       <span className="h-px w-3 bg-white/20 transition-all duration-300 ease-out group-hover:w-5 group-hover:bg-brand" />
@@ -38,6 +41,9 @@ function FooterLink({ label, href }: { label: string; href: string }) {
 }
 
 export function Footer() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-ink text-paper">
       {/* TECHNICAL GRID BACKDROP */}
@@ -64,7 +70,7 @@ export function Footer() {
             </h2>
           </div>
           <a
-            href="#contact"
+            href="/contact"
             className="group relative inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-[4px] border border-brand bg-brand px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-transparent hover:text-brand"
           >
             <span className="relative z-10">Let&apos;s Talk</span>
@@ -77,7 +83,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-12">
           <div className="md:col-span-5">
             <a
-              href="#home"
+              href={isHome ? "#home" : "/"}
               className="inline-flex items-center gap-2.5 text-lg font-bold tracking-[0.2em] text-paper"
             >
               <LogoMark />
@@ -94,7 +100,7 @@ export function Footer() {
             <SectionLabel light>Navigation</SectionLabel>
             <nav className="mt-6 flex flex-col gap-3.5">
               {NAV_LINKS.map((link) => (
-                <FooterLink key={link.href} {...link} />
+                <FooterLink key={link.href} {...link} isHome={isHome} />
               ))}
             </nav>
           </div>
@@ -103,7 +109,7 @@ export function Footer() {
             <SectionLabel light>Legal</SectionLabel>
             <nav className="mt-6 flex flex-col gap-3.5">
               {LEGAL_LINKS.map((link) => (
-                <FooterLink key={link.label} {...link} />
+                <FooterLink key={link.label} {...link} isHome={isHome} />
               ))}
             </nav>
           </div>
