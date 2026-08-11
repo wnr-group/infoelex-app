@@ -1,9 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 import { ChevronLeft, ChevronRight, Landmark, Leaf, Users } from "lucide-react";
-import { RevealOnScroll } from "@/components/ui/reveal-on-scroll";
 import { SectionLabel } from "@/components/ui/section-label";
 import { cn } from "@/lib/utils";
 
@@ -51,6 +57,9 @@ const PILLARS = [
 
 const AUTOPLAY_MS = 5500;
 
+// Premium, cinematic ease-out curve used across the site's scroll reveals.
+const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+
 const slideVariants: Variants = {
   enter: (direction: number) => ({
     x: direction > 0 ? 64 : -64,
@@ -61,50 +70,114 @@ const slideVariants: Variants = {
     x: 0,
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.6, ease: EASE_OUT },
   },
   exit: (direction: number) => ({
     x: direction > 0 ? -64 : 64,
     opacity: 0,
     scale: 0.97,
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.4, ease: EASE_OUT },
   }),
 };
 
+// Heading group: eyebrow label leads, sentence-heading follows with a slight stagger delay.
+const headingGroupVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const labelRevealVariants: Variants = {
+  hidden: { opacity: 0, y: 30, transition: { duration: 0.8, ease: EASE_OUT } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE_OUT } },
+};
+
+const descriptionRevealVariants: Variants = {
+  hidden: { opacity: 0, y: 20, transition: { duration: 0.9, ease: EASE_OUT } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE_OUT } },
+};
+
+// Visual elements group: carousel card frame + controls row, staggered in.
+const visualGroupVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+  },
+};
+
+const visualItemVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.96, transition: { duration: 0.8, ease: EASE_OUT } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: EASE_OUT } },
+};
+
 export function ESGSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const bgParallaxY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? [0, 0] : [-30, 30]
+  );
+
   return (
-    <section className="relative overflow-hidden border-t border-black/10 bg-white py-16 text-ink md:py-24">
-      <div
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden border-t border-black/10 bg-white py-16 text-ink md:py-24"
+    >
+      <motion.div
+        style={{ y: bgParallaxY }}
         className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 0%, rgba(223,44,28,0.08), transparent 60%)",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(8,8,10,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(8,8,10,0.06) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-        }}
-      />
+        aria-hidden
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 0%, rgba(223,44,28,0.08), transparent 60%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(8,8,10,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(8,8,10,0.06) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+      </motion.div>
 
       <div className="mx-auto max-w-[1440px] px-6 md:px-10">
-        <RevealOnScroll direction="up" className="mx-auto max-w-3xl text-center">
-          <SectionLabel className="mx-auto mb-8 justify-center">
-            Our ESG Philosophy
-          </SectionLabel>
-          <h2 className="text-balance text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl md:text-5xl">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.4 }}
+          variants={shouldReduceMotion ? undefined : headingGroupVariants}
+          className="mx-auto max-w-3xl text-center"
+        >
+          <motion.div variants={shouldReduceMotion ? undefined : labelRevealVariants}>
+            <SectionLabel className="mx-auto mb-8 justify-center">
+              Our ESG Philosophy
+            </SectionLabel>
+          </motion.div>
+          <motion.h2
+            variants={shouldReduceMotion ? undefined : descriptionRevealVariants}
+            className="text-balance text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl md:text-5xl"
+          >
             As a data center developer and operator, we are committed to
             integrating sustainable practices into every aspect of our
             operations.
-          </h2>
-        </RevealOnScroll>
+          </motion.h2>
+        </motion.div>
 
-        <RevealOnScroll direction="scale" delay={0.15} className="mt-16 md:mt-20">
+        <div className="mt-16 md:mt-20">
           <ESGCarousel />
-        </RevealOnScroll>
+        </div>
       </div>
     </section>
   );
@@ -140,12 +213,19 @@ function ESGCarousel() {
   const Icon = pillar.icon;
 
   return (
-    <div
+    <motion.div
       className="mx-auto max-w-3xl"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0.3 }}
+      variants={shouldReduceMotion ? undefined : visualGroupVariants}
     >
-      <div className="relative overflow-hidden rounded-2xl border border-black/10 bg-white text-ink shadow-[0_24px_60px_-24px_rgba(0,0,0,0.35)]">
+      <motion.div
+        variants={shouldReduceMotion ? undefined : visualItemVariants}
+        className="relative overflow-hidden rounded-2xl border border-black/10 bg-white text-ink shadow-[0_24px_60px_-24px_rgba(0,0,0,0.35)]"
+      >
         <AnimatePresence mode="wait" custom={direction} initial={false}>
           <motion.div
             key={pillar.key}
@@ -183,9 +263,12 @@ function ESGCarousel() {
             </div>
           </motion.div>
         </AnimatePresence>
-      </div>
+      </motion.div>
 
-      <div className="mt-8 flex items-center justify-between">
+      <motion.div
+        variants={shouldReduceMotion ? undefined : visualItemVariants}
+        className="mt-8 flex items-center justify-between"
+      >
         <div className="flex items-center gap-2.5">
           {PILLARS.map((p, i) => (
             <button
@@ -224,7 +307,7 @@ function ESGCarousel() {
             <ChevronRight className="h-4 w-4" />
           </button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
