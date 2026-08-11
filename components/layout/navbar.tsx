@@ -5,58 +5,36 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { NavMegaMenu, type MegaMenuData } from "@/components/layout/nav-mega-menu";
+import { NavMegaMenu, type MegaMenuItem } from "@/components/layout/nav-mega-menu";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const SECTORS_MENU: MegaMenuData = {
-  eyebrow: "Sectors",
-  description:
-    "Engineering expertise applied across the industries that power the modern world.",
-  items: [
-    { index: "01", title: "Power Generation", href: "/sectors/power-generation" },
-    { index: "02", title: "Renewables & Energy Storage", href: "/sectors/renewables-energy-storage" },
-    { index: "03", title: "Transmission & Distribution", href: "/sectors/transmission-distribution" },
-    { index: "04", title: "Oil, Gas & Petrochemical", href: "/sectors/oil-gas-petrochemical" },
-    { index: "05", title: "Industrial", href: "/sectors/industrial" },
-    { index: "06", title: "Data Centres", href: "/sectors/data-centres" },
-    { index: "07", title: "Building Services", href: "/sectors/building-services" },
-    { index: "08", title: "Water", href: "/sectors/water" },
-  ],
-  featured: {
-    label: "Capacity",
-    value: "500+ MW",
-    description: "Delivered across power, energy and infrastructure sectors.",
-    href: "#sector",
-  },
-};
+const SECTORS_MENU: MegaMenuItem[] = [
+  { title: "Power Generation", href: "/sectors/power-generation" },
+  { title: "Renewables & Energy Storage", href: "/sectors/renewables-energy-storage" },
+  { title: "Transmission & Distribution", href: "/sectors/transmission-distribution" },
+  { title: "Oil, Gas & Petrochemical", href: "/sectors/oil-gas-petrochemical" },
+  { title: "Industrial", href: "/sectors/industrial" },
+  { title: "Data Centres", href: "/sectors/data-centres" },
+  { title: "Building Services", href: "/sectors/building-services" },
+  { title: "Water", href: "/sectors/water" },
+];
 
-const SERVICES_MENU: MegaMenuData = {
-  eyebrow: "Services",
-  description:
-    "Specialist studies and analysis across every stage of power system design and operation.",
-  items: [
-    { index: "01", title: "Power System Analysis", href: "/services/power-system-analysis" },
-    { index: "02", title: "Power Quality", href: "/services/power-quality" },
-    { index: "03", title: "Compliance Studies", href: "/services/compliance-studies" },
-    { index: "04", title: "Protection & Arc Flash", href: "/services/protection-arc-flash" },
-    { index: "05", title: "Dynamic & Transients (RMS)", href: "/services/dynamic-transients-rms" },
-    { index: "06", title: "Electromagnetic Transients (EMT)", href: "/services/electromagnetic-transients-emt" },
-    { index: "07", title: "Earthing & Grounding", href: "/services/earthing-grounding" },
-    { index: "08", title: "Specialist Studies", href: "/services/specialist-studies" },
-  ],
-  featured: {
-    label: "Reliability",
-    value: "99.999%",
-    description: "Engineered into every study and deployment.",
-    href: "#services",
-  },
-};
+const SERVICES_MENU: MegaMenuItem[] = [
+  { title: "Power System Analysis", href: "/services/power-system-analysis" },
+  { title: "Power Quality", href: "/services/power-quality" },
+  { title: "Compliance Studies", href: "/services/compliance-studies" },
+  { title: "Protection & Arc Flash", href: "/services/protection-arc-flash" },
+  { title: "Dynamic & Transients (RMS)", href: "/services/dynamic-transients-rms" },
+  { title: "Electromagnetic Transients (EMT)", href: "/services/electromagnetic-transients-emt" },
+  { title: "Earthing & Grounding", href: "/services/earthing-grounding" },
+  { title: "Specialist Studies", href: "/services/specialist-studies" },
+];
 
 type NavItem = {
   label: string;
   href: string;
-  mega?: MegaMenuData;
+  mega?: MegaMenuItem[];
 };
 
 const NAV_ITEMS: NavItem[] = [
@@ -162,8 +140,6 @@ export function Navbar() {
     return () => clearCloseTimeout();
   }, []);
 
-  const activeMega = NAV_ITEMS.find((item) => item.label === openMenu)?.mega;
-
   // Pipe-separated links: show | before "About Us" and "Contact"
   const PIPE_BEFORE = ["About Us", "Contact"];
 
@@ -228,6 +204,12 @@ export function Navbar() {
                         )}
                       />
                     </button>
+
+                    <AnimatePresence>
+                      {openMenu === item.label && (
+                        <NavMegaMenu items={item.mega} onNavigate={() => setOpenMenu(null)} />
+                      )}
+                    </AnimatePresence>
                   </div>
                 ) : (
                   <a
@@ -293,17 +275,6 @@ export function Navbar() {
               )}
             </AnimatePresence>
           </button>
-        </div>
-
-        {/* MEGA MENU DROPDOWN */}
-        <div className="relative">
-          <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-14 xl:px-16">
-            <AnimatePresence>
-              {activeMega && (
-                <NavMegaMenu data={activeMega} onNavigate={() => setOpenMenu(null)} />
-              )}
-            </AnimatePresence>
-          </div>
         </div>
       </header>
 
@@ -381,7 +352,7 @@ export function Navbar() {
                             className="overflow-hidden"
                           >
                             <div className="flex flex-col gap-4 pb-6 pl-9">
-                              {item.mega.items.map((sub) => (
+                              {item.mega.map((sub) => (
                                 <a
                                   key={sub.title}
                                   href={sub.href}
