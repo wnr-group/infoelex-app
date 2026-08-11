@@ -45,7 +45,7 @@ export function WhyInfoelexSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden border-t border-black/10 bg-white py-28 text-ink md:py-40"
+      className="relative overflow-hidden border-t border-black/10 bg-white py-16 text-ink md:py-24"
     >
       {/* TECHNICAL GRID BACKDROP */}
       <motion.div

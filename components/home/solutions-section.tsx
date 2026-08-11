@@ -55,7 +55,7 @@ export function SolutionsSection() {
       className="relative border-t border-black/10 bg-white text-ink"
     >
       {/* MOBILE — simple stacked layout, no scroll-pin */}
-      <div className="mx-auto max-w-[1440px] overflow-x-hidden px-6 py-24 md:hidden">
+      <div className="mx-auto max-w-[1440px] overflow-x-hidden px-6 py-14 md:hidden">
         <SectionHeader />
         <div className="mt-12 flex flex-col gap-5">
           {SOLUTIONS.map((solution, i) => (
@@ -69,7 +69,7 @@ export function SolutionsSection() {
       {/* DESKTOP */}
       <div className="hidden md:block">
         {shouldReduceMotion ? (
-          <div className="mx-auto max-w-[1440px] px-10 py-36">
+          <div className="mx-auto max-w-[1440px] px-10 py-20">
             <SectionHeader />
             <div className="mt-14 grid grid-cols-3 gap-6" style={{ height: "min(56vh, 620px)" }}>
               {SOLUTIONS.map((solution) => (

@@ -101,7 +101,7 @@ export function HeroSection() {
         </div>
 
         {/* ── LEFT: Text content ── */}
-        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 md:px-12 lg:px-16">
+        <div className="relative z-10 w-full max-w-[480px] px-6 md:px-12 lg:px-16">
           <div className="flex h-full flex-col justify-center pt-24 pb-10">
             <motion.div
               initial={{ opacity: 0, y: 28 }}
@@ -130,19 +130,22 @@ export function HeroSection() {
                 for a Sustainable World.
               </p>
 
-              {/* ── SERVICE ICON GRID ── */}
-              <div className="mt-8 grid grid-cols-4 gap-x-4 gap-y-3">
-                {HERO_SERVICE_ICONS.map(({ icon: Icon, label }) => (
-                  <div
-                    key={label}
-                    className="flex flex-col items-center gap-2 text-center"
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm">
-                      <Icon className="h-[18px] w-[18px] text-gray-700" strokeWidth={1.6} />
+              {/* ── SERVICE ICON ROW WITH VERTICAL DIVIDERS ── */}
+              <div className="mt-8 flex items-start">
+                {HERO_SERVICE_ICONS.map(({ icon: Icon, label }, index) => (
+                  <div key={label} className="flex items-start">
+                    {/* Vertical divider between items */}
+                    {index > 0 && (
+                      <div className="mx-3 mt-1 h-9 w-px self-start bg-gray-200" />
+                    )}
+                    <div className="flex flex-col items-center gap-2 text-center">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm">
+                        <Icon className="h-4 w-4 text-gray-600" strokeWidth={1.6} />
+                      </div>
+                      <span className="w-[56px] text-[9.5px] font-medium leading-tight text-gray-500">
+                        {label}
+                      </span>
                     </div>
-                    <span className="text-[10px] font-medium leading-tight text-gray-500">
-                      {label}
-                    </span>
                   </div>
                 ))}
               </div>
@@ -164,39 +167,41 @@ export function HeroSection() {
       </section>
 
       {/* ─── BOTTOM CARDS STRIP ─── */}
-      <div className="bg-white px-6 pb-16 pt-0 md:px-12 lg:px-16">
+      <div className="relative z-20 bg-white px-6 pb-16 pt-0 md:px-12 lg:px-16">
         <div className="mx-auto max-w-[1440px]">
           <div className="flex flex-col gap-5 xl:flex-row">
 
-            {/* STATS CARD */}
+            {/* STATS CARD (Overlapping Hero) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.35 }}
-              className="flex w-full flex-shrink-0 items-center justify-between rounded-2xl border border-gray-100 bg-white p-7 shadow-lg shadow-black/5 xl:w-[380px]"
+              className="flex w-full flex-shrink-0 items-stretch justify-between rounded-2xl border border-gray-100 bg-white p-8 shadow-xl shadow-black/5 xl:w-[420px] relative z-30 -mt-10 xl:-mt-12"
             >
-              {STATS.map(({ icon: Icon, value, label }) => (
-                <div
-                  key={value}
-                  className="flex flex-col items-center gap-1.5 text-center"
-                >
-                  <Icon className="h-6 w-6 text-gray-400" strokeWidth={1.5} />
-                  <span className="text-base font-extrabold leading-none text-gray-900">
-                    {value}
-                  </span>
-                  <span className="whitespace-pre-line text-[10px] font-semibold uppercase leading-tight tracking-wide text-gray-400">
-                    {label}
-                  </span>
+              {STATS.map(({ icon: Icon, value, label }, index) => (
+                <div key={value} className="flex flex-1 items-stretch">
+                  {index > 0 && (
+                    <div className="mx-4 w-px bg-gray-100 self-center h-12" />
+                  )}
+                  <div className="flex flex-1 flex-col items-center gap-1 text-center justify-center">
+                    <Icon className="h-5 w-5 text-gray-600" strokeWidth={1.5} />
+                    <span className="text-lg font-extrabold leading-none text-gray-900 tracking-tight">
+                      {value}
+                    </span>
+                    <span className="whitespace-pre-line text-[9px] font-bold uppercase leading-tight tracking-wider text-gray-400">
+                      {label}
+                    </span>
+                  </div>
                 </div>
               ))}
             </motion.div>
 
-            {/* CORE SERVICES CARD */}
+            {/* CORE SERVICES */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="flex-grow rounded-2xl border border-gray-100 bg-white p-7 shadow-lg shadow-black/5"
+              className="flex-grow py-2"
             >
               {/* Card header */}
               <div className="mb-5 flex items-center gap-4">
@@ -213,18 +218,18 @@ export function HeroSection() {
                   <a
                     key={title}
                     href={href}
-                    className="group flex flex-col gap-2.5 rounded-xl border border-gray-100 p-4 transition-all hover:border-red-100 hover:bg-red-50/30"
+                    className="group flex flex-col gap-2.5 rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-all hover:border-red-100 hover:bg-red-50/30 hover:shadow-md"
                   >
                     <div className="flex items-center gap-2.5">
                       <Icon
                         className="h-[18px] w-[18px] flex-shrink-0 text-gray-500 transition-colors group-hover:text-[#b91c1c]"
                         strokeWidth={1.6}
                       />
-                      <h4 className="text-[13px] font-semibold leading-tight text-gray-900">
+                      <h4 className="text-[15px] font-semibold leading-tight text-gray-900">
                         {title}
                       </h4>
                     </div>
-                    <p className="text-[11px] leading-relaxed text-gray-400">{desc}</p>
+                    <p className="text-[13px] leading-relaxed text-gray-700">{desc}</p>
                     <div className="mt-auto flex justify-end pt-1">
                       <ChevronRight
                         className="h-4 w-4 text-[#b91c1c] opacity-0 transition-opacity group-hover:opacity-100"

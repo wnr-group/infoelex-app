@@ -73,7 +73,7 @@ const slideVariants: Variants = {
 
 export function ESGSection() {
   return (
-    <section className="relative overflow-hidden border-t border-black/10 bg-white py-24 text-ink md:py-36">
+    <section className="relative overflow-hidden border-t border-black/10 bg-white py-16 text-ink md:py-24">
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
