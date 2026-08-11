@@ -102,7 +102,7 @@ export function HeroSection() {
                 <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-gray-900 sm:text-5xl md:text-[3.5rem] lg:text-[4rem]">
                   Powering a
                   <br />
-                  <em className="not-italic font-extrabold text-[#b91c1c] italic">
+                  <em className="font-extrabold italic text-[#b91c1c]">
                     Smarter
                     <br />
                     Tomorrow
@@ -180,12 +180,12 @@ export function HeroSection() {
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-red-50 sm:h-11 sm:w-11">
                       <Icon className="h-4 w-4 text-[#b91c1c] sm:h-5 sm:w-5" strokeWidth={1.75} />
                     </div>
-                    <div className="flex h-7 items-center justify-center px-0.5 sm:h-8">
-                      <span className="text-[11px] font-black leading-tight text-gray-900 tracking-tight sm:text-[13px]">
+                    <div className="flex h-8 items-center justify-center px-0.5 sm:h-9">
+                      <span className="text-[13px] font-black leading-tight text-gray-900 tracking-tight sm:text-base">
                         {value}
                       </span>
                     </div>
-                    <span className="whitespace-pre-line text-[8.5px] font-semibold leading-tight tracking-wide text-gray-500 sm:text-[10px]">
+                    <span className="whitespace-pre-line text-[10.5px] font-semibold leading-tight tracking-wide text-gray-500 sm:text-xs">
                       {label}
                     </span>
                   </div>
@@ -202,12 +202,14 @@ export function HeroSection() {
               className="flex-grow py-2"
             >
               {/* Card header */}
-              <div className="mb-5 flex items-center gap-4">
+              <div className="mb-5">
                 <h3 className="text-base font-bold text-gray-900">
                   Our Core Services
                 </h3>
-                <div className="h-[2px] w-8 rounded-full bg-[#b91c1c]" />
-                <span className="h-px flex-grow bg-gray-100" />
+                <div className="mt-2 flex items-center gap-4">
+                  <div className="h-[2px] w-8 rounded-full bg-[#b91c1c]" />
+                  <span className="h-px flex-grow bg-gray-100" />
+                </div>
               </div>
 
               {/* 4-column service grid */}
