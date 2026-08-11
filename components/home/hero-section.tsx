@@ -3,6 +3,59 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { HeroHotspots } from "@/components/home/hero-hotspots";
+import { MagneticButton } from "@/components/ui/magnetic-button";
+import {
+  Users,
+  Zap,
+  Globe,
+  ShieldCheck,
+  ChevronRight,
+  Activity,
+  Monitor,
+  MessagesSquare,
+  BarChart3,
+} from "lucide-react";
+
+const HERO_SERVICE_ICONS = [
+  { icon: Activity, label: "Power System Studies" },
+  { icon: ShieldCheck, label: "Electrical Design" },
+  { icon: BarChart3, label: "Smart Grid Solutions" },
+  { icon: MessagesSquare, label: "Energy Consulting" },
+];
+
+const STATS = [
+  { icon: Users, value: "10+", label: "Data Center\nProjects" },
+  { icon: Zap, value: "500MW+", label: "Project\nExperience" },
+  { icon: Globe, value: "GCC & India", label: "Presence" },
+  { icon: ShieldCheck, value: "Trusted by", label: "Global\nPartners" },
+];
+
+const CORE_SERVICES = [
+  {
+    icon: Activity,
+    title: "Power System Studies",
+    desc: "Load Flow, Short Circuit, Protection Coordination, Arc Flash & more.",
+    href: "/services/power-system-analysis",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Electrical Design",
+    desc: "LV/MV Design, SLD, Calculations, BOQ & Estimation.",
+    href: "/services/protection-arc-flash",
+  },
+  {
+    icon: Monitor,
+    title: "Software & Tools",
+    desc: "ETAP Studies, Automation Solutions & Engineering Software.",
+    href: "/services/specialist-studies",
+  },
+  {
+    icon: MessagesSquare,
+    title: "Consulting",
+    desc: "Energy Audit, Power Quality, Harmonic Analysis & Technical Advisory.",
+    href: "/contact",
+  },
+];
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -15,34 +68,177 @@ export function HeroSection() {
   const hotspotOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <section
-      id="home"
-      ref={sectionRef}
-      className="relative w-full bg-ink"
-    >
-      {/* VIDEO — full, uncropped, natural aspect ratio. If taller than the
-          viewport, the rest is revealed by scrolling rather than clipped. */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="block h-auto w-full"
+    <>
+      {/* ─── HERO ─── */}
+      <section
+        id="home"
+        ref={sectionRef}
+        className="relative h-screen w-full overflow-hidden bg-white"
       >
-        <source src="/hero-video.mp4" type="video/mp4" />
-      </video>
+        {/* ── RIGHT: Full-bleed video — anchored top-right, natural aspect ratio, nothing cropped ── */}
+        <div className="absolute right-0 top-16 z-0 h-[calc(100vh-4rem)] pointer-events-none">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            style={{ height: "100%", width: "auto" }}
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+          </video>
 
-      {/* MINIMAL GRADIENT (top only, protects navbar legibility over bright video) */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/55 to-transparent" />
+          {/* Left fade: blend video into white text area */}
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white via-white/40 to-transparent" />
 
-      {/* INTERACTIVE HOTSPOT LAYER */}
-      <motion.div
-        style={{ opacity: hotspotOpacity }}
-        className="absolute inset-0 z-10"
-      >
-        <HeroHotspots />
-      </motion.div>
-    </section>
+          {/* INTERACTIVE HOTSPOT LAYER */}
+          <motion.div
+            style={{ opacity: hotspotOpacity }}
+            className="absolute inset-0 z-10 pointer-events-auto"
+          >
+            <HeroHotspots />
+          </motion.div>
+        </div>
+
+        {/* ── LEFT: Text content ── */}
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 md:px-12 lg:px-16">
+          <div className="flex h-full flex-col justify-center pt-24 pb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-[400px]"
+            >
+              {/* ── HEADING ── */}
+              <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight text-gray-900 sm:text-[3.5rem] md:text-[4rem]">
+                Powering a
+                <br />
+                <em className="not-italic font-extrabold text-[#b91c1c] italic">
+                  Smarter
+                  <br />
+                  Tomorrow
+                </em>
+              </h1>
+
+              {/* Red accent rule */}
+              <div className="mt-4 h-[3px] w-10 rounded-full bg-[#b91c1c]" />
+
+              {/* ── SUBTITLE ── */}
+              <p className="mt-5 text-sm font-medium leading-snug text-gray-600 sm:text-[15px]">
+                Intelligent Power System Solutions
+                <br />
+                for a Sustainable World.
+              </p>
+
+              {/* ── SERVICE ICON GRID ── */}
+              <div className="mt-8 grid grid-cols-4 gap-x-4 gap-y-3">
+                {HERO_SERVICE_ICONS.map(({ icon: Icon, label }) => (
+                  <div
+                    key={label}
+                    className="flex flex-col items-center gap-2 text-center"
+                  >
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm">
+                      <Icon className="h-[18px] w-[18px] text-gray-700" strokeWidth={1.6} />
+                    </div>
+                    <span className="text-[10px] font-medium leading-tight text-gray-500">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* ── CTA ── */}
+              <div className="mt-8">
+                <MagneticButton
+                  as="a"
+                  href="#solutions"
+                  className="inline-flex h-11 items-center gap-3 bg-[#b91c1c] px-6 text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
+                >
+                  Explore Solutions
+                  <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+                </MagneticButton>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── BOTTOM CARDS STRIP ─── */}
+      <div className="bg-white px-6 pb-16 pt-0 md:px-12 lg:px-16">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="flex flex-col gap-5 xl:flex-row">
+
+            {/* STATS CARD */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.35 }}
+              className="flex w-full flex-shrink-0 items-center justify-between rounded-2xl border border-gray-100 bg-white p-7 shadow-lg shadow-black/5 xl:w-[380px]"
+            >
+              {STATS.map(({ icon: Icon, value, label }) => (
+                <div
+                  key={value}
+                  className="flex flex-col items-center gap-1.5 text-center"
+                >
+                  <Icon className="h-6 w-6 text-gray-400" strokeWidth={1.5} />
+                  <span className="text-base font-extrabold leading-none text-gray-900">
+                    {value}
+                  </span>
+                  <span className="whitespace-pre-line text-[10px] font-semibold uppercase leading-tight tracking-wide text-gray-400">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* CORE SERVICES CARD */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="flex-grow rounded-2xl border border-gray-100 bg-white p-7 shadow-lg shadow-black/5"
+            >
+              {/* Card header */}
+              <div className="mb-5 flex items-center gap-4">
+                <h3 className="text-base font-bold text-gray-900">
+                  Our Core Services
+                </h3>
+                <div className="h-[2px] w-8 rounded-full bg-[#b91c1c]" />
+                <span className="h-px flex-grow bg-gray-100" />
+              </div>
+
+              {/* 4-column service grid */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {CORE_SERVICES.map(({ icon: Icon, title, desc, href }) => (
+                  <a
+                    key={title}
+                    href={href}
+                    className="group flex flex-col gap-2.5 rounded-xl border border-gray-100 p-4 transition-all hover:border-red-100 hover:bg-red-50/30"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon
+                        className="h-[18px] w-[18px] flex-shrink-0 text-gray-500 transition-colors group-hover:text-[#b91c1c]"
+                        strokeWidth={1.6}
+                      />
+                      <h4 className="text-[13px] font-semibold leading-tight text-gray-900">
+                        {title}
+                      </h4>
+                    </div>
+                    <p className="text-[11px] leading-relaxed text-gray-400">{desc}</p>
+                    <div className="mt-auto flex justify-end pt-1">
+                      <ChevronRight
+                        className="h-4 w-4 text-[#b91c1c] opacity-0 transition-opacity group-hover:opacity-100"
+                        strokeWidth={2}
+                      />
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

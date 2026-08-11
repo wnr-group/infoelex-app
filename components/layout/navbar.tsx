@@ -60,19 +60,25 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "Sectors", href: "#sector", mega: SECTORS_MENU },
+  { label: "Solutions", href: "#solutions", mega: SERVICES_MENU },
+  { label: "Industries", href: "#sector", mega: SECTORS_MENU },
   { label: "Services", href: "#services", mega: SERVICES_MENU },
-  { label: "About", href: "/about" },
+  { label: "Software", href: "/services/specialist-studies" },
+  { label: "Projects", href: "/about" },
+  { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
-function LogoMark() {
+function Logo() {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <rect x="0.75" y="0.75" width="18.5" height="18.5" stroke="#DF2C1C" strokeWidth="1" />
-      <rect x="6.5" y="6.5" width="7" height="7" fill="#DF2C1C" />
-    </svg>
+    <div className="flex flex-col leading-none">
+      <span className="text-[22px] font-extrabold tracking-tight text-[#b91c1c]">
+        Infoelex
+      </span>
+      <span className="text-[9px] font-medium tracking-wide text-gray-500">
+        Information Electrical Technologies (IET)
+      </span>
+    </div>
   );
 }
 
@@ -159,38 +165,44 @@ export function Navbar() {
     return () => clearCloseTimeout();
   }, []);
 
-  const chrome = !isHome || scrolled || openMenu !== null;
   const activeMega = NAV_ITEMS.find((item) => item.label === openMenu)?.mega;
+
+  // Pipe-separated links: show | before "About Us" and "Contact"
+  const PIPE_BEFORE = ["About Us", "Contact"];
 
   return (
     <>
       <header
         ref={headerRef}
-        className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6 md:pt-4"
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 bg-white transition-shadow duration-300",
+          scrolled ? "shadow-md" : "shadow-sm"
+        )}
         onMouseEnter={clearCloseTimeout}
         onMouseLeave={scheduleClose}
       >
-        <div className="relative mx-auto max-w-[1440px]">
-          <div
-            className={cn(
-              "flex h-[68px] items-center justify-between rounded-2xl border px-5 transition-all duration-500 md:h-20 md:px-7",
-              chrome
-                ? "border-white/10 bg-ink/85 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl"
-                : "border-white/10 bg-white/[0.04] backdrop-blur-md"
-            )}
-          >
-            <a
-              href={isHome ? "#home" : "/"}
-              className="flex items-center gap-2.5 text-[15px] font-bold tracking-[0.22em] text-paper"
-            >
-              <LogoMark />
-              INFOELEX
-            </a>
+        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14 xl:px-16">
 
-            <nav className="hidden items-center gap-1 md:flex">
-              {NAV_ITEMS.map((item) =>
-                item.mega ? (
-                  <div key={item.label} className="relative">
+          {/* LOGO */}
+          <a
+            href={isHome ? "#home" : "/"}
+            className="flex-shrink-0"
+            aria-label="Infoelex home"
+          >
+            <Logo />
+          </a>
+
+          {/* DESKTOP NAV */}
+          <nav className="hidden items-center md:flex">
+            {NAV_ITEMS.map((item) => (
+              <div key={item.label} className="flex items-center">
+                {/* Pipe separator before certain items */}
+                {PIPE_BEFORE.includes(item.label) && (
+                  <span className="mx-2 h-4 w-px bg-gray-300" aria-hidden="true" />
+                )}
+
+                {item.mega ? (
+                  <div className="relative">
                     <button
                       type="button"
                       aria-haspopup="true"
@@ -204,101 +216,97 @@ export function Navbar() {
                           current === item.label ? null : item.label
                         )
                       }
-                      className="group relative flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-medium uppercase tracking-[0.12em] text-paper/80 transition-colors duration-300 hover:text-paper"
+                      className={cn(
+                        "flex items-center gap-1 px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
+                        active === item.href
+                          ? "text-[#b91c1c]"
+                          : "text-gray-700 hover:text-[#b91c1c]"
+                      )}
                     >
-                      <span className="relative inline-flex items-center gap-2">
-                        {active === item.href && (
-                          <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                        )}
-                        {item.label}
-                      </span>
+                      {item.label}
                       <ChevronDown
                         className={cn(
-                          "h-3.5 w-3.5 text-graphite transition-transform duration-300",
-                          openMenu === item.label && "rotate-180 text-brand"
+                          "h-3 w-3 transition-transform duration-200",
+                          openMenu === item.label ? "rotate-180 text-[#b91c1c]" : "text-gray-500"
                         )}
                       />
                     </button>
                   </div>
                 ) : (
                   <a
-                    key={item.href}
                     href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                     onMouseEnter={() => {
                       clearCloseTimeout();
                       setOpenMenu(null);
                     }}
-                    className="group relative rounded-lg px-4 py-2 text-[13px] font-medium uppercase tracking-[0.12em] text-paper/80 transition-colors duration-300 hover:text-paper"
+                    className={cn(
+                      "relative px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
+                      active === item.href
+                        ? "text-[#b91c1c]"
+                        : "text-gray-700 hover:text-[#b91c1c]"
+                    )}
                   >
-                    <span className="relative inline-flex items-center gap-2">
-                      {active === item.href && (
-                        <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                      )}
-                      {item.label}
-                    </span>
-                    <span
-                      className={cn(
-                        "absolute inset-x-4 -bottom-0.5 h-px bg-brand transition-transform duration-300 ease-out",
-                        active === item.href
-                          ? "scale-x-100"
-                          : "scale-x-0 group-hover:scale-x-100"
-                      )}
-                    />
+                    {item.label}
                   </a>
-                )
-              )}
-            </nav>
-
-            <div className="hidden md:block">
-              <a
-                href="/contact"
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-[4px] border border-brand bg-brand px-6 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-transparent hover:text-brand"
-              >
-                <span className="relative z-10">Let&apos;s Talk</span>
-                <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
-              </a>
-            </div>
-
-            <button
-              type="button"
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileOpen}
-              onClick={() => setMobileOpen((v) => !v)}
-              className="relative z-[60] flex h-10 w-10 items-center justify-center text-paper md:hidden"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                {mobileOpen ? (
-                  <motion.span
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <X className="h-6 w-6" />
-                  </motion.span>
-                ) : (
-                  <motion.span
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <Menu className="h-6 w-6" />
-                  </motion.span>
                 )}
-              </AnimatePresence>
-            </button>
+              </div>
+            ))}
+          </nav>
+
+          {/* CTA BUTTON */}
+          <div className="hidden md:block">
+            <a
+              href="/contact"
+              className="inline-flex items-center gap-2 bg-[#b91c1c] px-5 py-2.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
+            >
+              Get in Touch
+              <span className="text-base leading-none">→</span>
+            </a>
           </div>
 
-          <AnimatePresence>
-            {activeMega && (
-              <NavMegaMenu data={activeMega} onNavigate={() => setOpenMenu(null)} />
-            )}
-          </AnimatePresence>
+          {/* MOBILE HAMBURGER */}
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+            className="relative z-[60] flex h-10 w-10 items-center justify-center text-gray-800 md:hidden"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {mobileOpen ? (
+                <motion.span
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <X className="h-6 w-6" />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <Menu className="h-6 w-6" />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </button>
+        </div>
+
+        {/* MEGA MENU DROPDOWN */}
+        <div className="relative">
+          <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-14 xl:px-16">
+            <AnimatePresence>
+              {activeMega && (
+                <NavMegaMenu data={activeMega} onNavigate={() => setOpenMenu(null)} />
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </header>
 
@@ -309,22 +317,16 @@ export function Navbar() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink md:hidden"
+            className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white md:hidden"
           >
-            <div
-              className="pointer-events-none absolute inset-0 opacity-[0.15]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(to right, rgba(250,250,249,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(250,250,249,0.6) 1px, transparent 1px)",
-                backgroundSize: "48px 48px",
-              }}
-            />
-
-            <div className="relative flex h-[68px] items-center justify-between px-6">
-              <span className="flex items-center gap-2.5 text-[15px] font-bold tracking-[0.22em] text-paper">
-                <LogoMark />
-                INFOELEX
-              </span>
+            <div className="relative flex h-16 items-center border-b border-gray-100 px-6">
+              <a
+                href={isHome ? "#home" : "/"}
+                onClick={() => setMobileOpen(false)}
+                aria-label="Infoelex home"
+              >
+                <Logo />
+              </a>
             </div>
 
             <nav className="relative flex flex-1 flex-col justify-center gap-1 px-6 py-8">
@@ -338,7 +340,7 @@ export function Navbar() {
                     delay: 0.12 + i * 0.06,
                     ease: EASE,
                   }}
-                  className="border-b border-white/10"
+                  className="border-b border-gray-100"
                 >
                   {item.mega ? (
                     <>
@@ -353,17 +355,17 @@ export function Navbar() {
                         className="flex w-full items-center justify-between gap-4 py-5 text-left"
                       >
                         <span className="flex items-baseline gap-3">
-                          <span className="font-mono text-xs font-semibold text-brand">
+                          <span className="font-mono text-xs font-semibold text-[#b91c1c]">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-3xl font-semibold text-paper/90">
+                          <span className="text-3xl font-semibold text-gray-900">
                             {item.label}
                           </span>
                         </span>
                         <ChevronDown
                           className={cn(
-                            "h-5 w-5 shrink-0 text-graphite transition-transform duration-300",
-                            mobileExpanded === item.label && "rotate-180 text-brand"
+                            "h-5 w-5 shrink-0 text-gray-400 transition-transform duration-300",
+                            mobileExpanded === item.label && "rotate-180 text-[#b91c1c]"
                           )}
                         />
                       </button>
@@ -383,7 +385,7 @@ export function Navbar() {
                                   key={sub.title}
                                   href={sub.href}
                                   onClick={() => setMobileOpen(false)}
-                                  className="text-base font-medium text-paper/70 transition-colors active:text-brand"
+                                  className="text-base font-medium text-gray-600 transition-colors active:text-[#b91c1c]"
                                 >
                                   {sub.title}
                                 </a>
@@ -397,10 +399,10 @@ export function Navbar() {
                     <a
                       href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-baseline gap-3 py-5 text-3xl font-semibold text-paper/90 transition-colors active:text-brand"
+                      className="flex items-baseline gap-3 py-5 text-3xl font-semibold text-gray-900 transition-colors active:text-[#b91c1c]"
                     >
-                      <span className="font-mono text-xs font-semibold text-brand">
-                        {String(i + 1).padStart(2, "0")}
+                      <span className="font-mono text-xs font-semibold text-[#b91c1c]">
+                        {String(i + 1).padStart(2, "00")}
                       </span>
                       {item.label}
                     </a>
