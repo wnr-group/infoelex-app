@@ -2,6 +2,7 @@
 
 import { RevealOnScroll } from "@/components/ui/reveal-on-scroll";
 import { SectionLabel } from "@/components/ui/section-label";
+import { Logo } from "@/components/layout/navbar";
 
 import { usePathname } from "next/navigation";
 
@@ -17,15 +18,6 @@ const LEGAL_LINKS = [
   { label: "Privacy Policy", href: "#" },
   { label: "Terms", href: "#" },
 ];
-
-function LogoMark() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <rect x="0.75" y="0.75" width="18.5" height="18.5" stroke="#DF2C1C" strokeWidth="1" />
-      <rect x="6.5" y="6.5" width="7" height="7" fill="#DF2C1C" />
-    </svg>
-  );
-}
 
 function FooterLink({ label, href, isHome }: { label: string; href: string; isHome: boolean }) {
   const resolvedHref = href.startsWith("#") ? (isHome ? href : `/${href}`) : href;
@@ -82,12 +74,8 @@ export function Footer() {
 
         <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-12">
           <div className="md:col-span-5">
-            <a
-              href={isHome ? "#home" : "/"}
-              className="inline-flex items-center gap-2.5 text-lg font-bold tracking-[0.2em] text-paper"
-            >
-              <LogoMark />
-              INFOELEX
+            <a href={isHome ? "#home" : "/"} className="inline-block" aria-label="Infoelex home">
+              <Logo />
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-graphite">
               Thinking Beyond.

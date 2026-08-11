@@ -66,7 +66,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-function Logo() {
+export function Logo() {
   return (
     <div className="flex max-w-[180px] flex-col leading-none sm:max-w-none">
       <span className="text-[21px] font-extrabold italic tracking-tight text-[#b91c1c] sm:text-[26px] md:text-[29px]">
