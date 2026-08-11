@@ -1,8 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
-import { HeroHotspots } from "@/components/home/hero-hotspots";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import {
   Users,
@@ -13,13 +12,14 @@ import {
   Activity,
   Monitor,
   MessagesSquare,
-  BarChart3,
+  CircuitBoard,
+  Network,
 } from "lucide-react";
 
 const HERO_SERVICE_ICONS = [
   { icon: Activity, label: "Power System Studies" },
-  { icon: ShieldCheck, label: "Electrical Design" },
-  { icon: BarChart3, label: "Smart Grid Solutions" },
+  { icon: CircuitBoard, label: "Electrical Design" },
+  { icon: Network, label: "Smart Grid Solutions" },
   { icon: MessagesSquare, label: "Energy Consulting" },
 ];
 
@@ -60,13 +60,6 @@ const CORE_SERVICES = [
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const hotspotOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
   return (
     <>
       {/* ─── HERO ─── */}
@@ -90,14 +83,6 @@ export function HeroSection() {
 
           {/* Left fade: blend video into white text area */}
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white via-white/40 to-transparent" />
-
-          {/* INTERACTIVE HOTSPOT LAYER */}
-          <motion.div
-            style={{ opacity: hotspotOpacity }}
-            className="absolute inset-0 z-10 pointer-events-auto"
-          >
-            <HeroHotspots />
-          </motion.div>
         </div>
 
         {/* ── LEFT: Text content ── */}
@@ -136,13 +121,13 @@ export function HeroSection() {
                   <div key={label} className="flex items-start">
                     {/* Vertical divider between items */}
                     {index > 0 && (
-                      <div className="mx-3 mt-1 h-9 w-px self-start bg-gray-200" />
+                      <div className="mx-3 mt-2 h-10 w-px self-start bg-gradient-to-b from-gray-200 to-transparent" />
                     )}
-                    <div className="flex flex-col items-center gap-2 text-center">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm">
-                        <Icon className="h-4 w-4 text-gray-600" strokeWidth={1.6} />
+                    <div className="group flex flex-col items-center gap-2.5 text-center">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-50 ring-1 ring-inset ring-red-100 transition-colors group-hover:bg-red-100">
+                        <Icon className="h-[18px] w-[18px] text-[#b91c1c]" strokeWidth={1.75} />
                       </div>
-                      <span className="w-[56px] text-[9.5px] font-medium leading-tight text-gray-500">
+                      <span className="w-[60px] text-[9.5px] font-semibold leading-tight tracking-wide text-gray-600">
                         {label}
                       </span>
                     </div>
@@ -155,7 +140,7 @@ export function HeroSection() {
                 <MagneticButton
                   as="a"
                   href="#solutions"
-                  className="inline-flex h-11 items-center gap-3 bg-[#b91c1c] px-6 text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
+                  className="inline-flex h-11 items-center gap-3 rounded-full bg-[#b91c1c] px-6 text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
                 >
                   Explore Solutions
                   <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
@@ -176,19 +161,26 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.35 }}
-              className="flex w-full flex-shrink-0 items-stretch justify-between rounded-2xl border border-gray-100 bg-white p-8 shadow-xl shadow-black/5 xl:w-[420px] relative z-30 -mt-10 xl:-mt-12"
+              className="relative z-30 -mt-4 flex w-full flex-shrink-0 items-stretch justify-between overflow-hidden rounded-2xl border border-gray-100 bg-white p-8 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.12)] ring-1 ring-black/[0.02] xl:-mt-6 xl:w-[420px]"
             >
+              {/* Top accent bar */}
+              <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#b91c1c] via-red-400 to-[#b91c1c]/20" />
+
               {STATS.map(({ icon: Icon, value, label }, index) => (
                 <div key={value} className="flex flex-1 items-stretch">
                   {index > 0 && (
-                    <div className="mx-4 w-px bg-gray-100 self-center h-12" />
+                    <div className="mx-4 w-[1.5px] self-center h-20 rounded-full bg-gray-200" />
                   )}
-                  <div className="flex flex-1 flex-col items-center gap-1 text-center justify-center">
-                    <Icon className="h-5 w-5 text-gray-600" strokeWidth={1.5} />
-                    <span className="text-lg font-extrabold leading-none text-gray-900 tracking-tight">
-                      {value}
-                    </span>
-                    <span className="whitespace-pre-line text-[9px] font-bold uppercase leading-tight tracking-wider text-gray-400">
+                  <div className="flex flex-1 flex-col items-center gap-2 text-center justify-start">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-50">
+                      <Icon className="h-5 w-5 text-[#b91c1c]" strokeWidth={1.75} />
+                    </div>
+                    <div className="flex h-8 items-center justify-center px-0.5">
+                      <span className="text-[13px] font-black leading-tight text-gray-900 tracking-tight">
+                        {value}
+                      </span>
+                    </div>
+                    <span className="whitespace-pre-line text-[10px] font-semibold leading-tight tracking-wide text-gray-500">
                       {label}
                     </span>
                   </div>

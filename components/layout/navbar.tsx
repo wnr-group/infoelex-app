@@ -60,22 +60,19 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Solutions", href: "#solutions", mega: SERVICES_MENU },
-  { label: "Industries", href: "#sector", mega: SECTORS_MENU },
+  { label: "Sectors", href: "#sector", mega: SECTORS_MENU },
   { label: "Services", href: "#services", mega: SERVICES_MENU },
-  { label: "Software", href: "/services/specialist-studies" },
-  { label: "Projects", href: "/about" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
 function Logo() {
   return (
-    <div className="flex flex-col leading-none">
-      <span className="text-[22px] font-extrabold tracking-tight text-[#b91c1c]">
+    <div className="flex max-w-[180px] flex-col leading-none sm:max-w-none">
+      <span className="text-[21px] font-extrabold italic tracking-tight text-[#b91c1c] sm:text-[26px] md:text-[29px]">
         Infoelex
       </span>
-      <span className="text-[9px] font-medium tracking-wide text-gray-500">
+      <span className="truncate text-[8px] font-medium tracking-wide text-gray-500 sm:text-[10px] md:text-[11px]">
         Information Electrical Technologies (IET)
       </span>
     </div>
@@ -319,7 +316,7 @@ export function Navbar() {
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white md:hidden"
           >
-            <div className="relative flex h-16 items-center border-b border-gray-100 px-6">
+            <div className="relative flex h-16 items-center justify-between border-b border-gray-100 px-6">
               <a
                 href={isHome ? "#home" : "/"}
                 onClick={() => setMobileOpen(false)}
@@ -327,6 +324,15 @@ export function Navbar() {
               >
                 <Logo />
               </a>
+
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => setMobileOpen(false)}
+                className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-800"
+              >
+                <X className="h-6 w-6" />
+              </button>
             </div>
 
             <nav className="relative flex flex-1 flex-col justify-center gap-1 px-6 py-8">
@@ -352,15 +358,10 @@ export function Navbar() {
                             current === item.label ? null : item.label
                           )
                         }
-                        className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                        className="flex w-full items-center justify-between gap-4 py-4 text-left"
                       >
-                        <span className="flex items-baseline gap-3">
-                          <span className="font-mono text-xs font-semibold text-[#b91c1c]">
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
-                          <span className="text-3xl font-semibold text-gray-900">
-                            {item.label}
-                          </span>
+                        <span className="text-base font-semibold text-gray-900 sm:text-xl">
+                          {item.label}
                         </span>
                         <ChevronDown
                           className={cn(
@@ -399,11 +400,8 @@ export function Navbar() {
                     <a
                       href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-baseline gap-3 py-5 text-3xl font-semibold text-gray-900 transition-colors active:text-[#b91c1c]"
+                      className="block py-4 text-base font-semibold text-gray-900 transition-colors active:text-[#b91c1c] sm:text-xl"
                     >
-                      <span className="font-mono text-xs font-semibold text-[#b91c1c]">
-                        {String(i + 1).padStart(2, "00")}
-                      </span>
                       {item.label}
                     </a>
                   )}
