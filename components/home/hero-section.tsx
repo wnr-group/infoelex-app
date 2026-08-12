@@ -124,7 +124,7 @@ export function HeroSection() {
                   <MagneticButton
                     as="a"
                     href="#solutions"
-                    className="inline-flex h-11 items-center gap-3 rounded-full bg-[#b91c1c] px-6 text-[13px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
+                    className="inline-flex h-11 items-center gap-3 rounded-full bg-[#b91c1c] px-6 text-[13px] font-bold uppercase tracking-[0.1em] text-white outline-none transition-colors hover:bg-red-800"
                   >
                     Explore Solutions
                     <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
@@ -142,7 +142,8 @@ export function HeroSection() {
               loop
               playsInline
               preload="auto"
-              className="h-full w-full object-cover"
+              tabIndex={-1}
+              className="h-full w-full border-none object-cover object-right outline-none"
             >
               <source src="/homepage-hero-section-video.mp4" type="video/mp4" />
             </video>
