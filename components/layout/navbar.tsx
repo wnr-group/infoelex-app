@@ -41,7 +41,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Sectors", href: "#sector", mega: SECTORS_MENU },
   { label: "Services", href: "#services", mega: SERVICES_MENU },
   { label: "About Us", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "CSR", href: "/csr" },
 ];
 
 export function Logo() {
@@ -140,8 +140,8 @@ export function Navbar() {
     return () => clearCloseTimeout();
   }, []);
 
-  // Pipe-separated links: show | before "About Us" and "Contact"
-  const PIPE_BEFORE = ["About Us", "Contact"];
+  // Pipe-separated links: show | before "About Us" and "CSR"
+  const PIPE_BEFORE = ["About Us", "CSR"];
 
   return (
     <>
