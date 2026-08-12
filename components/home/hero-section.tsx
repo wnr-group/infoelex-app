@@ -68,30 +68,10 @@ export function HeroSection() {
         ref={sectionRef}
         className="relative w-full overflow-hidden bg-white lg:h-screen"
       >
-        <div className="flex flex-col lg:block">
-          {/* ── VIDEO: full-width banner on mobile/tablet, anchored top-right overlay on desktop ── */}
-          <div className="relative h-64 w-full overflow-hidden pointer-events-none sm:h-80 md:h-[26rem] lg:absolute lg:right-0 lg:top-16 lg:z-0 lg:h-[calc(100vh-4rem)] lg:w-auto lg:overflow-visible">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              className="h-full w-full object-cover lg:w-auto lg:object-contain"
-            >
-              <source src="/hero-video.mp4" type="video/mp4" />
-            </video>
-
-            {/* Left fade: blend video into white text area (desktop overlay only) */}
-            <div className="hidden lg:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white via-white/40 to-transparent" />
-
-            {/* Bottom fade: blend video into text below (mobile/tablet stack only) */}
-            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent lg:hidden" />
-          </div>
-
-          {/* ── TEXT CONTENT ── */}
-          <div className="relative z-10 w-full px-6 md:px-12 lg:max-w-[480px] lg:px-16">
-            <div className="flex flex-col justify-center py-10 lg:h-full lg:pt-24 lg:pb-10">
+        <div className="flex flex-col lg:h-full lg:flex-row lg:pt-16">
+          {/* ── TEXT CONTENT: left column ── */}
+          <div className="relative z-10 order-2 w-full flex-shrink-0 px-6 md:px-12 lg:order-1 lg:w-[480px] lg:px-16">
+            <div className="flex flex-col justify-center py-10 lg:h-full">
               <motion.div
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -152,6 +132,26 @@ export function HeroSection() {
                 </div>
               </motion.div>
             </div>
+          </div>
+
+          {/* ── VIDEO: right column, contained to its own box (not full-bleed) ── */}
+          <div className="relative order-1 h-64 w-full flex-1 overflow-hidden pointer-events-none sm:h-80 md:h-[26rem] lg:order-2 lg:h-full lg:min-w-0">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="h-full w-full object-cover"
+            >
+              <source src="/homepage-hero-section-video.mp4" type="video/mp4" />
+            </video>
+
+            {/* Seam blend: eases the video's own left edge into the text column, fully contained within this box */}
+            <div className="hidden lg:block absolute inset-y-0 left-0 w-72 bg-gradient-to-r from-white from-0% via-white/70 via-30% via-white/25 via-60% to-transparent to-100%" />
+
+            {/* Bottom fade: blend video into text below (mobile/tablet stack only) */}
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/60 to-transparent lg:hidden" />
           </div>
         </div>
       </section>
