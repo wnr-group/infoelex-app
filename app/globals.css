@@ -84,3 +84,107 @@ body {
 .text-balance {
   text-wrap: balance;
 }
+
+@keyframes coverflow-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* ─── Infoelex Solutions cards: grouped reveal, one choreography ─── */
+.io-solutions-card {
+  opacity: 0;
+}
+
+.io-solutions-card[data-pos="mid"] {
+  transform: scale(1.9);
+}
+.io-solutions-card[data-pos="left"] {
+  transform: translateX(-120%);
+}
+.io-solutions-card[data-pos="right"] {
+  transform: translateX(120%);
+}
+
+.io-solutions.is-visible .io-solutions-card[data-pos="mid"] {
+  animation: io-solutions-zoom 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+.io-solutions.is-visible .io-solutions-card[data-pos="left"] {
+  animation: io-solutions-slide-left 700ms cubic-bezier(0.22, 1, 0.36, 1) 350ms forwards;
+  will-change: transform, opacity;
+}
+.io-solutions.is-visible .io-solutions-card[data-pos="right"] {
+  animation: io-solutions-slide-right 700ms cubic-bezier(0.22, 1, 0.36, 1) 350ms forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes io-solutions-zoom {
+  from {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes io-solutions-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes io-solutions-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Mobile: stacked layout degrades to a simple fade-up, no zoom/slide choreography. */
+@media (max-width: 767px) {
+  .io-solutions-card[data-pos="mid"],
+  .io-solutions-card[data-pos="left"],
+  .io-solutions-card[data-pos="right"] {
+    transform: translateY(16px);
+  }
+  .io-solutions.is-visible .io-solutions-card[data-pos="mid"],
+  .io-solutions.is-visible .io-solutions-card[data-pos="left"],
+  .io-solutions.is-visible .io-solutions-card[data-pos="right"] {
+    animation-name: io-solutions-fade-up;
+    animation-delay: 0ms;
+  }
+  @keyframes io-solutions-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .io-solutions-card,
+  .io-solutions-card[data-pos="mid"],
+  .io-solutions-card[data-pos="left"],
+  .io-solutions-card[data-pos="right"] {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}

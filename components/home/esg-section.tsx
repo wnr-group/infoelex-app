@@ -1,84 +1,48 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
-  AnimatePresence,
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
   type Variants,
 } from "framer-motion";
-import { ChevronLeft, ChevronRight, Landmark, Leaf, Users } from "lucide-react";
+import { Landmark, Leaf, Users } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
-import { cn } from "@/lib/utils";
+import { CoverflowCarousel, type CoverflowSlide } from "@/components/ui/coverflow-carousel";
 
-const PILLARS = [
+const PILLARS: CoverflowSlide[] = [
   {
-    index: "01",
-    key: "environment",
+    id: "environment",
+    eyebrow: "01 / 03",
     title: "Environment",
     icon: Leaf,
-    description:
+    caption:
       "Reducing our footprint through renewable power sourcing, water-efficient cooling and energy-conscious design at every site we build.",
-    points: [
-      "Renewable energy sourcing",
-      "Water-efficient cooling systems",
-      "Carbon-conscious construction",
-    ],
   },
   {
-    index: "02",
-    key: "social",
+    id: "social",
+    eyebrow: "02 / 03",
     title: "Social",
     icon: Users,
-    description:
+    caption:
       "Investing in the people and communities around our facilities, from workforce safety to long-term local partnerships.",
-    points: [
-      "Workforce health & safety",
-      "Community engagement",
-      "Diversity & inclusion",
-    ],
   },
   {
-    index: "03",
-    key: "governance",
+    id: "governance",
+    eyebrow: "03 / 03",
     title: "Governance",
     icon: Landmark,
-    description:
+    caption:
       "Operating with transparency and accountability, guided by rigorous compliance and ethical standards across every deployment.",
-    points: [
-      "Regulatory compliance",
-      "Ethical business conduct",
-      "Transparent reporting",
-    ],
   },
 ];
 
-const AUTOPLAY_MS = 5500;
+const AUTOPLAY_MS = 5000;
 
 // Premium, cinematic ease-out curve used across the site's scroll reveals.
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
-
-const slideVariants: Variants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? 64 : -64,
-    opacity: 0,
-    scale: 0.97,
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.6, ease: EASE_OUT },
-  },
-  exit: (direction: number) => ({
-    x: direction > 0 ? -64 : 64,
-    opacity: 0,
-    scale: 0.97,
-    transition: { duration: 0.4, ease: EASE_OUT },
-  }),
-};
 
 // Heading group: eyebrow label leads, sentence-heading follows with a slight stagger delay.
 const headingGroupVariants: Variants = {
@@ -175,139 +139,26 @@ export function ESGSection() {
           </motion.h2>
         </motion.div>
 
-        <div className="mt-16 md:mt-20">
-          <ESGCarousel />
-        </div>
+        <motion.div
+          className="mt-16 md:mt-20"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
+          variants={shouldReduceMotion ? undefined : visualGroupVariants}
+        >
+          <motion.div
+            variants={shouldReduceMotion ? undefined : visualItemVariants}
+            className="mx-auto max-w-3xl"
+          >
+            <CoverflowCarousel
+              slides={PILLARS}
+              autoplayMs={AUTOPLAY_MS}
+              theme="light"
+              stageClassName="h-64 sm:h-72"
+            />
+          </motion.div>
+        </motion.div>
       </div>
     </section>
-  );
-}
-
-function ESGCarousel() {
-  const shouldReduceMotion = useReducedMotion();
-  const [[active, direction], setActive] = useState<[number, number]>([0, 1]);
-  const [paused, setPaused] = useState(false);
-
-  const go = (nextIndex: number) => {
-    setActive(([current]) => {
-      const dir = nextIndex > current ? 1 : -1;
-      return [nextIndex, dir];
-    });
-  };
-
-  const step = (delta: number) => {
-    setActive(([current]) => [
-      (current + delta + PILLARS.length) % PILLARS.length,
-      delta,
-    ]);
-  };
-
-  useEffect(() => {
-    if (shouldReduceMotion || paused) return;
-    const id = setInterval(() => step(1), AUTOPLAY_MS);
-    return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldReduceMotion, paused, active]);
-
-  const pillar = PILLARS[active];
-  const Icon = pillar.icon;
-
-  return (
-    <motion.div
-      className="mx-auto max-w-3xl"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: false, amount: 0.3 }}
-      variants={shouldReduceMotion ? undefined : visualGroupVariants}
-    >
-      <motion.div
-        variants={shouldReduceMotion ? undefined : visualItemVariants}
-        className="relative overflow-hidden rounded-2xl border border-black/10 bg-white text-ink shadow-[0_24px_60px_-24px_rgba(0,0,0,0.35)]"
-      >
-        <AnimatePresence mode="wait" custom={direction} initial={false}>
-          <motion.div
-            key={pillar.key}
-            custom={direction}
-            variants={shouldReduceMotion ? undefined : slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="flex flex-col gap-8 p-8 md:flex-row md:items-start md:gap-12 md:p-12"
-          >
-            <div className="flex shrink-0 items-center gap-4 md:flex-col md:items-start md:gap-6">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-brand/30 bg-brand/10 text-brand">
-                <Icon className="h-6 w-6" strokeWidth={1.75} />
-              </span>
-              <span className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-graphite">
-                {pillar.index} / {String(PILLARS.length).padStart(2, "0")}
-              </span>
-            </div>
-
-            <div className="min-w-0 flex-1">
-              <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                {pillar.title}
-              </h3>
-              <p className="mt-4 max-w-lg text-balance leading-relaxed text-graphite">
-                {pillar.description}
-              </p>
-              <ul className="mt-6 flex flex-col gap-3">
-                {pillar.points.map((point) => (
-                  <li key={point} className="flex items-center gap-3 text-sm text-ink/80">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
-
-      <motion.div
-        variants={shouldReduceMotion ? undefined : visualItemVariants}
-        className="mt-8 flex items-center justify-between"
-      >
-        <div className="flex items-center gap-2.5">
-          {PILLARS.map((p, i) => (
-            <button
-              key={p.key}
-              type="button"
-              onClick={() => go(i)}
-              aria-label={`Go to ${p.title}`}
-              aria-current={i === active}
-              className="group flex h-6 items-center px-0.5"
-            >
-              <span
-                className={cn(
-                  "h-1.5 rounded-full transition-all duration-500 ease-out",
-                  i === active ? "w-8 bg-brand" : "w-4 bg-black/15 group-hover:bg-black/30"
-                )}
-              />
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => step(-1)}
-            aria-label="Previous pillar"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-black/15 text-ink transition-colors duration-300 hover:border-brand hover:bg-brand hover:text-white"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() => step(1)}
-            aria-label="Next pillar"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-black/15 text-ink transition-colors duration-300 hover:border-brand hover:bg-brand hover:text-white"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </motion.div>
-    </motion.div>
   );
 }
