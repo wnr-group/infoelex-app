@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { MagneticButton } from "@/components/ui/magnetic-button";
 import {
   Users,
   Zap,
@@ -12,16 +11,7 @@ import {
   Activity,
   Monitor,
   MessagesSquare,
-  CircuitBoard,
-  Network,
 } from "lucide-react";
-
-const HERO_SERVICE_ICONS = [
-  { icon: Activity, label: "Power System Studies" },
-  { icon: CircuitBoard, label: "Electrical Design" },
-  { icon: Network, label: "Smart Grid Solutions" },
-  { icon: MessagesSquare, label: "Energy Consulting" },
-];
 
 const STATS = [
   { icon: Users, value: "10+", label: "Data Center\nProjects" },
@@ -66,94 +56,20 @@ export function HeroSection() {
       <section
         id="home"
         ref={sectionRef}
-        className="relative w-full overflow-hidden bg-white lg:h-screen"
+        className="relative w-full overflow-hidden bg-white"
       >
-        <div className="flex flex-col lg:h-full lg:flex-row lg:pt-16">
-          {/* ── TEXT CONTENT: left column ── */}
-          <div className="relative z-10 order-2 w-full flex-shrink-0 px-6 md:px-12 lg:order-1 lg:w-[480px] lg:px-16">
-            <div className="flex flex-col justify-center py-10 lg:h-full">
-              <motion.div
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-[400px]"
-              >
-                {/* ── HEADING ── */}
-                <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-gray-900 sm:text-5xl md:text-[3.5rem] lg:text-[4rem]">
-                  Powering a
-                  <br />
-                  <em className="font-extrabold italic text-[#b91c1c]">
-                    Smarter
-                    <br />
-                    Tomorrow
-                  </em>
-                </h1>
-
-                {/* Red accent rule */}
-                <div className="mt-4 h-[3px] w-10 rounded-full bg-[#b91c1c]" />
-
-                {/* ── SUBTITLE ── */}
-                <p className="mt-5 text-sm font-medium leading-snug text-gray-600 sm:text-[15px]">
-                  Intelligent Power System Solutions
-                  <br />
-                  for a Sustainable World.
-                </p>
-
-                {/* ── SERVICE ICON ROW WITH VERTICAL DIVIDERS ── */}
-                <div className="mt-8 flex items-start">
-                  {HERO_SERVICE_ICONS.map(({ icon: Icon, label }, index) => (
-                    <div key={label} className="flex items-start">
-                      {/* Vertical divider between items */}
-                      {index > 0 && (
-                        <div className="mx-2 mt-2 h-10 w-px self-start bg-gradient-to-b from-gray-200 to-transparent sm:mx-3" />
-                      )}
-                      <div className="group flex flex-col items-center gap-2.5 text-center">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-50 ring-1 ring-inset ring-red-100 transition-colors group-hover:bg-red-100 sm:h-11 sm:w-11">
-                          <Icon className="h-4 w-4 text-[#b91c1c] sm:h-[18px] sm:w-[18px]" strokeWidth={1.75} />
-                        </div>
-                        <span className="w-[52px] text-[9px] font-semibold leading-tight tracking-wide text-gray-600 sm:w-[60px] sm:text-[9.5px]">
-                          {label}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* ── CTA ── */}
-                <div className="mt-8">
-                  <MagneticButton
-                    as="a"
-                    href="#solutions"
-                    className="inline-flex h-11 items-center gap-3 rounded-full bg-[#b91c1c] px-6 text-[13px] font-bold uppercase tracking-[0.1em] text-white outline-none transition-colors hover:bg-red-800"
-                  >
-                    Explore Solutions
-                    <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
-                  </MagneticButton>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* ── VIDEO: right column, contained to its own box (not full-bleed) ── */}
-          <div className="relative order-1 h-64 w-full flex-1 overflow-hidden pointer-events-none sm:h-80 md:h-[26rem] lg:order-2 lg:h-full lg:min-w-0">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              tabIndex={-1}
-              className="h-full w-full border-none object-cover object-right outline-none"
-            >
-              <source src="/homepage-hero-section-video.mp4" type="video/mp4" />
-            </video>
-
-            {/* Seam blend: eases the video's own left edge into the text column, fully contained within this box */}
-            <div className="hidden lg:block absolute inset-y-0 left-0 w-72 bg-gradient-to-r from-white from-0% via-white/70 via-30% via-white/25 via-60% to-transparent to-100%" />
-
-            {/* Bottom fade: blend video into text below (mobile/tablet stack only) */}
-            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/60 to-transparent lg:hidden" />
-          </div>
+        <div className="relative w-full pointer-events-none lg:pt-16">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            tabIndex={-1}
+            className="block h-auto w-full border-none outline-none"
+          >
+            <source src="/homepage-hero-section-video.mp4" type="video/mp4" />
+          </video>
         </div>
       </section>
 
