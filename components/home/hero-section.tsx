@@ -58,7 +58,7 @@ export function HeroSection() {
         ref={sectionRef}
         className="relative w-full overflow-hidden bg-white"
       >
-        <div className="relative w-full pointer-events-none pt-16">
+        <div className="relative w-full pointer-events-none">
           <video
             autoPlay
             muted
@@ -86,7 +86,7 @@ export function HeroSection() {
               className="relative z-30 -mt-4 flex w-full flex-shrink-0 items-stretch justify-between overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.12)] ring-1 ring-black/[0.02] sm:p-6 md:p-8 xl:-mt-6 xl:w-[420px]"
             >
               {/* Top accent bar */}
-              <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#b91c1c] via-red-400 to-[#b91c1c]/20" />
+              <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-brand via-red-400 to-brand/20" />
 
               {STATS.map(({ icon: Icon, value, label }, index) => (
                 <div key={value} className="flex flex-1 items-stretch">
@@ -95,7 +95,7 @@ export function HeroSection() {
                   )}
                   <div className="flex flex-1 flex-col items-center gap-1.5 text-center justify-start sm:gap-2">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-red-50 sm:h-11 sm:w-11">
-                      <Icon className="h-4 w-4 text-[#b91c1c] sm:h-5 sm:w-5" strokeWidth={1.75} />
+                      <Icon className="h-4 w-4 text-brand sm:h-5 sm:w-5" strokeWidth={1.75} />
                     </div>
                     <div className="flex h-8 items-center justify-center px-0.5 sm:h-9">
                       <span className="text-[13px] font-black leading-tight text-gray-900 tracking-tight sm:text-base">
@@ -124,7 +124,7 @@ export function HeroSection() {
                   Our Core Services
                 </h3>
                 <div className="mt-2 flex items-center gap-4">
-                  <div className="h-[2px] w-8 rounded-full bg-[#b91c1c]" />
+                  <div className="h-[2px] w-8 rounded-full bg-brand" />
                   <span className="h-px flex-grow bg-gray-100" />
                 </div>
               </div>
@@ -148,7 +148,7 @@ export function HeroSection() {
                   >
                     <div className="flex items-center gap-2.5">
                       <Icon
-                        className="h-[18px] w-[18px] flex-shrink-0 text-gray-500 transition-colors group-hover:text-[#b91c1c]"
+                        className="h-[18px] w-[18px] flex-shrink-0 text-gray-500 transition-colors group-hover:text-brand"
                         strokeWidth={1.6}
                       />
                       <h4 className="text-[15px] font-semibold leading-tight text-gray-900">
@@ -158,7 +158,7 @@ export function HeroSection() {
                     <p className="text-[13px] leading-relaxed text-gray-700">{desc}</p>
                     <div className="mt-auto flex justify-end pt-1">
                       <ChevronRight
-                        className="h-4 w-4 text-[#b91c1c] opacity-0 transition-opacity group-hover:opacity-100"
+                        className="h-4 w-4 text-brand opacity-0 transition-opacity group-hover:opacity-100"
                         strokeWidth={2}
                       />
                     </div>

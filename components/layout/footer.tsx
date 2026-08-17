@@ -76,7 +76,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-12">
           <div className="md:col-span-5">
             <a href={isHome ? "#home" : "/"} className="inline-block" aria-label="Infoelex home">
-              <Logo />
+              <Logo isDarkBg />
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-graphite">
               Thinking Beyond.
