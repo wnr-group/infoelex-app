@@ -58,7 +58,7 @@ export function HeroSection() {
         ref={sectionRef}
         className="relative w-full overflow-hidden bg-white"
       >
-        <div className="relative w-full pointer-events-none lg:pt-16">
+        <div className="relative w-full pointer-events-none pt-16">
           <video
             autoPlay
             muted
