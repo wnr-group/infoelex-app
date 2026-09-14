@@ -32,6 +32,14 @@ const HOTSPOTS: Hotspot[] = [
       "Engineering robust infrastructure that forms the backbone of modern buildings and facilities.",
   },
   {
+    id: "residential-infrastructure",
+    top: 72,
+    left: 86,
+    title: "Residential Infrastructure",
+    description:
+      "Electrical design and infrastructure solutions engineered for residential developments and communities.",
+  },
+  {
     id: "steel-cement",
     top: 70,
     left: 11,
