@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import { HeroHotspots } from "./hero-hotspots";
 import {
   Users,
   Zap,
@@ -70,6 +71,10 @@ export function HeroSection() {
           >
             <source src="/homepage-hero-section-video.mp4" type="video/mp4" />
           </video>
+
+          <div className="absolute inset-0">
+            <HeroHotspots />
+          </div>
         </div>
       </section>
 

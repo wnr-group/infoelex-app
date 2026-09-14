@@ -16,52 +16,92 @@ interface Hotspot {
 
 const HOTSPOTS: Hotspot[] = [
   {
-    id: "sustainability",
-    top: 30,
-    left: 18,
-    title: "Sustainability",
+    id: "distribution-shipping",
+    top: 31,
+    left: 15,
+    title: "Distribution & Shipping",
     description:
-      "Sustainability is at the core of our business philosophy and shapes everything we do.",
+      "End-to-end distribution and shipping solutions moving power and industrial assets efficiently across regions.",
   },
   {
-    id: "reliability",
-    top: 45,
-    left: 72,
-    title: "Uncompromising Reliability",
+    id: "building-infrastructure",
+    top: 50,
+    left: 91,
+    title: "Building Infrastructure",
     description:
-      "Engineered for 99.999% uptime, our network delivers resilience at every scale.",
+      "Engineering robust infrastructure that forms the backbone of modern buildings and facilities.",
   },
   {
-    id: "scale",
-    top: 65,
-    left: 35,
-    title: "Global Scale",
-    description:
-      "Purpose-built facilities across 40+ markets, powering the connected world.",
-  },
-  {
-    id: "capacity",
-    top: 25,
-    left: 82,
-    title: "High-Density Capacity",
-    description:
-      "500+ MW engineered for accelerated, high-density computing workloads.",
-  },
-  {
-    id: "security",
+    id: "steel-cement",
     top: 70,
-    left: 78,
-    title: "Layered Security",
+    left: 11,
+    title: "Steel & Cement",
     description:
-      "Multi-layered physical and digital protocols safeguard every critical system.",
+      "Power and automation solutions tailored for heavy steel and cement manufacturing operations.",
   },
   {
-    id: "future",
-    top: 82,
-    left: 48,
-    title: "Future-Ready Design",
+    id: "pq-solution",
+    top: 30,
+    left: 41,
+    title: "PQ Solution",
     description:
-      "Adaptive infrastructure built to evolve with AI, 5G, and next-gen technology.",
+      "Power Quality solutions that protect critical loads from harmonics, sags, and disturbances.",
+  },
+  {
+    id: "water-treatment",
+    top: 64,
+    left: 35,
+    title: "Water Treatment",
+    description:
+      "Reliable electrical and control systems powering water and wastewater treatment plants.",
+  },
+  {
+    id: "green-hydrogen-ammonia",
+    top: 84,
+    left: 49,
+    title: "Green Hydrogen & Green Ammonia",
+    description:
+      "Enabling the next generation of clean fuel production through green hydrogen and ammonia infrastructure.",
+  },
+  {
+    id: "industrial-infrastructure",
+    top: 52,
+    left: 48,
+    title: "Industrial Infrastructure",
+    description:
+      "Comprehensive electrical infrastructure engineered for demanding industrial environments.",
+  },
+  {
+    id: "data-centers-critical-infrastructure",
+    top: 28,
+    left: 88,
+    title: "Data Centers & Critical Infrastructure",
+    description:
+      "Resilient power systems safeguarding uptime for data centers and mission-critical facilities.",
+  },
+  {
+    id: "bess",
+    top: 48,
+    left: 27,
+    title: "Battery Energy Storage Systems (BESS)",
+    description:
+      "Advanced energy storage systems that balance supply and demand for a stable grid.",
+  },
+  {
+    id: "renewable-energy-integration",
+    top: 15,
+    left: 29,
+    title: "Renewable Energy Integration",
+    description:
+      "Seamless integration of solar, wind, and other renewables into the power network.",
+  },
+  {
+    id: "power-generation-transmission-distribution",
+    top: 15,
+    left: 75,
+    title: "Power Generation, Transmission & Distribution",
+    description:
+      "Full lifecycle expertise across generation, transmission, and distribution networks.",
   },
 ];
 
