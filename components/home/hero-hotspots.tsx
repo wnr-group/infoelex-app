@@ -247,7 +247,7 @@ export function HeroHotspots() {
                       }}
                       transition={{ duration: 0.35, ease: EASE }}
                       className={cn(
-                        "pointer-events-none absolute z-20 w-[240px] rounded-xl border border-brand/25 bg-ink/80 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:w-[280px]",
+                        "pointer-events-none absolute z-20 w-[240px] rounded-xl border border-black/10 bg-white/90 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:w-[280px]",
                         horizontal === "right" ? "left-full ml-6" : "right-full mr-6",
                         vertical === "center" && "top-1/2 -translate-y-1/2",
                         vertical === "top" && "top-0",
@@ -257,7 +257,7 @@ export function HeroHotspots() {
                       <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.2em] text-brand">
                         {hotspot.title}
                       </span>
-                      <p className="text-sm leading-relaxed text-paper/85">
+                      <p className="text-sm leading-relaxed text-black">
                         {hotspot.description}
                       </p>
                     </motion.div>
