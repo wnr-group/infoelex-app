@@ -76,7 +76,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-12">
           <div className="md:col-span-5">
             <a href={isHome ? "#home" : "/"} className="inline-block" aria-label="Infoelex home">
-              <Logo />
+              <Logo isDarkBg />
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-graphite">
               Thinking Beyond.
@@ -101,6 +101,30 @@ export function Footer() {
                 <FooterLink key={link.label} {...link} isHome={isHome} />
               ))}
             </nav>
+          </div>
+        </div>
+
+        {/* BOTTOM SECTION */}
+        <div className="mt-8 border-t border-white/10 py-8">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm text-graphite">
+            <p className="order-2 md:order-1 opacity-80">
+              © {new Date().getFullYear()} Infoelex. All rights reserved.
+            </p>
+            <div className="order-1 md:order-2 flex items-center gap-2">
+              <span className="opacity-60">Powered by</span>
+              <a
+                href="https://www.wnradvisory.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center gap-1.5 font-bold tracking-wider text-paper/90 transition-colors duration-300 hover:text-brand"
+              >
+                <span>WnR Groups</span>
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand/65 opacity-75 duration-1000" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

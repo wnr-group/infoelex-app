@@ -44,13 +44,26 @@ const NAV_ITEMS: NavItem[] = [
   { label: "CSR", href: "/csr" },
 ];
 
-export function Logo() {
+export function Logo({ floating = false, isDarkBg = false }: { floating?: boolean; isDarkBg?: boolean }) {
   return (
-    <div className="flex max-w-[180px] flex-col leading-none sm:max-w-none">
-      <span className="text-[21px] font-extrabold italic tracking-tight text-[#b91c1c] sm:text-[26px] md:text-[29px]">
+    <div
+      className={cn(
+        "flex max-w-[180px] flex-col leading-none sm:max-w-none",
+        floating && !isDarkBg &&
+          "[text-shadow:-1px_-1px_2px_#fff,1px_-1px_2px_#fff,-1px_1px_2px_#fff,1px_1px_2px_#fff,0_0_10px_rgba(255,255,255,0.95)]",
+        floating && isDarkBg &&
+          "[text-shadow:0_2px_4px_rgba(0,0,0,0.5)]"
+      )}
+    >
+      <span className="text-[21px] font-extrabold italic tracking-tight text-brand sm:text-[26px] md:text-[29px]">
         Infoelex
       </span>
-      <span className="truncate text-[8px] font-medium tracking-wide text-gray-500 sm:text-[10px] md:text-[11px]">
+      <span
+        className={cn(
+          "truncate text-[8px] font-medium tracking-wide sm:text-[10px] md:text-[11px]",
+          isDarkBg ? "text-gray-400" : "text-gray-500"
+        )}
+      >
         Information Electrical Technologies (IET)
       </span>
     </div>
@@ -61,6 +74,7 @@ export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
+  const isDarkBg = !scrolled && pathname === "/about";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -148,8 +162,10 @@ export function Navbar() {
       <header
         ref={headerRef}
         className={cn(
-          "fixed inset-x-0 top-0 z-50 bg-white transition-shadow duration-300",
-          scrolled ? "shadow-md" : "shadow-sm"
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300",
+          scrolled
+            ? "bg-white shadow-md"
+            : "bg-transparent shadow-none"
         )}
         onMouseEnter={clearCloseTimeout}
         onMouseLeave={scheduleClose}
@@ -162,16 +178,30 @@ export function Navbar() {
             className="flex-shrink-0"
             aria-label="Infoelex home"
           >
-            <Logo />
+            <Logo floating={!scrolled} isDarkBg={isDarkBg} />
           </a>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden items-center md:flex">
+          <nav
+            className={cn(
+              "hidden items-center md:flex",
+              !scrolled && !isDarkBg &&
+                "[filter:drop-shadow(1px_1px_1px_#fff)_drop-shadow(-1px_-1px_1px_#fff)_drop-shadow(0_0_8px_rgba(255,255,255,0.9))]",
+              !scrolled && isDarkBg &&
+                "[filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.3))]"
+            )}
+          >
             {NAV_ITEMS.map((item) => (
               <div key={item.label} className="flex items-center">
                 {/* Pipe separator before certain items */}
                 {PIPE_BEFORE.includes(item.label) && (
-                  <span className="mx-2 h-4 w-px bg-gray-300" aria-hidden="true" />
+                  <span
+                    className={cn(
+                      "mx-2 h-4 w-px transition-colors duration-200",
+                      isDarkBg ? "bg-white/20" : "bg-gray-300"
+                    )}
+                    aria-hidden="true"
+                  />
                 )}
 
                 {item.mega ? (
@@ -191,16 +221,22 @@ export function Navbar() {
                       }
                       className={cn(
                         "flex items-center gap-1 px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
-                        active === item.href
-                          ? "text-[#b91c1c]"
-                          : "text-gray-700 hover:text-[#b91c1c]"
+                        (active === item.href || pathname === item.href)
+                          ? "text-brand"
+                          : isDarkBg
+                          ? "text-white/90 hover:text-brand"
+                          : "text-gray-700 hover:text-brand"
                       )}
                     >
                       {item.label}
                       <ChevronDown
                         className={cn(
                           "h-3 w-3 transition-transform duration-200",
-                          openMenu === item.label ? "rotate-180 text-[#b91c1c]" : "text-gray-500"
+                          openMenu === item.label
+                            ? "rotate-180 text-brand"
+                            : isDarkBg
+                            ? "text-white/60"
+                            : "text-gray-500"
                         )}
                       />
                     </button>
@@ -220,9 +256,11 @@ export function Navbar() {
                     }}
                     className={cn(
                       "relative px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
-                      active === item.href
-                        ? "text-[#b91c1c]"
-                        : "text-gray-700 hover:text-[#b91c1c]"
+                      (active === item.href || pathname === item.href)
+                        ? "text-brand"
+                        : isDarkBg
+                        ? "text-white/90 hover:text-brand"
+                        : "text-gray-700 hover:text-brand"
                     )}
                   >
                     {item.label}
@@ -236,7 +274,7 @@ export function Navbar() {
           <div className="hidden md:block">
             <a
               href="/contact"
-              className="inline-flex items-center gap-2 bg-[#b91c1c] px-5 py-2.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
+              className="inline-flex items-center gap-2 bg-brand px-5 py-2.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
             >
               Get in Touch
               <span className="text-base leading-none">→</span>
@@ -249,7 +287,22 @@ export function Navbar() {
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
-            className="relative z-[60] flex h-10 w-10 items-center justify-center text-gray-800 md:hidden"
+            className={cn(
+              "relative z-[60] flex h-10 w-10 items-center justify-center md:hidden transition-colors duration-200",
+              mobileOpen
+                ? "text-gray-800"
+                : isDarkBg
+                ? "text-white hover:text-brand"
+                : "text-gray-800 hover:text-brand",
+              !scrolled &&
+                !mobileOpen &&
+                !isDarkBg &&
+                "[filter:drop-shadow(1px_1px_1px_#fff)_drop-shadow(-1px_-1px_1px_#fff)_drop-shadow(0_0_8px_rgba(255,255,255,0.9))]",
+              !scrolled &&
+                !mobileOpen &&
+                isDarkBg &&
+                "[filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.5))]"
+            )}
           >
             <AnimatePresence mode="wait" initial={false}>
               {mobileOpen ? (
@@ -337,7 +390,7 @@ export function Navbar() {
                         <ChevronDown
                           className={cn(
                             "h-5 w-5 shrink-0 text-gray-400 transition-transform duration-300",
-                            mobileExpanded === item.label && "rotate-180 text-[#b91c1c]"
+                            mobileExpanded === item.label && "rotate-180 text-brand"
                           )}
                         />
                       </button>
@@ -357,7 +410,7 @@ export function Navbar() {
                                   key={sub.title}
                                   href={sub.href}
                                   onClick={() => setMobileOpen(false)}
-                                  className="text-base font-medium text-gray-600 transition-colors active:text-[#b91c1c]"
+                                  className="text-base font-medium text-gray-600 transition-colors active:text-brand"
                                 >
                                   {sub.title}
                                 </a>
@@ -371,7 +424,7 @@ export function Navbar() {
                     <a
                       href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                       onClick={() => setMobileOpen(false)}
-                      className="block py-4 text-base font-semibold text-gray-900 transition-colors active:text-[#b91c1c] sm:text-xl"
+                      className="block py-4 text-base font-semibold text-gray-900 transition-colors active:text-brand sm:text-xl"
                     >
                       {item.label}
                     </a>
