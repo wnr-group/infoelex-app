@@ -113,12 +113,12 @@ export function Footer() {
             <div className="order-1 md:order-2 flex items-center gap-2">
               <span className="opacity-60">Powered by</span>
               <a
-                href="https://wnr.group"
+                href="https://www.wnradvisory.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative inline-flex items-center gap-1.5 font-bold tracking-wider text-paper/90 transition-colors duration-300 hover:text-brand"
               >
-                <span>WnR</span>
+                <span>WnR Groups</span>
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand/65 opacity-75 duration-1000" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
