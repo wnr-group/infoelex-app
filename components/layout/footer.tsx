@@ -40,7 +40,7 @@ export function Footer() {
 
   return (
     <footer
-      className={`relative overflow-hidden border-t border-white/10 text-paper ${isHome ? "bg-graphite-950" : "bg-ink"}`}
+      className={`relative overflow-hidden border-t border-white/10 text-paper ${isHome ? "bg-slate-deep" : "bg-ink"}`}
     >
       {/* TECHNICAL GRID BACKDROP */}
       <div
@@ -88,7 +88,7 @@ export function Footer() {
             <Link href={isHome ? "#home" : "/"} className="inline-block" aria-label="Infoelex home">
               <Logo isDarkBg />
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-graphite">
+            <p className={`mt-4 max-w-xs text-sm leading-relaxed ${isHome ? "text-paper/70" : "text-graphite"}`}>
               Thinking Beyond.
               <br />
               Thinking Future.
@@ -116,7 +116,7 @@ export function Footer() {
 
         {/* BOTTOM SECTION */}
         <div className="mt-8 border-t border-white/10 py-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm text-graphite">
+          <div className={`flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm ${isHome ? "text-paper/70" : "text-graphite"}`}>
             <p className="order-2 md:order-1 opacity-80">
               © {new Date().getFullYear()} Infoelex. All rights reserved.
             </p>
