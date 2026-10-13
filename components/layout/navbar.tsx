@@ -39,6 +39,7 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
+  { label: "Home", href: "/" },
   { label: "Sectors", href: "#sector", mega: SECTORS_MENU },
   { label: "Services", href: "#services", mega: SERVICES_MENU },
   { label: "About Us", href: "/about" },
@@ -103,8 +104,8 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = NAV_ITEMS.filter((item) => item.href.startsWith("#"))
-      .map((item) => document.querySelector(item.href))
+    const sections = ["#home", ...NAV_ITEMS.filter((item) => item.href.startsWith("#")).map((item) => item.href)]
+      .map((href) => document.querySelector(href))
       .filter((el): el is Element => el !== null);
 
     if (sections.length === 0) return;
@@ -224,7 +225,7 @@ export function Navbar() {
                       }
                       className={cn(
                         "flex items-center gap-1 px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
-                        (active === item.href || pathname === item.href)
+                        (item.href === "/" ? pathname === "/" && active === "#home" : active === item.href || pathname === item.href)
                           ? "text-brand"
                           : isDarkBg
                           ? "text-white/90 hover:text-brand"
@@ -259,7 +260,7 @@ export function Navbar() {
                     }}
                     className={cn(
                       "relative px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
-                      (active === item.href || pathname === item.href)
+                      (item.href === "/" ? pathname === "/" && active === "#home" : active === item.href || pathname === item.href)
                         ? "text-brand"
                         : isDarkBg
                         ? "text-white/90 hover:text-brand"
