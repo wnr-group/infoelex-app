@@ -7,6 +7,7 @@ import { NumbersSection } from "@/components/home/numbers-section";
 import { ProcessSection } from "@/components/home/process-section";
 import { ServicesSection } from "@/components/home/services-section";
 import { TrustStrip } from "@/components/home/trust-strip";
+import { WhySection } from "@/components/home/why-section";
 
 export default function CustomerPage() {
   return (
@@ -16,6 +17,7 @@ export default function CustomerPage() {
       <ServicesSection />
       <ExpertiseSection />
       <ProcessSection />
+      <WhySection />
       <NumbersSection />
       <CasesSection />
       <ClosingCta />
