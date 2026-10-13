@@ -16,14 +16,35 @@ import {
   Waves,
   type LucideIcon,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
 import { SERVICES } from "./content";
 import { IsoScene } from "./iso";
 import { ArrowUnderline } from "./magnetic-link";
 import { EASE } from "./motion";
 import { Eyebrow, Reveal, ScrubHeadline } from "./reveal";
+import { useReducedMotion } from "./use-reduced-motion";
+
+const ServiceViewer = dynamic(() => import("./service-viewer"), { ssr: false });
+
+const LG = "(min-width: 1024px)";
+const subscribeLg = (cb: () => void) => {
+  const mq = window.matchMedia(LG);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const isLg = () => window.matchMedia(LG).matches;
+const hasWebGL = () => {
+  try {
+    const c = document.createElement("canvas");
+    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+  } catch {
+    return false;
+  }
+};
+const noopSubscribe = () => () => {};
 
 const ICONS: LucideIcon[] = [Cable, Sun, BatteryCharging, Server, Waves, Factory, Flame, Droplets, Atom, Ship, Building2];
 
@@ -46,6 +67,21 @@ function Corners() {
 export function ServicesSection() {
   const [active, setActive] = useState(0);
   const current = SERVICES[active];
+  const reduce = useReducedMotion();
+  const large = useSyncExternalStore(subscribeLg, isLg, () => false);
+  const webgl = useSyncExternalStore(noopSubscribe, hasWebGL, () => false);
+  const use3d = large && webgl;
+
+  // Only render the 3D view while it is on screen.
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [onScreen, setOnScreen] = useState(false);
+  useEffect(() => {
+    const el = frameRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { rootMargin: "120px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [large]);
 
   return (
     <section id="services" className="bg-canvas py-[var(--space-section)]">
@@ -66,7 +102,7 @@ export function ServicesSection() {
           {/* Live preview (desktop) */}
           <div className="hidden lg:col-span-5 lg:block">
             <div className="sticky top-28">
-              <div className="bg-blueprint relative aspect-[4/3] overflow-hidden border border-hairline bg-canvas-2">
+              <div ref={frameRef} className="bg-blueprint relative aspect-[4/3] overflow-hidden border border-hairline bg-canvas-2">
                 <Corners />
                 <div className="absolute left-6 top-5 z-10 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">
                   Fig. {pad(active + 1)}
@@ -74,18 +110,29 @@ export function ServicesSection() {
                 <div className="absolute bottom-5 right-6 z-10 text-[11px] font-semibold tabular-nums tracking-[0.16em] text-steel">
                   {pad(active + 1)} / {pad(SERVICES.length)}
                 </div>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active}
-                    className="absolute inset-0 p-10"
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.4, ease: EASE }}
-                  >
-                    <IsoScene scene={current.scene} className="h-full w-full" />
-                  </motion.div>
-                </AnimatePresence>
+                {use3d ? (
+                  <div className="absolute inset-0">
+                    <ServiceViewer scene={current.scene} running={onScreen} reduce={reduce} />
+                  </div>
+                ) : (
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={active}
+                      className="absolute inset-0 p-10"
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.4, ease: EASE }}
+                    >
+                      <IsoScene scene={current.scene} className="h-full w-full" />
+                    </motion.div>
+                  </AnimatePresence>
+                )}
+                {use3d && (
+                  <div className="pointer-events-none absolute bottom-5 left-6 z-10 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">
+                    Drag to rotate
+                  </div>
+                )}
               </div>
 
               <div className="mt-8 min-h-[11rem]">
