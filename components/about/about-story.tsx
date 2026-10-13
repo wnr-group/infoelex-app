@@ -91,7 +91,7 @@ export function AboutStory() {
                     <span className="relative z-10 mt-1 hidden h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-brand/40 bg-white transition-colors duration-500 hover:border-brand md:flex">
                       <span className="h-2.5 w-2.5 rounded-full bg-brand" />
                     </span>
-                    <span className="font-mono text-xl font-bold text-brand leading-none">{item.year}</span>
+                    <span className="text-xl font-bold text-brand leading-none">{item.year}</span>
                   </div>
 
                   {/* RIGHT CONTENT */}

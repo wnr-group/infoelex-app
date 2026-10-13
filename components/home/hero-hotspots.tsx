@@ -1,6 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useReducedMotion } from "./use-reduced-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -11,105 +12,74 @@ interface Hotspot {
   top: number;
   left: number;
   title: string;
-  description: string;
 }
 
 const HOTSPOTS: Hotspot[] = [
   {
     id: "distribution-shipping",
-    top: 31,
-    left: 15,
+    top: 35.8,
+    left: 12.9,
     title: "Distribution & Shipping",
-    description:
-      "End-to-end distribution and shipping solutions moving power and industrial assets efficiently across regions.",
   },
   {
     id: "building-infrastructure",
-    top: 50,
-    left: 91,
+    top: 63.5,
+    left: 82.8,
     title: "Building Infrastructure",
-    description:
-      "Engineering robust infrastructure that forms the backbone of modern buildings and facilities.",
   },
   {
     id: "residential-infrastructure",
-    top: 72,
-    left: 86,
+    top: 29.6,
+    left: 47.6,
     title: "Residential Infrastructure",
-    description:
-      "Electrical design and infrastructure solutions engineered for residential developments and communities.",
   },
   {
     id: "steel-cement",
-    top: 70,
-    left: 11,
+    top: 72.3,
+    left: 14.9,
     title: "Steel & Cement",
-    description:
-      "Power and automation solutions tailored for heavy steel and cement manufacturing operations.",
   },
   {
     id: "pq-solution",
-    top: 30,
-    left: 41,
+    top: 52.9,
+    left: 21.3,
     title: "PQ Solution",
-    description:
-      "Power Quality solutions that protect critical loads from harmonics, sags, and disturbances.",
   },
   {
     id: "water-treatment",
-    top: 64,
-    left: 35,
+    top: 76.7,
+    left: 44.6,
     title: "Water Treatment",
-    description:
-      "Reliable electrical and control systems powering water and wastewater treatment plants.",
-  },
-  {
-    id: "green-hydrogen-ammonia",
-    top: 84,
-    left: 49,
-    title: "Green Hydrogen & Green Ammonia",
-    description:
-      "Enabling the next generation of clean fuel production through green hydrogen and ammonia infrastructure.",
   },
   {
     id: "industrial-infrastructure",
-    top: 52,
-    left: 48,
+    top: 53.8,
+    left: 51.6,
     title: "Industrial Infrastructure",
-    description:
-      "Comprehensive electrical infrastructure engineered for demanding industrial environments.",
   },
   {
     id: "data-centers-critical-infrastructure",
-    top: 28,
-    left: 88,
+    top: 45.5,
+    left: 85.3,
     title: "Data Centers & Critical Infrastructure",
-    description:
-      "Resilient power systems safeguarding uptime for data centers and mission-critical facilities.",
   },
   {
     id: "bess",
-    top: 48,
-    left: 27,
+    top: 40.9,
+    left: 33.5,
     title: "Battery Energy Storage Systems (BESS)",
-    description:
-      "Advanced energy storage systems that balance supply and demand for a stable grid.",
   },
   {
     id: "renewable-energy-integration",
-    top: 15,
-    left: 29,
+    top: 20.8,
+    left: 32.2,
     title: "Renewable Energy Integration",
-    description:
-      "Seamless integration of solar, wind, and other renewables into the power network.",
   },
   {
     id: "power-generation-transmission-distribution",
-    top: 15,
-    left: 75,
+    top: 16.8,
+    left: 78.4,
     title: "Power Generation, Transmission & Distribution",
-    description:
-      "Full lifecycle expertise across generation, transmission, and distribution networks.",
   },
 ];
 
@@ -247,19 +217,16 @@ export function HeroHotspots() {
                       }}
                       transition={{ duration: 0.35, ease: EASE }}
                       className={cn(
-                        "pointer-events-none absolute z-20 w-[240px] rounded-xl border border-black/10 bg-white/90 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:w-[280px]",
+                        "pointer-events-none absolute z-20 w-max max-w-[220px] rounded-lg border border-black/10 bg-white/95 px-4 py-2.5 shadow-[0_12px_32px_rgba(0,0,0,0.22)] backdrop-blur-xl sm:max-w-[260px]",
                         horizontal === "right" ? "left-full ml-6" : "right-full mr-6",
                         vertical === "center" && "top-1/2 -translate-y-1/2",
                         vertical === "top" && "top-0",
                         vertical === "bottom" && "bottom-0"
                       )}
                     >
-                      <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.2em] text-brand">
+                      <span className="block text-[12px] font-semibold uppercase leading-snug tracking-[0.12em] text-gray-950">
                         {hotspot.title}
                       </span>
-                      <p className="text-sm leading-relaxed text-black">
-                        {hotspot.description}
-                      </p>
                     </motion.div>
                   </>
                 )}

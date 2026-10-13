@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 export function CsrCta() {
@@ -32,13 +33,13 @@ export function CsrCta() {
             If you run a school, hospital, or community programme that our teams
             could support, we would like to hear from you.
           </p>
-          <a
+          <Link
             href="/contact"
             className="mt-9 inline-flex items-center gap-2 bg-brand px-6 py-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
           >
             Get in Touch
             <span className="text-base leading-none">→</span>
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

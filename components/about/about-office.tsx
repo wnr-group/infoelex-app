@@ -60,7 +60,7 @@ export function AboutOffice() {
               {/* floating badge */}
               <div className="absolute bottom-6 left-6 flex items-center gap-3 rounded-xl border border-white/20 bg-ink/80 px-5 py-3.5 backdrop-blur-md">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-brand" />
-                <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-paper">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-paper">
                   HQ — India
                 </span>
               </div>
@@ -84,7 +84,7 @@ export function AboutOffice() {
               {CULTURE_POINTS.map((point, i) => (
                 <RevealOnScroll key={point.index} direction="up" delay={i * 0.06} amount={0.1}>
                   <div className="group flex items-start gap-4 rounded-2xl border border-black/5 bg-white p-5 shadow-[0_1px_2px_rgba(8,8,10,0.02)] transition-all duration-400 hover:border-brand/25 hover:shadow-[0_12px_30px_-15px_rgba(223,44,28,0.08)] hover:-translate-y-0.5">
-                    <span className="mt-0.5 shrink-0 font-mono text-xs font-bold text-brand">{point.index}</span>
+                    <span className="mt-0.5 shrink-0 text-xs font-bold text-brand">{point.index}</span>
                     <p className="text-sm font-semibold leading-relaxed text-ink/80 transition-colors duration-300 group-hover:text-ink">
                       {point.text}
                     </p>

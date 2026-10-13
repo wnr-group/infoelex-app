@@ -29,7 +29,7 @@ export function CsrHero() {
             className="mb-6 flex items-center justify-center gap-3"
           >
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand" />
-            <span className="font-mono text-xs font-semibold uppercase tracking-[0.3em] text-brand">
+            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-brand">
               Corporate Social Responsibility
             </span>
           </motion.div>

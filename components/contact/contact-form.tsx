@@ -44,7 +44,7 @@ export function ContactForm() {
             exit={{ opacity: 0 }}
           >
             <div>
-              <label htmlFor="name" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 font-semibold">
+              <label htmlFor="name" className="block text-xs uppercase tracking-wider text-slate-500 mb-2 font-semibold">
                 Your Name *
               </label>
               <input
@@ -60,7 +60,7 @@ export function ContactForm() {
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
-                <label htmlFor="email" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 font-semibold">
+                <label htmlFor="email" className="block text-xs uppercase tracking-wider text-slate-500 mb-2 font-semibold">
                   Email Address *
                 </label>
                 <input
@@ -75,7 +75,7 @@ export function ContactForm() {
               </div>
 
               <div>
-                <label htmlFor="org" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 font-semibold">
+                <label htmlFor="org" className="block text-xs uppercase tracking-wider text-slate-500 mb-2 font-semibold">
                   Organization
                 </label>
                 <input
@@ -90,7 +90,7 @@ export function ContactForm() {
             </div>
 
             <div>
-              <label htmlFor="service" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 font-semibold">
+              <label htmlFor="service" className="block text-xs uppercase tracking-wider text-slate-500 mb-2 font-semibold">
                 Specialized Area
               </label>
               <div className="relative">
@@ -115,7 +115,7 @@ export function ContactForm() {
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 font-semibold">
+              <label htmlFor="message" className="block text-xs uppercase tracking-wider text-slate-500 mb-2 font-semibold">
                 Project Requirements or Message *
               </label>
               <textarea
@@ -162,7 +162,7 @@ export function ContactForm() {
             </p>
             <button
               onClick={() => setIsSuccess(false)}
-              className="text-xs font-mono uppercase tracking-wider text-brand hover:text-brand-dim transition-colors font-semibold"
+              className="text-xs uppercase tracking-wider text-brand hover:text-brand-dim transition-colors font-semibold"
             >
               ← Submit another request
             </button>

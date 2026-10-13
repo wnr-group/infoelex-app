@@ -266,7 +266,7 @@ export function CoverflowCarousel({
                   {slide.eyebrow && (
                     <span
                       className={cn(
-                        "font-mono text-xs font-semibold uppercase tracking-[0.24em]",
+                        "text-xs font-semibold uppercase tracking-[0.24em]",
                         isLight ? "text-graphite" : "text-paper/60"
                       )}
                     >
@@ -298,7 +298,7 @@ export function CoverflowCarousel({
         {!isLight && (
           <div
             aria-hidden
-            className="pointer-events-none absolute bottom-5 right-5 z-20 select-none font-mono text-2xl font-bold tabular-nums text-paper drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl"
+            className="pointer-events-none absolute bottom-5 right-5 z-20 select-none text-2xl font-bold tabular-nums text-paper drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl"
           >
             {String(activeIndex + 1).padStart(2, "0")}{" "}
             <span className="text-paper/50">/ {String(length).padStart(2, "0")}</span>
@@ -347,7 +347,7 @@ export function CoverflowCarousel({
 
         <div className="flex items-center gap-3">
           {isLight && (
-            <span className="font-mono text-sm font-bold tabular-nums text-ink/70">
+            <span className="text-sm font-bold tabular-nums text-ink/70">
               {String(activeIndex + 1).padStart(2, "0")} / {String(length).padStart(2, "0")}
             </span>
           )}

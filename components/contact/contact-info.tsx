@@ -55,7 +55,7 @@ export function ContactInfo() {
             </a>
           </div>
 
-          <div className="mt-6 font-mono text-[10px] text-brand/60 tracking-wider">
+          <div className="mt-6 text-[10px] text-brand/60 tracking-wider">
             COORD: 11.0168° N, 76.9558° E
           </div>
         </div>
@@ -77,7 +77,7 @@ export function ContactInfo() {
 
         <div className="mb-6">
           <div className="text-4xl font-extrabold text-brand">20+</div>
-          <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mt-1 font-semibold">
+          <div className="text-xs uppercase tracking-wider text-slate-500 mt-1 font-semibold">
             Completed Assignments Globally
           </div>
         </div>
@@ -87,7 +87,7 @@ export function ContactInfo() {
         </p>
 
         <div className="space-y-3">
-          <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-2 font-semibold">
+          <div className="text-xs uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-2 font-semibold">
             <Globe className="h-3.5 w-3.5 text-brand" />
             Active Markets & Regions:
           </div>
