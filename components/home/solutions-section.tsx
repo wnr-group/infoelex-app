@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -107,7 +108,7 @@ export function SolutionsSection() {
 
         <div className="mt-12 grid grid-cols-1 gap-4 md:mt-14 md:h-[360px] md:grid-cols-3 lg:h-[400px]">
           {SOLUTIONS.map((solution, i) => (
-            <a
+            <Link
               key={solution.index}
               ref={(el) => {
                 cardRefs.current[i] = el;
@@ -157,7 +158,7 @@ export function SolutionsSection() {
                   </ArrowLink>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

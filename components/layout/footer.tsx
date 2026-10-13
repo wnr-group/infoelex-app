@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { RevealOnScroll } from "@/components/ui/reveal-on-scroll";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Logo } from "@/components/layout/navbar";
@@ -23,13 +24,13 @@ const LEGAL_LINKS = [
 function FooterLink({ label, href, isHome }: { label: string; href: string; isHome: boolean }) {
   const resolvedHref = href.startsWith("#") ? (isHome ? href : `/${href}`) : href;
   return (
-    <a
+    <Link
       href={resolvedHref}
       className="group inline-flex w-fit items-center gap-2.5 text-sm text-paper/75 transition-colors duration-300 hover:text-paper"
     >
       <span className="h-px w-3 bg-white/20 transition-all duration-300 ease-out group-hover:w-5 group-hover:bg-brand" />
       {label}
-    </a>
+    </Link>
   );
 }
 
@@ -62,7 +63,7 @@ export function Footer() {
               Ready to power your next deployment?
             </h2>
           </div>
-          <a
+          <Link
             href="/contact"
             className="group relative inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-[4px] border border-brand bg-brand px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-transparent hover:text-brand"
           >
@@ -70,14 +71,14 @@ export function Footer() {
             <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
-          </a>
+          </Link>
         </RevealOnScroll>
 
         <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-12">
           <div className="md:col-span-5">
-            <a href={isHome ? "#home" : "/"} className="inline-block" aria-label="Infoelex home">
+            <Link href={isHome ? "#home" : "/"} className="inline-block" aria-label="Infoelex home">
               <Logo isDarkBg />
-            </a>
+            </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-graphite">
               Thinking Beyond.
               <br />

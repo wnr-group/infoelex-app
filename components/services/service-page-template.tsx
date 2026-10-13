@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
   CheckCircle2,
@@ -198,14 +199,14 @@ export function ServicePageTemplate({
             className="mt-10 flex flex-wrap gap-3"
           >
             {sectors.map((sector) => (
-              <a
+              <Link
                 key={sector.href}
                 href={sector.href}
                 className="group inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-medium text-ink transition-colors duration-300 hover:border-brand hover:text-brand"
               >
                 {sector.title}
                 <span className="h-1.5 w-1.5 rounded-full bg-black/15 transition-colors duration-300 group-hover:bg-brand" />
-              </a>
+              </Link>
             ))}
           </RevealOnScroll>
         </div>

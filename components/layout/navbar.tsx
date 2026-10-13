@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -173,13 +174,13 @@ export function Navbar() {
         <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14 xl:px-16">
 
           {/* LOGO */}
-          <a
+          <Link
             href={isHome ? "#home" : "/"}
             className="flex-shrink-0"
             aria-label="Infoelex home"
           >
             <Logo floating={!scrolled} isDarkBg={isDarkBg} />
-          </a>
+          </Link>
 
           {/* DESKTOP NAV */}
           <nav
@@ -248,7 +249,7 @@ export function Navbar() {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <a
+                  <Link
                     href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                     onMouseEnter={() => {
                       clearCloseTimeout();
@@ -264,7 +265,7 @@ export function Navbar() {
                     )}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}
@@ -272,13 +273,13 @@ export function Navbar() {
 
           {/* CTA BUTTON */}
           <div className="hidden md:block">
-            <a
+            <Link
               href="/contact"
               className="inline-flex items-center gap-2 bg-brand px-5 py-2.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
             >
               Get in Touch
               <span className="text-base leading-none">→</span>
-            </a>
+            </Link>
           </div>
 
           {/* MOBILE HAMBURGER */}
@@ -341,13 +342,13 @@ export function Navbar() {
             className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white md:hidden"
           >
             <div className="relative flex h-16 items-center justify-between border-b border-gray-100 px-6">
-              <a
+              <Link
                 href={isHome ? "#home" : "/"}
                 onClick={() => setMobileOpen(false)}
                 aria-label="Infoelex home"
               >
                 <Logo />
-              </a>
+              </Link>
 
               <button
                 type="button"
@@ -406,14 +407,14 @@ export function Navbar() {
                           >
                             <div className="flex flex-col gap-4 pb-6 pl-9">
                               {item.mega.map((sub) => (
-                                <a
+                                <Link
                                   key={sub.title}
                                   href={sub.href}
                                   onClick={() => setMobileOpen(false)}
                                   className="text-base font-medium text-gray-600 transition-colors active:text-brand"
                                 >
                                   {sub.title}
-                                </a>
+                                </Link>
                               ))}
                             </div>
                           </motion.div>
@@ -421,13 +422,13 @@ export function Navbar() {
                       </AnimatePresence>
                     </>
                   ) : (
-                    <a
+                    <Link
                       href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                       onClick={() => setMobileOpen(false)}
                       className="block py-4 text-base font-semibold text-gray-900 transition-colors active:text-brand sm:text-xl"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   )}
                 </motion.div>
               ))}
@@ -439,14 +440,14 @@ export function Navbar() {
               transition={{ duration: 0.55, delay: 0.55, ease: EASE }}
               className="relative px-6 pb-10"
             >
-              <a
+              <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
                 className="flex w-full items-center justify-center gap-2 rounded-[4px] border border-brand bg-brand px-6 py-4 text-base font-semibold text-white"
               >
                 Let&apos;s Talk
                 <span>→</span>
-              </a>
+              </Link>
             </motion.div>
           </motion.div>
         )}

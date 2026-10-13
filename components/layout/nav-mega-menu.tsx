@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
@@ -29,7 +30,7 @@ export function NavMegaMenu({
 
       <div className="py-2">
         {items.map((item) => (
-          <a
+          <Link
             key={item.title}
             href={item.href}
             onClick={onNavigate}
@@ -37,7 +38,7 @@ export function NavMegaMenu({
           >
             {item.title}
             <ArrowUpRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-          </a>
+          </Link>
         ))}
       </div>
     </motion.div>
