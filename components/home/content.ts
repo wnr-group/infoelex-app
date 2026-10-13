@@ -124,26 +124,30 @@ export const EXPERTISE: {
   },
 ];
 
-export const PROCESS: { step: string; title: string; copy: string }[] = [
+export const PROCESS: { step: string; title: string; does: string; gets: string[] }[] = [
   {
     step: "01",
     title: "Study",
-    copy: "We model your network and loads, define the fault and operating cases, and surface risk early.",
+    does: "We model your network and loads and test the fault and operating cases.",
+    gets: ["Study report", "Risk register"],
   },
   {
     step: "02",
     title: "Design",
-    copy: "Single-line diagrams, equipment specifications and calculations built directly from the study results.",
+    does: "We turn the study results into drawings, specifications and calculations.",
+    gets: ["Single-line diagrams", "Equipment specifications", "BOQ"],
   },
   {
     step: "03",
     title: "Validate",
-    copy: "Independent checks, dynamic and transient simulations and compliance review before anything is built.",
+    does: "We check the design with independent reviews and dynamic simulations.",
+    gets: ["Validation report", "Compliance review"],
   },
   {
     step: "04",
     title: "Commission",
-    copy: "Settings, witnessing and on-site support so what was engineered is what energises.",
+    does: "We support settings, witnessing and energisation on site.",
+    gets: ["Protection settings", "On-site support"],
   },
 ];
 
