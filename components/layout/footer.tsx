@@ -17,8 +17,8 @@ const NAV_LINKS = [
 ];
 
 const LEGAL_LINKS = [
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms", href: "#" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms", href: "/terms" },
 ];
 
 function FooterLink({ label, href, isHome }: { label: string; href: string; isHome: boolean }) {
