@@ -53,7 +53,7 @@ export function AboutHero() {
             className="mb-6 flex items-center gap-3"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulse" />
-            <span className="font-mono text-xs font-semibold uppercase tracking-[0.3em] text-brand">
+            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-brand">
               Who We Are
             </span>
           </motion.div>
@@ -98,7 +98,7 @@ export function AboutHero() {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
         </span>
-        <span className="font-mono text-[9px] uppercase tracking-[0.35em] text-paper/40">Scroll to Explore</span>
+        <span className="text-[9px] uppercase tracking-[0.35em] text-paper/40">Scroll to Explore</span>
       </motion.div>
     </section>
   );

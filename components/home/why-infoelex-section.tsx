@@ -110,7 +110,7 @@ export function WhyInfoelexSection() {
                 delay={i * 0.15}
                 className="flex gap-6"
               >
-                <span className="shrink-0 font-mono text-sm font-semibold text-brand">
+                <span className="shrink-0 text-sm font-semibold text-brand">
                   {p.index}
                 </span>
                 <p className="text-balance leading-relaxed text-graphite">
@@ -162,10 +162,10 @@ function InfrastructureFlowVisual() {
 
       {/* PANEL HEADER */}
       <div className="relative flex items-center justify-between border-b border-black/10 px-6 py-4 md:px-8">
-        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-graphite">
+        <span className="text-[11px] uppercase tracking-[0.2em] text-graphite">
           Fig. 01 — Infrastructure Flow
         </span>
-        <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-graphite">
+        <span className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-graphite">
           <motion.span
             className="h-1.5 w-1.5 rounded-full bg-brand"
             animate={
@@ -339,10 +339,10 @@ function InfrastructureFlowVisual() {
             top: `${(CORE.y / 460) * 100}%`,
           }}
         >
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-ink">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink">
             Compute
           </span>
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-ink">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink">
             Core
           </span>
         </div>
@@ -351,7 +351,7 @@ function InfrastructureFlowVisual() {
         {INPUT_NODES.map((node) => (
           <div
             key={`label-${node.key}`}
-            className="pointer-events-none absolute w-24 -translate-x-1/2 text-center font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-graphite"
+            className="pointer-events-none absolute w-24 -translate-x-1/2 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-graphite"
             style={{
               left: `${(node.x / 520) * 100}%`,
               top: `${(node.y / 460) * 100}%`,
@@ -366,7 +366,7 @@ function InfrastructureFlowVisual() {
         {OUTPUT_NODES.map((node) => (
           <div
             key={`label-${node.key}`}
-            className="pointer-events-none absolute w-24 -translate-x-1/2 text-center font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-graphite"
+            className="pointer-events-none absolute w-24 -translate-x-1/2 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-graphite"
             style={{
               left: `${(node.x / 520) * 100}%`,
               top: `${(node.y / 460) * 100}%`,
@@ -379,7 +379,7 @@ function InfrastructureFlowVisual() {
       </div>
 
       {/* PANEL FOOTER */}
-      <div className="relative flex items-center justify-between border-t border-black/10 px-6 py-4 font-mono text-[11px] uppercase tracking-[0.2em] text-graphite md:px-8">
+      <div className="relative flex items-center justify-between border-t border-black/10 px-6 py-4 text-[11px] uppercase tracking-[0.2em] text-graphite md:px-8">
         <span>Digital Transformation</span>
         <span className="text-brand">High-Density Compute</span>
       </div>

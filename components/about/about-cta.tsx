@@ -53,7 +53,7 @@ export function AboutCta() {
 
       <div className="relative mx-auto max-w-[1440px] px-6 text-center md:px-12 lg:px-16">
         <RevealOnScroll direction="up">
-          <span className="mb-6 inline-flex items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.28em] text-paper/50">
+          <span className="mb-6 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-paper/50">
             <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulse" />
             Let&apos;s Build Together
           </span>

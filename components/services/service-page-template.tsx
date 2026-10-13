@@ -164,7 +164,7 @@ export function ServicePageTemplate({
                     </span>
                     <div>
                       <div className="flex items-baseline gap-3">
-                        <span className="font-mono text-xs font-semibold text-brand">
+                        <span className="text-xs font-semibold text-brand">
                           {step.index}
                         </span>
                         <h3 className="text-base font-bold tracking-tight">

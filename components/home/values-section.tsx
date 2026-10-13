@@ -84,7 +84,7 @@ export function ValuesSection() {
               <span className="h-1.5 w-1.5 rounded-full bg-brand" />
               Our Philosophy
             </span>
-            <h2 className="font-sans text-[13vw] font-bold uppercase leading-[0.94] tracking-tight sm:text-[9vw] md:text-[5.2vw] lg:text-[4.4rem]">
+            <h2 className="text-[13vw] font-bold uppercase leading-[0.94] tracking-tight sm:text-[9vw] md:text-[5.2vw] lg:text-[4.4rem]">
               <RotatingHeadline />
             </h2>
           </motion.div>

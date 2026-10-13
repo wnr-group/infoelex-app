@@ -135,7 +135,7 @@ export function SolutionsSection() {
               {/* CONTENT */}
               <div className="relative flex h-full flex-col justify-between p-5 md:p-6">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-paper/60">
+                  <span className="text-xs font-semibold uppercase tracking-[0.24em] text-paper/60">
                     {solution.index}
                   </span>
                   <span className="h-1.5 w-1.5 rounded-full bg-brand opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
