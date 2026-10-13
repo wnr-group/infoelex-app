@@ -78,7 +78,7 @@ export function WhySection() {
                 aria-hidden="true"
                 className="bg-blueprint mt-12 hidden aspect-[4/3] max-w-md overflow-hidden border border-hairline bg-canvas-2 lg:block"
               >
-                <IsoScene scene="switchgear" className="h-full w-full p-8" />
+                <IsoScene scene="grid" className="h-full w-full p-3" />
               </div>
             </Reveal>
           </div>

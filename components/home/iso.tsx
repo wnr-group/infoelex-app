@@ -469,6 +469,46 @@ function Building() {
   );
 }
 
+function GridCampus() {
+  const hall = { x: 8.2, y: 5.4, z: 0, w: 3.6, d: 3, h: 2 };
+  const ctrl = { x: 8, y: 1.2, z: 0, w: 3, d: 2.4, h: 1.6 };
+  return (
+    <>
+      <Slab w={13} d={11}>
+        <Cable d={path([4.1, 5.35], [5.3, 5.35])} />
+        <Cable d={path([4.1, 7.15], [5.3, 7.15])} />
+        <Cable d={path([5.3, 4.4], [9.5, 4.4], [9.5, 3.6])} />
+        <Cable d={path([5.3, 6.2], [8.2, 6.2])} />
+        <Cable d={path([5.3, 7.8], [5.3, 9])} />
+      </Slab>
+      <Pylon x={1.2} y={2.4} />
+      <Transformer x={2.2} y={4.6} />
+      <Box {...ctrl}>
+        <Box x={8.4} y={1.5} z={1.6} w={0.9} d={0.9} h={0.3} {...RED} />
+        <LF b={ctrl} u0={0.12} v0={0.4} u1={0.88} v1={0.4} opacity={0.6} />
+        <LF b={ctrl} u0={0.12} v0={0.7} u1={0.88} v1={0.7} opacity={0.6} />
+        <LF b={ctrl} u0={0} v0={0.94} u1={1} v1={0.94} stroke={C.red} width={1.5} />
+      </Box>
+      <Transformer x={2.2} y={6.4} />
+      <Gantry x={5.2} y0={4.2} y1={7.8} />
+      {[1.8, 4.2, 6.6].map((x) => (
+        <BessUnit key={x} x={x} y={9} w={2.2} />
+      ))}
+      <Box {...hall}>
+        {[0.2, 0.42, 0.64].map((v) => (
+          <LF key={v} b={hall} u0={0.04} v0={v} u1={0.96} v1={v} opacity={0.8} />
+        ))}
+        {[0.2, 0.4, 0.6, 0.8].map((u) => (
+          <LF key={u} b={hall} u0={u} v0={0.08} u1={u} v1={0.92} opacity={0.35} />
+        ))}
+        <LF b={hall} u0={0} v0={0.93} u1={1} v1={0.93} stroke={C.red} width={1.6} />
+        <Box x={8.7} y={5.9} z={2} w={1} d={1} h={0.4} top="#FAFAF9" />
+        <Box x={10.2} y={5.9} z={2} w={1} d={1} h={0.4} top="#FAFAF9" />
+      </Box>
+    </>
+  );
+}
+
 const SCENES: Record<SceneKey, { Comp: () => React.JSX.Element; vb: string }> = {
   datacenter: { Comp: () => <DataCenter />, vb: "205 130 640 450" },
   bess: { Comp: () => <Bess />, vb: "235 170 630 420" },
@@ -480,6 +520,7 @@ const SCENES: Record<SceneKey, { Comp: () => React.JSX.Element; vb: string }> = 
   hydrogen: { Comp: () => <Hydrogen />, vb: "235 180 600 390" },
   shipping: { Comp: () => <Shipping />, vb: "258 170 560 370" },
   building: { Comp: () => <Building />, vb: "232 105 580 450" },
+  grid: { Comp: () => <GridCampus />, vb: "205 105 630 475" },
 };
 
 /** Isometric grey/white infrastructure illustration with red accents. */

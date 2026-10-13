@@ -10,7 +10,8 @@ export type SceneKey =
   | "water"
   | "hydrogen"
   | "shipping"
-  | "building";
+  | "building"
+  | "grid";
 
 export const SERVICES: {
   title: string;
