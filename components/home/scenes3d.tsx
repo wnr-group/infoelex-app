@@ -2,7 +2,7 @@
 
 import { Edges, Line } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import type { SceneKey } from "./content";
 
@@ -81,13 +81,18 @@ function drawSolar(): HTMLCanvasElement {
 }
 
 function useCanvasTexture(make: () => HTMLCanvasElement) {
-  return useMemo(() => {
+  const texture = useMemo(() => {
     const t = new THREE.CanvasTexture(make());
     t.colorSpace = THREE.SRGBColorSpace;
     t.anisotropy = 4;
     return t;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Materials do not dispose their maps, so release the texture when its owner unmounts.
+  useEffect(() => () => texture.dispose(), [texture]);
+
+  return texture;
 }
 
 /* ─── Primitives ────────────────────────────────────────────── */

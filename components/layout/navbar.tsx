@@ -249,7 +249,7 @@ export function Navbar() {
                   </div>
                 ) : (
                   <Link
-                    href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
+                    href={item.href === "/" ? (isHome ? "#home" : "/") : item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                     onMouseEnter={() => {
                       clearCloseTimeout();
                       setOpenMenu(null);
@@ -418,7 +418,7 @@ export function Navbar() {
                     </>
                   ) : (
                     <Link
-                      href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
+                      href={item.href === "/" ? (isHome ? "#home" : "/") : item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                       onClick={() => setMobileOpen(false)}
                       className="block py-4 text-base font-semibold text-gray-900 transition-colors active:text-brand sm:text-xl"
                     >

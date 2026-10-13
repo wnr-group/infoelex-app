@@ -51,22 +51,18 @@ export function HeroSection() {
       </div>
 
       {/* ─── Credibility stats ─── */}
-      <motion.dl className="wrap" {...fadeUp(0.7)}>
-        <div className="grid grid-cols-2 lg:grid-cols-4">
-          {STATS.map((s, i) => (
-            <div
-              key={s.label}
-              className={`py-7 pr-4 ${i > 0 ? "lg:border-l lg:border-hairline lg:pl-8" : ""} ${
-                i % 2 === 1 ? "border-l border-hairline pl-5 lg:pl-8" : ""
-              } ${i >= 2 ? "border-t border-hairline lg:border-t-0" : ""}`}
-            >
-              <dd className="font-display text-3xl leading-none text-graphite-950 md:text-4xl">
-                {s.value}
-              </dd>
-              <dt className="mt-2.5 text-[13px] leading-snug text-steel">{s.label}</dt>
-            </div>
-          ))}
-        </div>
+      <motion.dl className="wrap grid grid-cols-2 lg:grid-cols-4" {...fadeUp(0.7)}>
+        {STATS.map((s, i) => (
+          <div
+            key={s.label}
+            className={`flex flex-col-reverse justify-end py-7 pr-4 ${i > 0 ? "lg:border-l lg:border-hairline lg:pl-8" : ""} ${
+              i % 2 === 1 ? "border-l border-hairline pl-5 lg:pl-8" : ""
+            } ${i >= 2 ? "border-t border-hairline lg:border-t-0" : ""}`}
+          >
+            <dt className="mt-2.5 text-[13px] leading-snug text-steel">{s.label}</dt>
+            <dd className="font-display text-3xl leading-none text-graphite-950 md:text-4xl">{s.value}</dd>
+          </div>
+        ))}
       </motion.dl>
     </section>
   );

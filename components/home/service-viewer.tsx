@@ -8,14 +8,14 @@ import type { SceneKey } from "./content";
 import { SCENE_3D } from "./scenes3d";
 
 /** Re-centres the model and eases it in whenever the service changes. */
-function Stage({ scene }: { scene: SceneKey }) {
+function Stage({ scene, reduce }: { scene: SceneKey; reduce: boolean }) {
   const group = useRef<THREE.Group>(null);
-  const t = useRef(0);
+  const t = useRef(reduce ? 1 : 0);
   const { Comp, size } = SCENE_3D[scene];
 
   useEffect(() => {
-    t.current = 0;
-  }, [scene]);
+    t.current = reduce ? 1 : 0;
+  }, [scene, reduce]);
 
   useFrame((_, dt) => {
     const g = group.current;
@@ -70,7 +70,7 @@ export default function ServiceViewer({
         shadow-camera-far={50}
         shadow-bias={-0.0004}
       />
-      <Stage key={scene} scene={scene} />
+      <Stage key={scene} scene={scene} reduce={reduce} />
       <OrbitControls
         makeDefault
         enablePan={false}

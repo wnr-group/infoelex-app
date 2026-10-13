@@ -51,12 +51,12 @@ export function NumbersSection() {
             <Reveal
               key={n.label}
               delay={i * 0.08}
-              className={`min-w-0 ${i > 0 ? "xl:border-l xl:border-hairline xl:pl-8" : ""} ${i % 2 ? "sm:border-l sm:border-hairline sm:pl-8" : ""}`}
+              className={`flex min-w-0 flex-col-reverse justify-end ${i > 0 ? "xl:border-l xl:border-hairline xl:pl-8" : ""} ${i % 2 ? "sm:border-l sm:border-hairline sm:pl-8" : ""}`}
             >
+              <dt className="mt-4 max-w-[15rem] text-[14px] leading-snug text-steel">{n.label}</dt>
               <dd className="font-display text-[clamp(3.25rem,2.2rem+2.6vw,4.75rem)] leading-none text-graphite-950">
                 <CountUp to={n.value} suffix={n.suffix} unit={n.unit} />
               </dd>
-              <dt className="mt-4 max-w-[15rem] text-[14px] leading-snug text-steel">{n.label}</dt>
             </Reveal>
           ))}
         </dl>
