@@ -51,8 +51,6 @@ export function Logo({ floating = false, isDarkBg = false }: { floating?: boolea
     <div
       className={cn(
         "flex max-w-[180px] flex-col leading-none sm:max-w-none",
-        floating && !isDarkBg &&
-          "[text-shadow:-1px_-1px_2px_#fff,1px_-1px_2px_#fff,-1px_1px_2px_#fff,1px_1px_2px_#fff,0_0_10px_rgba(255,255,255,0.95)]",
         floating && isDarkBg &&
           "[text-shadow:0_2px_4px_rgba(0,0,0,0.5)]"
       )}
@@ -189,8 +187,6 @@ export function Navbar() {
           <nav
             className={cn(
               "hidden items-center md:flex",
-              !scrolled && !isDarkBg &&
-                "[filter:drop-shadow(1px_1px_1px_#fff)_drop-shadow(-1px_-1px_1px_#fff)_drop-shadow(0_0_8px_rgba(255,255,255,0.9))]",
               !scrolled && isDarkBg &&
                 "[filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.3))]"
             )}
@@ -298,10 +294,6 @@ export function Navbar() {
                 : isDarkBg
                 ? "text-white hover:text-brand"
                 : "text-gray-800 hover:text-brand",
-              !scrolled &&
-                !mobileOpen &&
-                !isDarkBg &&
-                "[filter:drop-shadow(1px_1px_1px_#fff)_drop-shadow(-1px_-1px_1px_#fff)_drop-shadow(0_0_8px_rgba(255,255,255,0.9))]",
               !scrolled &&
                 !mobileOpen &&
                 isDarkBg &&
