@@ -116,11 +116,11 @@ body {
   --text-display: clamp(3rem, 1.5rem + 6vw, 6.75rem);
   --text-display--line-height: 0.98;
   --text-display--letter-spacing: -0.025em;
-  --text-headline: clamp(2.25rem, 1.4rem + 3.6vw, 4.5rem);
-  --text-headline--line-height: 1.02;
+  --text-headline: clamp(1.875rem, 1.2rem + 2.6vw, 3.25rem);
+  --text-headline--line-height: 1.1;
   --text-headline--letter-spacing: -0.02em;
-  --text-title: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
-  --text-title--line-height: 1.15;
+  --text-title: clamp(1.25rem, 1.05rem + 0.75vw, 1.75rem);
+  --text-title--line-height: 1.25;
   --text-eyebrow: 0.75rem;
   --text-eyebrow--line-height: 1;
   --text-eyebrow--letter-spacing: 0.18em;
@@ -193,6 +193,8 @@ html.has-custom-cursor * {
 }
 
 /* Display headings use the site font (Geist) like every other page */
-.font-display {
-  font-weight: 600;
+@layer base {
+  .font-display {
+    font-weight: 600;
+  }
 }

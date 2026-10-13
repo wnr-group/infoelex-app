@@ -73,7 +73,7 @@ export function ServicesSection() {
                   onPointerEnter={(e) => e.pointerType === "mouse" && setActive(i)}
                   onFocus={() => setActive(i)}
                   onBlur={() => setActive(null)}
-                  className="group grid grid-cols-[auto_1fr_auto] items-start gap-x-5 gap-y-1 py-6 md:grid-cols-[4.5rem_3rem_1fr_auto] md:gap-x-8 md:py-8 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-signal"
+                  className="group grid grid-cols-[auto_1fr_auto] items-start gap-x-5 gap-y-1 py-5 md:grid-cols-[4rem_2.5rem_1fr_auto] md:gap-x-7 md:py-6 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-signal"
                 >
                   <span className="pt-1.5 text-[13px] tabular-nums text-steel md:pt-3">
                     {String(i + 1).padStart(2, "0")}
@@ -84,7 +84,7 @@ export function ServicesSection() {
                     className="hidden h-8 w-8 text-graphite-600 transition-[color,transform] duration-[300ms] ease-signature group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:text-signal md:mt-1.5 md:block"
                   />
                   <div className="min-w-0">
-                    <h3 className="font-display text-title text-graphite-950 transition-transform duration-[300ms] ease-signature group-hover:translate-x-1.5">
+                    <h3 className="font-display text-title font-medium text-graphite-950 transition-transform duration-[300ms] ease-signature group-hover:translate-x-1.5">
                       {s.title}
                     </h3>
                     <div
