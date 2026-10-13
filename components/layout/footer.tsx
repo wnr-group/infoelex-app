@@ -39,7 +39,9 @@ export function Footer() {
   const isHome = pathname === "/";
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-ink text-paper">
+    <footer
+      className={`relative overflow-hidden border-t border-white/10 text-paper ${isHome ? "bg-graphite-950" : "bg-ink"}`}
+    >
       {/* TECHNICAL GRID BACKDROP */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.08]"
@@ -49,9 +51,13 @@ export function Footer() {
           backgroundSize: "64px 64px",
         }}
       />
+      {!isHome && (
       <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[420px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/10 blur-[180px]" />
+      )}
 
-      <div className="mx-auto max-w-[1440px] px-6 pt-20 md:px-10">
+      <div className={isHome ? "wrap pt-20" : "mx-auto max-w-[1440px] px-6 pt-20 md:px-10"}>
+        {!isHome && (
+          <>
         {/* CTA ROW */}
         <RevealOnScroll
           direction="up"
@@ -73,6 +79,9 @@ export function Footer() {
             </span>
           </Link>
         </RevealOnScroll>
+
+          </>
+        )}
 
         <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-12">
           <div className="md:col-span-5">
@@ -121,7 +130,9 @@ export function Footer() {
               >
                 <span>WnR Groups</span>
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand/65 opacity-75 duration-1000" />
+                  {!isHome && (
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand/65 opacity-75 duration-1000" />
+                  )}
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
                 </span>
               </a>

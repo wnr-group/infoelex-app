@@ -163,9 +163,11 @@ export function Navbar() {
       <header
         ref={headerRef}
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300",
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
           scrolled
-            ? "bg-white shadow-md"
+            ? isHome
+              ? "border-b border-hairline bg-canvas/75 shadow-none backdrop-blur-xl"
+              : "bg-white shadow-md"
             : "bg-transparent shadow-none"
         )}
         onMouseEnter={clearCloseTimeout}
