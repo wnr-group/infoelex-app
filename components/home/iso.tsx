@@ -213,21 +213,31 @@ function SolarTable({ x, y, w = 2.4, d = 1.2 }: { x: number; y: number; w?: numb
   );
 }
 
-/** Static wind turbine (blades at fixed angles, no motion). */
-function Turbine({ x, y }: { x: number; y: number }) {
+/** Wind turbine with tapered blades that turn slowly (CSS-driven; stops for reduced motion). */
+function Turbine({ x, y, duration = 8, offset = 0 }: { x: number; y: number; duration?: number; offset?: number }) {
   const [bx, by] = P(x, y, 0);
   const [hx, hy] = P(x, y, 5.2);
-  const blades = [-90, 30, 150].map((deg) => {
-    const rad = (deg * Math.PI) / 180;
-    return [hx + Math.cos(rad) * 62, hy + Math.sin(rad) * 62];
-  });
   return (
     <g>
       <polygon points={`${bx - 3.2},${by} ${bx + 3.2},${by} ${hx + 1.4},${hy} ${hx - 1.4},${hy}`} fill={C.top} stroke={C.edge} strokeWidth={0.7} />
-      {blades.map(([ex, ey], i) => (
-        <line key={i} x1={hx} y1={hy} x2={ex} y2={ey} stroke={C.edge} strokeWidth={2.2} strokeLinecap="round" />
-      ))}
-      <circle cx={hx} cy={hy} r={3.2} fill={C.red} />
+      <g transform={`translate(${hx} ${hy})`}>
+        <g className="turbine-rotor" style={{ animationDuration: `${duration}s`, animationDelay: `-${offset}s` }}>
+          {/* invisible disc keeps the rotor's bounding box centred on the hub */}
+          <circle r={64} fill="none" />
+          {[0, 120, 240].map((a) => (
+            <path
+              key={a}
+              transform={`rotate(${a})`}
+              d="M-2.6 0 L-0.7 -62 L1 -62 L2.8 0 Z"
+              fill={C.top}
+              stroke={C.edge}
+              strokeWidth={0.7}
+              strokeLinejoin="round"
+            />
+          ))}
+        </g>
+        <circle r={3.6} fill={C.red} />
+      </g>
     </g>
   );
 }
@@ -311,8 +321,8 @@ function Renewable() {
       <Slab w={14} d={11}>
         <Cable d={path([2, 4.2], [12.6, 4.2], [12.6, 1.8])} />
       </Slab>
-      <Turbine x={3} y={1.4} />
-      <Turbine x={7.4} y={1.4} />
+      <Turbine x={3} y={1.4} duration={7} offset={0} />
+      <Turbine x={7.4} y={1.4} duration={8.5} offset={3} />
       <Box x={11.4} y={0.6} w={2} d={1.8} h={1.2}>
         <Box x={11.7} y={0.9} z={1.2} w={0.6} d={0.6} h={0.3} {...RED} />
       </Box>

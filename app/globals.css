@@ -200,3 +200,21 @@ html.has-custom-cursor * {
     font-weight: 600;
   }
 }
+
+/* Wind turbine rotors in the isometric illustrations */
+@keyframes turbine-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.turbine-rotor {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: turbine-spin 8s linear infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .turbine-rotor {
+    animation: none;
+  }
+}
