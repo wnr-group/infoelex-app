@@ -61,7 +61,7 @@ export function SustainableSection() {
           <RevealOnScroll direction="up" delay={0.15} className="max-w-xl">
             {/* Eyebrow */}
             <p className="mb-4 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.25em] text-white/70">
-              <span className="h-px w-6 bg-[#b91c1c]" />
+              <span className="h-px w-6 bg-brand" />
               Committed to a Sustainable Future
             </p>
 

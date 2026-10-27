@@ -34,7 +34,7 @@ export function CsrCta() {
           </p>
           <a
             href="/contact"
-            className="mt-9 inline-flex items-center gap-2 bg-[#b91c1c] px-6 py-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
+            className="mt-9 inline-flex items-center gap-2 bg-brand px-6 py-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
           >
             Get in Touch
             <span className="text-base leading-none">→</span>
