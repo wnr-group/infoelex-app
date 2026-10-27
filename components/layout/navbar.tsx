@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -38,6 +39,7 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
+  { label: "Home", href: "/" },
   { label: "Sectors", href: "#sector", mega: SECTORS_MENU },
   { label: "Services", href: "#services", mega: SERVICES_MENU },
   { label: "About Us", href: "/about" },
@@ -49,8 +51,6 @@ export function Logo({ floating = false, isDarkBg = false }: { floating?: boolea
     <div
       className={cn(
         "flex max-w-[180px] flex-col leading-none sm:max-w-none",
-        floating && !isDarkBg &&
-          "[text-shadow:-1px_-1px_2px_#fff,1px_-1px_2px_#fff,-1px_1px_2px_#fff,1px_1px_2px_#fff,0_0_10px_rgba(255,255,255,0.95)]",
         floating && isDarkBg &&
           "[text-shadow:0_2px_4px_rgba(0,0,0,0.5)]"
       )}
@@ -102,8 +102,8 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = NAV_ITEMS.filter((item) => item.href.startsWith("#"))
-      .map((item) => document.querySelector(item.href))
+    const sections = ["#home", ...NAV_ITEMS.filter((item) => item.href.startsWith("#")).map((item) => item.href)]
+      .map((href) => document.querySelector(href))
       .filter((el): el is Element => el !== null);
 
     if (sections.length === 0) return;
@@ -162,9 +162,11 @@ export function Navbar() {
       <header
         ref={headerRef}
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300",
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
           scrolled
-            ? "bg-white shadow-md"
+            ? isHome
+              ? "border-b border-hairline bg-canvas/75 shadow-none backdrop-blur-xl"
+              : "bg-white shadow-md"
             : "bg-transparent shadow-none"
         )}
         onMouseEnter={clearCloseTimeout}
@@ -173,20 +175,18 @@ export function Navbar() {
         <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14 xl:px-16">
 
           {/* LOGO */}
-          <a
+          <Link
             href={isHome ? "#home" : "/"}
             className="flex-shrink-0"
             aria-label="Infoelex home"
           >
             <Logo floating={!scrolled} isDarkBg={isDarkBg} />
-          </a>
+          </Link>
 
           {/* DESKTOP NAV */}
           <nav
             className={cn(
               "hidden items-center md:flex",
-              !scrolled && !isDarkBg &&
-                "[filter:drop-shadow(1px_1px_1px_#fff)_drop-shadow(-1px_-1px_1px_#fff)_drop-shadow(0_0_8px_rgba(255,255,255,0.9))]",
               !scrolled && isDarkBg &&
                 "[filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.3))]"
             )}
@@ -221,7 +221,7 @@ export function Navbar() {
                       }
                       className={cn(
                         "flex items-center gap-1 px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
-                        (active === item.href || pathname === item.href)
+                        (item.href === "/" ? pathname === "/" && active === "#home" : active === item.href || pathname === item.href)
                           ? "text-brand"
                           : isDarkBg
                           ? "text-white/90 hover:text-brand"
@@ -248,15 +248,15 @@ export function Navbar() {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <a
-                    href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
+                  <Link
+                    href={item.href === "/" ? (isHome ? "#home" : "/") : item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                     onMouseEnter={() => {
                       clearCloseTimeout();
                       setOpenMenu(null);
                     }}
                     className={cn(
                       "relative px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
-                      (active === item.href || pathname === item.href)
+                      (item.href === "/" ? pathname === "/" && active === "#home" : active === item.href || pathname === item.href)
                         ? "text-brand"
                         : isDarkBg
                         ? "text-white/90 hover:text-brand"
@@ -264,7 +264,7 @@ export function Navbar() {
                     )}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}
@@ -272,13 +272,13 @@ export function Navbar() {
 
           {/* CTA BUTTON */}
           <div className="hidden md:block">
-            <a
+            <Link
               href="/contact"
               className="inline-flex items-center gap-2 bg-brand px-5 py-2.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
             >
               Get in Touch
               <span className="text-base leading-none">→</span>
-            </a>
+            </Link>
           </div>
 
           {/* MOBILE HAMBURGER */}
@@ -294,10 +294,6 @@ export function Navbar() {
                 : isDarkBg
                 ? "text-white hover:text-brand"
                 : "text-gray-800 hover:text-brand",
-              !scrolled &&
-                !mobileOpen &&
-                !isDarkBg &&
-                "[filter:drop-shadow(1px_1px_1px_#fff)_drop-shadow(-1px_-1px_1px_#fff)_drop-shadow(0_0_8px_rgba(255,255,255,0.9))]",
               !scrolled &&
                 !mobileOpen &&
                 isDarkBg &&
@@ -341,13 +337,13 @@ export function Navbar() {
             className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white md:hidden"
           >
             <div className="relative flex h-16 items-center justify-between border-b border-gray-100 px-6">
-              <a
+              <Link
                 href={isHome ? "#home" : "/"}
                 onClick={() => setMobileOpen(false)}
                 aria-label="Infoelex home"
               >
                 <Logo />
-              </a>
+              </Link>
 
               <button
                 type="button"
@@ -406,14 +402,14 @@ export function Navbar() {
                           >
                             <div className="flex flex-col gap-4 pb-6 pl-9">
                               {item.mega.map((sub) => (
-                                <a
+                                <Link
                                   key={sub.title}
                                   href={sub.href}
                                   onClick={() => setMobileOpen(false)}
                                   className="text-base font-medium text-gray-600 transition-colors active:text-brand"
                                 >
                                   {sub.title}
-                                </a>
+                                </Link>
                               ))}
                             </div>
                           </motion.div>
@@ -421,13 +417,13 @@ export function Navbar() {
                       </AnimatePresence>
                     </>
                   ) : (
-                    <a
-                      href={item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
+                    <Link
+                      href={item.href === "/" ? (isHome ? "#home" : "/") : item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
                       onClick={() => setMobileOpen(false)}
                       className="block py-4 text-base font-semibold text-gray-900 transition-colors active:text-brand sm:text-xl"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   )}
                 </motion.div>
               ))}
@@ -439,14 +435,14 @@ export function Navbar() {
               transition={{ duration: 0.55, delay: 0.55, ease: EASE }}
               className="relative px-6 pb-10"
             >
-              <a
+              <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
                 className="flex w-full items-center justify-center gap-2 rounded-[4px] border border-brand bg-brand px-6 py-4 text-base font-semibold text-white"
               >
                 Let&apos;s Talk
                 <span>→</span>
-              </a>
+              </Link>
             </motion.div>
           </motion.div>
         )}

@@ -87,7 +87,7 @@ function InitiativeCard({
         <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brand/30 bg-brand/10 text-brand">
           <Icon className="h-5 w-5" strokeWidth={1.75} />
         </span>
-        <span className="font-mono text-xs font-semibold text-brand/60">
+        <span className="text-xs font-semibold text-brand/60">
           {initiative.index}
         </span>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { RevealOnScroll } from "@/components/ui/reveal-on-scroll";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Logo } from "@/components/layout/navbar";
@@ -16,20 +17,20 @@ const NAV_LINKS = [
 ];
 
 const LEGAL_LINKS = [
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms", href: "#" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms", href: "/terms" },
 ];
 
 function FooterLink({ label, href, isHome }: { label: string; href: string; isHome: boolean }) {
   const resolvedHref = href.startsWith("#") ? (isHome ? href : `/${href}`) : href;
   return (
-    <a
+    <Link
       href={resolvedHref}
       className="group inline-flex w-fit items-center gap-2.5 text-sm text-paper/75 transition-colors duration-300 hover:text-paper"
     >
       <span className="h-px w-3 bg-white/20 transition-all duration-300 ease-out group-hover:w-5 group-hover:bg-brand" />
       {label}
-    </a>
+    </Link>
   );
 }
 
@@ -38,7 +39,9 @@ export function Footer() {
   const isHome = pathname === "/";
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-ink text-paper">
+    <footer
+      className="relative overflow-hidden border-t border-white/10 bg-slate-deep text-paper"
+    >
       {/* TECHNICAL GRID BACKDROP */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.08]"
@@ -48,9 +51,13 @@ export function Footer() {
           backgroundSize: "64px 64px",
         }}
       />
+      {!isHome && (
       <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[420px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/10 blur-[180px]" />
+      )}
 
-      <div className="mx-auto max-w-[1440px] px-6 pt-20 md:px-10">
+      <div className={isHome ? "wrap pt-20" : "mx-auto max-w-[1440px] px-6 pt-20 md:px-10"}>
+        {!isHome && (
+          <>
         {/* CTA ROW */}
         <RevealOnScroll
           direction="up"
@@ -62,7 +69,7 @@ export function Footer() {
               Ready to power your next deployment?
             </h2>
           </div>
-          <a
+          <Link
             href="/contact"
             className="group relative inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-[4px] border border-brand bg-brand px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-transparent hover:text-brand"
           >
@@ -70,15 +77,18 @@ export function Footer() {
             <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
-          </a>
+          </Link>
         </RevealOnScroll>
+
+          </>
+        )}
 
         <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-12">
           <div className="md:col-span-5">
-            <a href={isHome ? "#home" : "/"} className="inline-block" aria-label="Infoelex home">
+            <Link href={isHome ? "#home" : "/"} className="inline-block" aria-label="Infoelex home">
               <Logo isDarkBg />
-            </a>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-graphite">
+            </Link>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-paper/70">
               Thinking Beyond.
               <br />
               Thinking Future.
@@ -106,7 +116,7 @@ export function Footer() {
 
         {/* BOTTOM SECTION */}
         <div className="mt-8 border-t border-white/10 py-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm text-graphite">
+          <div className="flex flex-col gap-4 text-sm text-paper/70 md:flex-row md:items-center md:justify-between">
             <p className="order-2 md:order-1 opacity-80">
               © {new Date().getFullYear()} Infoelex. All rights reserved.
             </p>
@@ -120,7 +130,9 @@ export function Footer() {
               >
                 <span>WnR Groups</span>
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand/65 opacity-75 duration-1000" />
+                  {!isHome && (
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand/65 opacity-75 duration-1000" />
+                  )}
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
                 </span>
               </a>

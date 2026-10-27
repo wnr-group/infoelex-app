@@ -1,13 +1,22 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ElementType } from "react";
 
 type Trigger = "mount" | "inView";
 
+const MOTION_TAGS = {
+  span: motion.span,
+  div: motion.div,
+  p: motion.p,
+  h1: motion.h1,
+  h2: motion.h2,
+  h3: motion.h3,
+  h4: motion.h4,
+} as const;
+
 export function AnimatedText({
   text,
-  as: Component = "span",
+  as: tag = "span",
   className,
   delay = 0,
   stagger = 0.055,
@@ -15,7 +24,7 @@ export function AnimatedText({
   once = true,
 }: {
   text: string;
-  as?: ElementType;
+  as?: keyof typeof MOTION_TAGS;
   className?: string;
   delay?: number;
   stagger?: number;
@@ -23,6 +32,7 @@ export function AnimatedText({
   once?: boolean;
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const MotionComponent = MOTION_TAGS[tag];
   const lines = text.split("\n");
 
   const viewportProps =
@@ -31,7 +41,6 @@ export function AnimatedText({
       : { initial: "hidden", animate: "visible" };
 
   if (shouldReduceMotion) {
-    const MotionComponent = motion.create(Component);
     return (
       <MotionComponent
         className={className}
@@ -44,7 +53,6 @@ export function AnimatedText({
     );
   }
 
-  const MotionComponent = motion.create(Component);
   let wordIndex = 0;
 
   return (

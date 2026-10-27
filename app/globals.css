@@ -36,7 +36,7 @@
   --color-offwhite: var(--color-offwhite);
 
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-geist-sans);
 
   --animate-marquee: marquee 32s linear infinite;
 }
@@ -52,7 +52,8 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* clip (not hidden) so sticky sections keep working */
+  overflow-x: clip;
   max-width: 100vw;
 }
 
@@ -97,97 +98,123 @@ body {
   }
 }
 
-/* ─── Infoelex Solutions cards: grouped reveal, one choreography ─── */
-.io-solutions-card {
-  opacity: 0;
+/* ══════════════════════════════════════════════════════════════
+   Homepage v2 — design tokens (editorial engineering palette)
+   ══════════════════════════════════════════════════════════════ */
+@theme {
+  --color-canvas: #f6f6f4;
+  --color-canvas-2: #ededea;
+  --color-hairline: rgba(21, 23, 26, 0.12);
+  --color-graphite-950: #15171a;
+  --color-graphite-800: #24272b;
+  --color-graphite-600: #4a4f56;
+  --color-steel: #6b7078;
+  --color-slate-blue: #7c8a99;
+  --color-slate-deep: #2b323b;
+  --color-signal: #c8281a;
+  --color-signal-deep: #a8210f;
+
+  --font-display: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --text-display: clamp(3rem, 1.5rem + 6vw, 6.75rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.025em;
+  --text-headline: clamp(1.875rem, 1.2rem + 2.6vw, 3.25rem);
+  --text-headline--line-height: 1.1;
+  --text-headline--letter-spacing: -0.02em;
+  --text-title: clamp(1.25rem, 1.05rem + 0.75vw, 1.75rem);
+  --text-title--line-height: 1.25;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.18em;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --shadow-hair: 0 0 0 1px rgba(21, 23, 26, 0.08);
+  --shadow-lift: 0 18px 40px -24px rgba(21, 23, 26, 0.35);
+
+  --ease-signature: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.io-solutions-card[data-pos="mid"] {
-  transform: scale(1.9);
-}
-.io-solutions-card[data-pos="left"] {
-  transform: translateX(-120%);
-}
-.io-solutions-card[data-pos="right"] {
-  transform: translateX(120%);
+:root {
+  --space-section: clamp(6rem, 4rem + 8vw, 11rem);
+  --space-gutter: clamp(1.25rem, 4vw, 2.5rem);
 }
 
-.io-solutions.is-visible .io-solutions-card[data-pos="mid"] {
-  animation: io-solutions-zoom 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  will-change: transform, opacity;
-}
-.io-solutions.is-visible .io-solutions-card[data-pos="left"] {
-  animation: io-solutions-slide-left 700ms cubic-bezier(0.22, 1, 0.36, 1) 350ms forwards;
-  will-change: transform, opacity;
-}
-.io-solutions.is-visible .io-solutions-card[data-pos="right"] {
-  animation: io-solutions-slide-right 700ms cubic-bezier(0.22, 1, 0.36, 1) 350ms forwards;
-  will-change: transform, opacity;
+@utility wrap {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
 }
 
-@keyframes io-solutions-zoom {
-  from {
-    opacity: 0;
-    transform: scale(1.9);
+@utility bg-blueprint {
+  background-image:
+    linear-gradient(to right, rgba(21, 23, 26, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21, 23, 26, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@utility bg-blueprint-dark {
+  background-image:
+    linear-gradient(to right, rgba(246, 246, 244, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(246, 246, 244, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Custom cursor: hide the native one only while the homepage cursor is active */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* Pinned scroll sections: pinned markup only on wide screens without reduced motion; stacked otherwise.
+   Pure CSS so React never has to add/remove DOM that GSAP has wrapped. */
+.pin-only {
+  display: none;
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .pin-only {
+    display: block;
   }
+  .stack-only {
+    display: none;
+  }
+}
+
+/* Display headings use the site font (Geist) like every other page */
+@layer base {
+  .font-display {
+    font-weight: 600;
+  }
+}
+
+/* Wind turbine rotors in the isometric illustrations */
+@keyframes turbine-spin {
   to {
-    opacity: 1;
-    transform: scale(1);
+    transform: rotate(360deg);
   }
 }
-@keyframes io-solutions-slide-left {
-  from {
-    opacity: 0;
-    transform: translateX(-120%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.turbine-rotor {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: turbine-spin 8s linear infinite;
+  will-change: transform;
 }
-@keyframes io-solutions-slide-right {
-  from {
-    opacity: 0;
-    transform: translateX(120%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Mobile: stacked layout degrades to a simple fade-up, no zoom/slide choreography. */
-@media (max-width: 767px) {
-  .io-solutions-card[data-pos="mid"],
-  .io-solutions-card[data-pos="left"],
-  .io-solutions-card[data-pos="right"] {
-    transform: translateY(16px);
-  }
-  .io-solutions.is-visible .io-solutions-card[data-pos="mid"],
-  .io-solutions.is-visible .io-solutions-card[data-pos="left"],
-  .io-solutions.is-visible .io-solutions-card[data-pos="right"] {
-    animation-name: io-solutions-fade-up;
-    animation-delay: 0ms;
-  }
-  @keyframes io-solutions-fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .io-solutions-card,
-  .io-solutions-card[data-pos="mid"],
-  .io-solutions-card[data-pos="left"],
-  .io-solutions-card[data-pos="right"] {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
+  .turbine-rotor {
+    animation: none;
   }
 }
