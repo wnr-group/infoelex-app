@@ -5,6 +5,8 @@ import type { ReactNode } from "react";
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
 
+const MOTION_TAGS = { button: motion.button, a: motion.a } as const;
+
 export function MagneticButton({
   children,
   className,
@@ -43,7 +45,7 @@ export function MagneticButton({
     y.set(0);
   }
 
-  const MotionTag = motion.create(Tag);
+  const MotionTag = MOTION_TAGS[Tag];
 
   return (
     <motion.div

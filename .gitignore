@@ -44,3 +44,5 @@ next-env.d.ts
 .claude/settings.local.json
 
 # /public/hero-video.mp4
+# local tooling
+.claude/
