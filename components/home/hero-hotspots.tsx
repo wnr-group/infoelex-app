@@ -125,7 +125,7 @@ export function HeroHotspots() {
                 {/* idle pulse ring */}
                 {!shouldReduceMotion && (
                   <motion.span
-                    className="absolute h-9 w-9 rounded-full border border-brand/50"
+                    className="absolute h-9 w-9 rounded-full border border-white/70"
                     animate={{
                       scale: [1, 1.6, 1],
                       opacity: [0.5, 0, 0.5],
@@ -141,45 +141,36 @@ export function HeroHotspots() {
 
                 {/* glow */}
                 <motion.span
-                  className="absolute h-10 w-10 rounded-full bg-brand blur-md"
-                  animate={{ opacity: isActive ? 0.55 : 0.2 }}
+                  className="absolute h-10 w-10 rounded-full bg-white blur-md"
+                  animate={{ opacity: isActive ? 0.5 : 0.25 }}
                   transition={{ duration: 0.4, ease: EASE }}
                 />
 
-                {/* outer thin ring */}
+                {/* outer white ring */}
                 <motion.span
-                  className="absolute rounded-full border border-brand/60"
+                  className="absolute rounded-full border-2 border-white shadow-[0_0_10px_rgba(223,44,28,0.6)]"
                   animate={{
-                    width: isActive ? 36 : 28,
-                    height: isActive ? 36 : 28,
-                    borderColor: isActive
-                      ? "rgba(223,44,28,0.9)"
-                      : "rgba(223,44,28,0.55)",
+                    width: isActive ? 42 : 36,
+                    height: isActive ? 42 : 36,
+                    opacity: isActive ? 1 : 0.9,
                   }}
                   transition={{ duration: 0.35, ease: EASE }}
                 />
 
-                {/* dark translucent center */}
+                {/* solid brand-red core, framed by the white ring */}
                 <motion.span
-                  className="absolute rounded-full bg-ink/70 backdrop-blur-[2px]"
+                  className="absolute rounded-full border-2 border-white bg-brand"
                   animate={{
-                    width: isActive ? 26 : 20,
-                    height: isActive ? 26 : 20,
+                    width: isActive ? 32 : 28,
+                    height: isActive ? 32 : 28,
                   }}
                   transition={{ duration: 0.35, ease: EASE }}
                 />
 
-                {/* small concentric ring */}
+                {/* white center dot */}
                 <motion.span
-                  className="absolute rounded-full border border-brand/70"
-                  animate={{ width: isActive ? 16 : 12, height: isActive ? 16 : 12 }}
-                  transition={{ duration: 0.35, ease: EASE }}
-                />
-
-                {/* center dot */}
-                <motion.span
-                  className="absolute h-1.5 w-1.5 rounded-full bg-brand"
-                  animate={{ scale: isActive ? 1.3 : 1 }}
+                  className="absolute h-3 w-3 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)]"
+                  animate={{ scale: isActive ? 1.25 : 1 }}
                   transition={{ duration: 0.35, ease: EASE }}
                 />
               </button>
