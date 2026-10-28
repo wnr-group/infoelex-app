@@ -1,6 +1,7 @@
 import { CasesSection } from "@/components/home/cases-section";
 import { ClosingCta } from "@/components/home/closing-cta";
 import { ExpertiseSection } from "@/components/home/expertise-section";
+import { FieldSection } from "@/components/home/field-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { HomeShell } from "@/components/home/home-shell";
 import { NumbersSection } from "@/components/home/numbers-section";
@@ -16,6 +17,7 @@ export default function CustomerPage() {
       <TrustStrip />
       <ServicesSection />
       <ExpertiseSection />
+      <FieldSection />
       <ProcessSection />
       <WhySection />
       <NumbersSection />
