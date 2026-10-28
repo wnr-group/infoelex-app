@@ -48,25 +48,15 @@ const NAV_ITEMS: NavItem[] = [
 
 export function Logo({ floating = false, isDarkBg = false }: { floating?: boolean; isDarkBg?: boolean }) {
   return (
-    <div
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/logo.svg"
+      alt="Infoelex Private Limited"
       className={cn(
-        "flex max-w-[180px] flex-col leading-none sm:max-w-none",
-        floating && isDarkBg &&
-          "[text-shadow:0_2px_4px_rgba(0,0,0,0.5)]"
+        "h-10 w-auto sm:h-11 md:h-12",
+        floating && isDarkBg && "drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
       )}
-    >
-      <span className="text-[21px] font-extrabold italic tracking-tight text-brand sm:text-[26px] md:text-[29px]">
-        Infoelex
-      </span>
-      <span
-        className={cn(
-          "truncate text-[8px] font-medium tracking-wide sm:text-[10px] md:text-[11px]",
-          isDarkBg ? "text-gray-400" : "text-gray-500"
-        )}
-      >
-        Information Electrical Technologies (IET)
-      </span>
-    </div>
+    />
   );
 }
 
