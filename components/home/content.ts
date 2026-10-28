@@ -44,7 +44,7 @@ export const SERVICES: {
     scene: "datacenter",
   },
   {
-    title: "PQ Solutions",
+    title: "End-to-End Power Generation, Transmission & Distribution",
     blurb: "Harmonic, flicker and voltage-quality assessment with filtering and compensation design.",
     href: "/services/power-quality",
     scene: "switchgear",
@@ -56,7 +56,7 @@ export const SERVICES: {
     scene: "industrial",
   },
   {
-    title: "Steel & Cement",
+    title: "PQ Solution",
     blurb: "Power and automation engineering for heavy loads, furnaces, drives and captive generation.",
     href: "/sectors/industrial",
     scene: "industrial",

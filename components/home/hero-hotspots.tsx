@@ -37,13 +37,13 @@ const HOTSPOTS: Hotspot[] = [
     id: "steel-cement",
     top: 72.3,
     left: 14.9,
-    title: "Steel & Cement",
+    title: "PQ Solution",
   },
   {
     id: "pq-solution",
     top: 52.9,
     left: 21.3,
-    title: "PQ Solution",
+    title: "End-to-End Power Generation, Transmission & Distribution",
   },
   {
     id: "water-treatment",
@@ -79,7 +79,7 @@ const HOTSPOTS: Hotspot[] = [
     id: "power-generation-transmission-distribution",
     top: 16.8,
     left: 78.4,
-    title: "Power Generation, Transmission & Distribution",
+    title: "Hydropower & Dams",
   },
 ];
 

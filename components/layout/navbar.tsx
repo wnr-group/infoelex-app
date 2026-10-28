@@ -48,25 +48,15 @@ const NAV_ITEMS: NavItem[] = [
 
 export function Logo({ floating = false, isDarkBg = false }: { floating?: boolean; isDarkBg?: boolean }) {
   return (
-    <div
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={isDarkBg ? "/logo-light.svg" : "/logo.svg"}
+      alt="Infoelex Private Limited"
       className={cn(
-        "flex max-w-[180px] flex-col leading-none sm:max-w-none",
-        floating && isDarkBg &&
-          "[text-shadow:0_2px_4px_rgba(0,0,0,0.5)]"
+        "h-10 w-auto sm:h-11 md:h-[52px]",
+        floating && isDarkBg && "drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
       )}
-    >
-      <span className="text-[21px] font-extrabold italic tracking-tight text-brand sm:text-[26px] md:text-[29px]">
-        Infoelex
-      </span>
-      <span
-        className={cn(
-          "truncate text-[8px] font-medium tracking-wide sm:text-[10px] md:text-[11px]",
-          isDarkBg ? "text-gray-400" : "text-gray-500"
-        )}
-      >
-        Information Electrical Technologies (IET)
-      </span>
-    </div>
+    />
   );
 }
 
@@ -172,7 +162,7 @@ export function Navbar() {
         onMouseEnter={clearCloseTimeout}
         onMouseLeave={scheduleClose}
       >
-        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14 xl:px-16">
+        <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14 xl:px-16">
 
           {/* LOGO */}
           <Link
@@ -336,7 +326,7 @@ export function Navbar() {
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white md:hidden"
           >
-            <div className="relative flex h-16 items-center justify-between border-b border-gray-100 px-6">
+            <div className="relative flex h-20 items-center justify-between border-b border-gray-100 px-6">
               <Link
                 href={isHome ? "#home" : "/"}
                 onClick={() => setMobileOpen(false)}
