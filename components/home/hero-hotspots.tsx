@@ -122,7 +122,7 @@ export function HeroHotspots() {
                 }
                 className="pointer-events-auto relative flex h-9 w-9 items-center justify-center focus:outline-none sm:h-11 sm:w-11"
               >
-                <span className="pointer-events-none absolute inset-0 flex origin-center scale-[0.55] items-center justify-center sm:scale-75 lg:scale-100">
+                <span className="pointer-events-none absolute inset-0 flex origin-center scale-[0.4] items-center justify-center sm:scale-[0.55] md:scale-75 lg:scale-100">
                   {/* idle pulse ring */}
                   {!shouldReduceMotion && (
                     <motion.span
