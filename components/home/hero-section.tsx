@@ -30,7 +30,7 @@ export function HeroSection() {
       className="bg-blueprint relative w-full overflow-hidden bg-canvas text-graphite-950"
     >
       {/* ─── Existing hero video: untouched (same file, attributes, hotspots) ─── */}
-      <div className="border-b border-hairline bg-white">
+      <div className="border-b border-hairline bg-white pt-20 md:pt-0">
         <div className="relative w-full pointer-events-none">
           <video
             autoPlay

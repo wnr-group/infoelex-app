@@ -121,7 +121,7 @@ export function ExpertiseSection() {
       {/* Desktop: pinned storytelling */}
       <div ref={pinRef} className="pin-only relative h-screen overflow-hidden">
           <div className="wrap relative grid h-full grid-cols-12 items-center gap-x-10">
-            <div className="relative col-span-5 h-[34rem]">
+            <div className="relative col-span-5 h-[min(34rem,78vh)]">
               {EXPERTISE.map((item) => (
                 <div key={item.index} className="exp-text absolute inset-0 flex flex-col justify-center">
                   <Copy item={item} total={total} />
