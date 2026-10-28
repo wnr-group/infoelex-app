@@ -50,7 +50,7 @@ export function Logo({ floating = false, isDarkBg = false }: { floating?: boolea
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/logo.svg"
+      src={isDarkBg ? "/logo-light.svg" : "/logo.svg"}
       alt="Infoelex Private Limited"
       className={cn(
         "h-10 w-auto sm:h-11 md:h-[52px]",
