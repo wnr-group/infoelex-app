@@ -53,7 +53,7 @@ export function Logo({ floating = false, isDarkBg = false }: { floating?: boolea
       src="/logo.svg"
       alt="Infoelex Private Limited"
       className={cn(
-        "h-12 w-auto sm:h-14 md:h-16",
+        "h-10 w-auto sm:h-11 md:h-[52px]",
         floating && isDarkBg && "drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
       )}
     />
@@ -162,7 +162,7 @@ export function Navbar() {
         onMouseEnter={clearCloseTimeout}
         onMouseLeave={scheduleClose}
       >
-        <div className="mx-auto flex h-20 md:h-24 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14 xl:px-16">
+        <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14 xl:px-16">
 
           {/* LOGO */}
           <Link
