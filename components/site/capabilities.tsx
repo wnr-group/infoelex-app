@@ -3,143 +3,106 @@
 import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Reveal } from "@/components/home/reveal";
 import { EASE } from "@/components/home/motion";
-import { cn } from "@/lib/utils";
 import { CAPABILITIES } from "./data";
 import { CapabilityDrawing } from "./diagrams";
-import { CtaBand, PageHero } from "./primitives";
+import { HeroArt } from "./hero-art";
+import { CtaBand, SectionMark } from "./primitives";
 
-type Cap = (typeof CAPABILITIES)[number];
-
-function Detail({ cap }: { cap: Cap }) {
-  return (
-    <div>
-      <p className="text-lg leading-relaxed text-graphite-800">{cap.lead}</p>
-      <ul className="mt-6 grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
-        {cap.points.map((p) => (
-          <li key={p} className="flex gap-3 text-[15px] text-graphite-600">
-            <span aria-hidden className="mt-[0.7em] h-px w-3 shrink-0 bg-signal" />
-            {p}
-          </li>
-        ))}
-      </ul>
-      <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-hairline pt-5">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Deliverables</span>
-        {cap.deliverables.map((d) => (
-          <span key={d} className="text-sm text-graphite-950">{d}</span>
-        ))}
-        <Link href={cap.href} className="ml-auto text-[12.5px] font-bold uppercase tracking-[0.1em] text-signal underline-offset-4 hover:underline">
-          Learn more →
-        </Link>
-      </div>
-    </div>
-  );
-}
-
+/** Capabilities: a centred opener, then the orbit diagram doubles as the discipline selector. */
 export function Capabilities() {
   const [active, setActive] = useState(0);
-  const current = CAPABILITIES[active];
+  const cap = CAPABILITIES[active];
 
   return (
     <>
-      <PageHero
-        index="02"
-        label="Capabilities"
-        title="Six disciplines. One engineering team."
-        lead="From the first network model to the last drawing issued, the same engineers carry the work. Select a discipline to see how we approach it."
-      />
-      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
-        <div className="wrap">
-          {/* Split screen: index on the left, drawing and detail on the right */}
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-0">
-            <ul className="border-t border-hairline lg:col-span-5 lg:border-r" aria-label="Engineering capabilities">
-              {CAPABILITIES.map((cap, i) => {
-                const open = i === active;
-                return (
-                  <li key={cap.id} className="border-b border-hairline">
-                    <button
-                      aria-expanded={open}
-                      onMouseEnter={() => setActive(i)}
-                      onFocus={() => setActive(i)}
-                      onClick={() => setActive(i)}
-                      className="group relative flex w-full items-baseline gap-5 py-6 pr-6 text-left lg:pr-10"
-                    >
-                      <span
-                        aria-hidden
-                        className={cn("absolute left-0 top-0 h-px bg-signal transition-all duration-500", open ? "w-full" : "w-0")}
-                      />
-                      <span className={cn("w-8 shrink-0 text-sm tabular-nums transition-colors", open ? "text-signal" : "text-steel")}>{cap.index}</span>
-                      <span className={cn("font-display text-card flex-1 transition-all duration-300", open ? "translate-x-1 text-graphite-950" : "text-graphite-600 group-hover:text-graphite-950")}>
-                        {cap.title}
-                      </span>
-                      <span aria-hidden className={cn("text-lg transition-all duration-300", open ? "rotate-90 text-signal lg:rotate-0 lg:translate-x-0" : "text-steel lg:-translate-x-2 lg:opacity-0 lg:group-hover:translate-x-0 lg:group-hover:opacity-100")}>
-                        →
-                      </span>
-                    </button>
-                    {/* Mobile: detail opens inline */}
-                    <AnimatePresence initial={false}>
-                      {open && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.4, ease: EASE }}
-                          className="overflow-hidden lg:hidden"
-                        >
-                          <div className="mb-6 aspect-[4/3] rounded-xl border border-hairline bg-white p-3">
-                            <CapabilityDrawing id={cap.id} />
-                          </div>
-                          <div className="pb-8">
-                            <Detail cap={cap} />
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </li>
-                );
-              })}
-            </ul>
+      <section className="relative overflow-hidden bg-gradient-to-b from-mist-blue/70 via-canvas to-canvas pb-6 pt-32 text-graphite-950 md:pt-40">
+        <div aria-hidden className="pointer-events-none absolute left-1/2 top-24 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-signal/[0.06] blur-3xl" />
+        <div className="wrap relative">
+          <div className="mx-auto max-w-2xl text-center">
+            <Reveal className="flex justify-center">
+              <SectionMark index="02" label="Capabilities" />
+            </Reveal>
+            <Reveal delay={0.06}>
+              <h1 className="font-display mt-6 text-page text-balance">Six disciplines. One engineering team.</h1>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-graphite-600 md:text-lg">
+                From the first network model to the last drawing issued, the same engineers carry the work. Pick a discipline on the diagram to see how we approach it.
+              </p>
+            </Reveal>
+          </div>
 
-            {/* Desktop: sticky detail panel */}
-            <div aria-live="polite" className="hidden lg:col-span-7 lg:block lg:pl-12">
-              <div className="sticky top-28">
-                <div className="bg-blueprint relative aspect-[4/3] w-full rounded-2xl border border-hairline bg-white p-4 shadow-lift">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={current.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="h-full w-full"
-                    >
-                      <CapabilityDrawing id={current.id} />
-                    </motion.div>
-                  </AnimatePresence>
-                  <span className="absolute right-4 top-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">
-                    Fig. {current.index}
-                  </span>
-                </div>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={current.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3, ease: EASE }}
-                    className="mt-8"
+          {/* Selector + detail */}
+          <div className="mt-12 grid items-center gap-8 lg:mt-16 lg:grid-cols-12 lg:gap-6">
+            <Reveal delay={0.1} className="lg:col-span-6">
+              <HeroArt kind="capabilities" value={active} onValueChange={setActive} showReadout={false} className="mx-auto max-w-[34rem]" />
+            </Reveal>
+
+            <div className="lg:col-span-6" aria-live="polite">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.article
+                  key={cap.id}
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.35, ease: EASE }}
+                  className="rounded-[2rem] border border-hairline bg-white/90 p-7 shadow-lift backdrop-blur md:p-9"
+                >
+                  <div className="flex items-start justify-between gap-6">
+                    <div>
+                      <p className="flex items-center gap-3 text-eyebrow font-semibold uppercase text-signal">
+                        <span className="h-px w-6 bg-signal" /> Discipline {cap.index}
+                      </p>
+                      <h2 className="font-display mt-3 text-section text-balance">{cap.title}</h2>
+                    </div>
+                    <div className="hidden aspect-[4/3] w-32 shrink-0 rounded-2xl bg-canvas p-2 sm:block">
+                      <CapabilityDrawing id={cap.id} />
+                    </div>
+                  </div>
+                  <p className="mt-5 leading-relaxed text-graphite-600">{cap.lead}</p>
+                  <ul className="mt-6 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
+                    {cap.points.map((p) => (
+                      <li key={p} className="flex gap-3 text-[15px] text-graphite-800">
+                        <span aria-hidden className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-signal" />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-7 flex flex-wrap items-center gap-2 border-t border-hairline pt-5">
+                    <span className="mr-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Deliverables</span>
+                    {cap.deliverables.map((d) => (
+                      <span key={d} className="rounded-full bg-canvas-2 px-3 py-1 text-[13px] text-graphite-800">{d}</span>
+                    ))}
+                    <Link href={cap.href} className="ml-auto text-[12.5px] font-bold uppercase tracking-[0.1em] text-signal underline-offset-4 hover:underline">
+                      Learn more →
+                    </Link>
+                  </div>
+                </motion.article>
+              </AnimatePresence>
+
+              {/* Quick pills for keyboard / touch */}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {CAPABILITIES.map((c, i) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => setActive(i)}
+                    aria-pressed={i === active}
+                    className={`rounded-full border px-3.5 py-1.5 text-[13px] transition-colors ${i === active ? "border-signal bg-signal text-white" : "border-hairline bg-white text-graphite-600 hover:border-graphite-950/30 hover:text-graphite-950"}`}
                   >
-                    <Detail cap={current} />
-                  </motion.div>
-                </AnimatePresence>
+                    {c.title}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="bg-canvas">
-        <CtaBand eyebrow="Where it matters most" title="Our deepest work is in mission-critical power." href="/critical-power" label="Critical Power" />
+      <div className="bg-canvas pt-[calc(var(--space-section)*0.5)]">
+        <CtaBand tone="slate" eyebrow="Where it matters most" title="Our deepest work is in mission-critical power." href="/critical-power" label="Critical Power" />
       </div>
     </>
   );

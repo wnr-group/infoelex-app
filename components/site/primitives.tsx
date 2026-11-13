@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Eyebrow, Reveal } from "@/components/home/reveal";
 import { cn } from "@/lib/utils";
+import { HeroArt, type HeroArtKind } from "./hero-art";
 
 /** Image that drifts slightly against the scroll. Container must be sized; the image overscans by 12%. */
 export function ParallaxImage({
@@ -87,6 +88,7 @@ export function PageHero({
   lead,
   actions,
   image,
+  art,
   children,
   className,
 }: {
@@ -96,6 +98,8 @@ export function PageHero({
   lead?: React.ReactNode;
   actions?: React.ReactNode;
   image?: { src: string; alt: string; position?: string; caption?: string };
+  /** Themed line-art shown in the image slot when the page has no photograph. */
+  art?: HeroArtKind;
   children?: React.ReactNode;
   className?: string;
 }) {
@@ -104,8 +108,8 @@ export function PageHero({
       <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-[28rem] w-[28rem] rounded-full bg-signal/[0.07] blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute -left-32 top-1/2 h-[24rem] w-[24rem] rounded-full bg-slate-blue/[0.12] blur-3xl" />
       <div className="wrap relative">
-        <div className={cn("grid gap-12 lg:gap-16", image && "lg:grid-cols-12 lg:items-center")}>
-          <div className={cn(image ? "lg:col-span-6" : "max-w-3xl")}>
+        <div className={cn("grid gap-12 lg:gap-16", (image || art) && "lg:grid-cols-12 lg:items-center")}>
+          <div className={cn(image || art ? "lg:col-span-6" : "max-w-3xl")}>
             <Reveal>
               <SectionMark index={index} label={label} />
             </Reveal>
@@ -123,6 +127,11 @@ export function PageHero({
               </Reveal>
             )}
           </div>
+          {art && !image && (
+            <Reveal delay={0.12} className="lg:col-span-6">
+              <HeroArt kind={art} />
+            </Reveal>
+          )}
           {image && (
             <Reveal delay={0.12} className="lg:col-span-6">
               <figure>
@@ -161,17 +170,36 @@ export function SectionHead({ eyebrow, title, lead, className }: { eyebrow: stri
   );
 }
 
-/** Closing call-to-action band shared by the section pages. */
-export function CtaBand({ eyebrow, title, href, label }: { eyebrow: string; title: string; href: string; label: string }) {
+/** Closing call-to-action: a soft rounded panel; tone changes the page's atmosphere. */
+export function CtaBand({
+  eyebrow,
+  title,
+  href,
+  label,
+  tone = "white",
+}: {
+  eyebrow: string;
+  title: string;
+  href: string;
+  label: string;
+  tone?: "white" | "warm" | "slate" | "sage";
+}) {
+  const tones = {
+    white: "from-white to-canvas-2",
+    warm: "from-warm to-warm-deep/70",
+    slate: "from-white to-mist-blue",
+    sage: "from-white to-sage",
+  } as const;
   return (
     <section className="bg-canvas pb-[calc(var(--space-section)*0.55)] text-graphite-950">
       <div className="wrap">
-        <Reveal className="flex flex-wrap items-center justify-between gap-8 rounded-2xl border border-hairline bg-white p-8 shadow-lift md:p-12">
-          <div>
+        <Reveal className={cn("relative flex flex-wrap items-center justify-between gap-8 overflow-hidden rounded-[2.5rem] border border-hairline bg-gradient-to-br p-8 shadow-lift md:p-14", tones[tone])}>
+          <div aria-hidden className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-signal/10 blur-3xl" />
+          <div className="relative">
             <Eyebrow>{eyebrow}</Eyebrow>
             <p className="font-display mt-4 max-w-xl text-section text-balance">{title}</p>
           </div>
-          <Cta href={href}>{label}</Cta>
+          <Cta href={href} className="relative">{label}</Cta>
         </Reveal>
       </div>
     </section>

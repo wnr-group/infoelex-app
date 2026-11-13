@@ -113,6 +113,10 @@ body {
   --color-slate-deep: #2b323b;
   --color-signal: #c8281a;
   --color-signal-deep: #a8210f;
+  --color-warm: #f9efe5;
+  --color-warm-deep: #f2dcc9;
+  --color-sage: #e9efe6;
+  --color-mist-blue: #e6ecf2;
 
   --font-display: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   --text-display: clamp(3rem, 1.5rem + 6vw, 6.75rem);
@@ -253,6 +257,46 @@ html.has-custom-cursor * {
     animation: none;
   }
   .flow {
+    animation: none;
+  }
+}
+
+/* ── Interactive hero diagrams ── */
+.px-layer {
+  transform: translate(calc(var(--px, 0) * var(--d, 8) * 1px), calc(var(--py, 0) * var(--d, 8) * 1px));
+  transition: transform 0.6s var(--ease-signature);
+}
+@keyframes pulse-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.orbit-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: orbit-spin 90s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .px-layer {
+    transform: none;
+  }
+  .pulse-ring,
+  .orbit-spin {
     animation: none;
   }
 }
