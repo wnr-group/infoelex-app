@@ -55,7 +55,7 @@ export function Cta({
     <Link
       href={href}
       className={cn(
-        "group inline-flex w-fit items-center gap-3 px-6 py-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal",
+        "group inline-flex w-fit items-center gap-3 rounded-full px-7 py-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal",
         variant === "primary" && "bg-brand text-white hover:bg-brand-dim",
         variant === "ghost" && "border border-paper/35 text-paper hover:border-paper hover:bg-paper hover:text-graphite-950",
         variant === "ghost-dark" && "border border-graphite-950/25 text-graphite-950 hover:border-graphite-950 hover:bg-graphite-950 hover:text-paper",
@@ -100,8 +100,9 @@ export function PageHero({
   className?: string;
 }) {
   return (
-    <section className={cn("relative overflow-hidden bg-canvas pb-16 pt-32 text-graphite-950 md:pb-24 md:pt-40", className)}>
-      <div aria-hidden className="bg-blueprint pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
+    <section className={cn("relative overflow-hidden bg-canvas pb-10 pt-32 text-graphite-950 md:pb-16 md:pt-40", className)}>
+      <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-[28rem] w-[28rem] rounded-full bg-signal/[0.07] blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -left-32 top-1/2 h-[24rem] w-[24rem] rounded-full bg-slate-blue/[0.12] blur-3xl" />
       <div className="wrap relative">
         <div className={cn("grid gap-12 lg:gap-16", image && "lg:grid-cols-12 lg:items-center")}>
           <div className={cn(image ? "lg:col-span-6" : "max-w-3xl")}>
@@ -163,7 +164,7 @@ export function SectionHead({ eyebrow, title, lead, className }: { eyebrow: stri
 /** Closing call-to-action band shared by the section pages. */
 export function CtaBand({ eyebrow, title, href, label }: { eyebrow: string; title: string; href: string; label: string }) {
   return (
-    <section className="bg-canvas pb-[var(--space-section)] text-graphite-950">
+    <section className="bg-canvas pb-[calc(var(--space-section)*0.55)] text-graphite-950">
       <div className="wrap">
         <Reveal className="flex flex-wrap items-center justify-between gap-8 rounded-2xl border border-hairline bg-white p-8 shadow-lift md:p-12">
           <div>

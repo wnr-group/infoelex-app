@@ -48,7 +48,7 @@ export function Capabilities() {
         title="Six disciplines. One engineering team."
         lead="From the first network model to the last drawing issued, the same engineers carry the work. Select a discipline to see how we approach it."
       />
-      <section className="bg-canvas-2 py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap">
           {/* Split screen: index on the left, drawing and detail on the right */}
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-0">
@@ -138,7 +138,7 @@ export function Capabilities() {
         </div>
       </section>
 
-      <div className="bg-canvas pt-[var(--space-section)]">
+      <div className="bg-canvas">
         <CtaBand eyebrow="Where it matters most" title="Our deepest work is in mission-critical power." href="/critical-power" label="Critical Power" />
       </div>
     </>

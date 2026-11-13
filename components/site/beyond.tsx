@@ -40,7 +40,7 @@ export function Beyond() {
       />
 
       {/* Three programmes as an even card grid */}
-      <section className="bg-canvas-2 py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap">
           <SectionHead eyebrow="Our programmes" title="Community programmes we keep, year after year." lead="CSR and community engagement across health, education, environment, food and youth." />
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
@@ -75,7 +75,7 @@ export function Beyond() {
         </div>
       </section>
 
-      <div className="bg-canvas pt-[var(--space-section)]">
+      <div className="bg-canvas">
         <CtaBand eyebrow="Work with us" title="Run a school, hospital or community programme we could support?" href="/contact" label="Get in touch" />
       </div>
     </>

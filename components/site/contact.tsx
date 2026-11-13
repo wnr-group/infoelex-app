@@ -118,7 +118,7 @@ function ContactForm() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="group mt-4 inline-flex w-full items-center justify-center gap-3 bg-brand px-8 py-4 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-brand-dim disabled:cursor-not-allowed disabled:bg-graphite-600 sm:w-auto"
+            className="group mt-4 inline-flex w-full items-center justify-center gap-3 rounded-full bg-brand px-8 py-4 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-brand-dim disabled:cursor-not-allowed disabled:bg-graphite-600 sm:w-auto"
           >
             {status === "submitting" ? (
               <>
@@ -149,7 +149,7 @@ export function Contact() {
         }
         lead="Tell us what you are building or studying. We reply with the right engineer, not a sales sequence."
       />
-      <section className="bg-canvas-2 py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap grid gap-6 lg:grid-cols-12 lg:gap-8">
           <Reveal className="rounded-2xl border border-hairline bg-white p-8 shadow-hair sm:p-10 lg:col-span-5">
             <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Get in touch</h2>

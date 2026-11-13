@@ -39,7 +39,7 @@ export function Signature() {
       />
 
       {/* Philosophy and technical approach */}
-      <section className="bg-canvas-2 py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-5">
             <SectionHead eyebrow="Engineering philosophy" title={PHILOSOPHY.quote} />
@@ -61,7 +61,7 @@ export function Signature() {
       </section>
 
       {/* Methodology: sticky calc sheet beside a numbered timeline */}
-      <section className="bg-canvas py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="order-2 lg:order-1 lg:col-span-7">
             <SectionHead eyebrow="The method" title="Six stages, each with a document you can audit." />
@@ -99,7 +99,7 @@ export function Signature() {
       </section>
 
       {/* Engineering tools */}
-      <section className="bg-canvas-2 py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap">
           <SectionHead eyebrow="Engineering tools" title="The analysis behind every result." lead="Industry-standard simulation and analysis, used by engineers who understand what the model is telling them." />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -114,7 +114,7 @@ export function Signature() {
       </section>
 
       {/* Principles */}
-      <section className="bg-canvas py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap">
           <SectionHead eyebrow="Quality standards and verified results" title="Three rules we do not bend." lead="Our commitment: nothing is issued until the result has been checked, validated and documented." />
           <div className="mt-12 grid gap-5 md:grid-cols-3">

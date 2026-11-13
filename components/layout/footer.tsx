@@ -56,14 +56,15 @@ export function Footer() {
   const showCta = pathname !== "/" && pathname !== "/contact";
 
   return (
-    <footer className="border-t border-hairline bg-canvas-2 text-graphite-950">
+    <div className="bg-canvas pt-6">
+    <footer className="rounded-t-[2rem] border border-b-0 border-hairline bg-canvas-2 text-graphite-950 md:rounded-t-[2.5rem]">
       <div className="wrap">
         {showCta && (
           <div className="flex flex-col gap-6 border-b border-hairline py-12 md:flex-row md:items-center md:justify-between">
             <p className="font-display max-w-lg text-section text-balance">Ready to power your next deployment?</p>
             <Link
               href="/contact"
-              className="group inline-flex w-fit items-center gap-3 bg-brand px-6 py-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors duration-300 hover:bg-brand-dim"
+              className="group inline-flex w-fit items-center gap-3 rounded-full bg-brand px-7 py-3.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors duration-300 hover:bg-brand-dim"
             >
               Let&apos;s talk
               <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -124,5 +125,6 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    </div>
   );
 }

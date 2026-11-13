@@ -97,36 +97,45 @@ export function Projects() {
         </div>
       </section>
 
-      <section className="bg-canvas-2 py-[var(--space-section)] text-graphite-950">
-        <div className="wrap grid gap-6 md:grid-cols-2 lg:gap-8">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
+        <div className="wrap grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PROJECTS.map((p, i) => (
             <Reveal key={p.slug} delay={(i % 2) * 0.08}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-hairline bg-white shadow-hair transition-shadow duration-300 hover:shadow-lift">
-                <button type="button" onClick={() => setOpen(p)} aria-label={`View details: ${p.title}`} className="relative block aspect-[16/10] w-full overflow-hidden text-left">
+              <article className="group flex h-full flex-col rounded-2xl border border-hairline bg-white p-2.5 shadow-hair transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
+                <button type="button" onClick={() => setOpen(p)} aria-label={`View details: ${p.title}`} className="relative block aspect-[16/10] w-full overflow-hidden rounded-xl text-left">
                   <Image
                     src={p.image}
                     alt={p.imageAlt}
                     fill
-                    sizes="(min-width: 1280px) 600px, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 1280px) 400px, (min-width: 640px) 50vw, 100vw"
                     quality={90}
-                    className="object-cover transition-transform duration-[1200ms] ease-[var(--ease-signature)] group-hover:scale-[1.03]"
+                    className="object-cover transition-transform duration-[1200ms] ease-[var(--ease-signature)] group-hover:scale-[1.04]"
                   />
-                  <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold tabular-nums text-graphite-950">
+                  <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold tabular-nums text-graphite-950 shadow-hair">
                     0{i + 1} / 0{PROJECTS.length}
                   </span>
                 </button>
-                <div className="flex flex-1 flex-col p-6 md:p-8">
-                  <h2 className="font-display text-section text-balance">{p.title}</h2>
-                  <p className="mt-3 leading-relaxed text-graphite-600">{p.summary}</p>
-                  <div className="mt-6 border-t border-hairline pt-5"><Meta project={p} /></div>
-                  <ul className="mt-5 flex flex-wrap gap-2">
+                <div className="flex flex-1 flex-col px-3 pb-3 pt-5">
+                  <p className="text-eyebrow font-semibold uppercase text-signal">{p.industry}</p>
+                  <h2 className="font-display mt-3 text-card text-balance">{p.title}</h2>
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-graphite-600">{p.summary}</p>
+                  {p.location && <p className="mt-3 text-sm text-steel">{p.location}</p>}
+                  <ul className="mb-5 mt-4 flex flex-wrap gap-2">
                     {p.scope.map((s) => (
-                      <li key={s} className="rounded-full bg-canvas-2 px-3 py-1 text-[13px] text-graphite-800">{s}</li>
+                      <li key={s} className="rounded-full border border-hairline bg-canvas px-2.5 py-0.5 text-[12px] text-graphite-800">{s}</li>
                     ))}
                   </ul>
-                  <button type="button" onClick={() => setOpen(p)} className="mt-6 w-fit pt-2 text-[12.5px] font-bold uppercase tracking-[0.1em] text-signal underline-offset-4 hover:underline">
-                    View scope +
-                  </button>
+                  <div className="mt-auto flex items-center justify-between border-t border-hairline pt-4">
+                    <span className="text-[12.5px] font-bold uppercase tracking-[0.1em] text-graphite-950">View scope</span>
+                    <button
+                      type="button"
+                      onClick={() => setOpen(p)}
+                      aria-label={`Open scope: ${p.title}`}
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-hairline text-graphite-950 transition-colors duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-white"
+                    >
+                      <span aria-hidden>→</span>
+                    </button>
+                  </div>
                 </div>
               </article>
             </Reveal>
@@ -134,7 +143,7 @@ export function Projects() {
         </div>
       </section>
 
-      <div className="bg-canvas pt-[var(--space-section)]">
+      <div className="bg-canvas">
         <CtaBand eyebrow="Have a similar scope?" title="Tell us about your network or facility." href="/contact" label="Contact us" />
       </div>
 

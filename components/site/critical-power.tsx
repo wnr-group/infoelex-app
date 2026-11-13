@@ -31,7 +31,7 @@ export function CriticalPower() {
       />
 
       {/* Power architecture: interactive explanation */}
-      <section id="architecture" className="scroll-mt-24 bg-canvas-2 py-[var(--space-section)] text-graphite-950">
+      <section id="architecture" className="scroll-mt-24 bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap">
           <SectionHead
             eyebrow="Power architecture"
@@ -46,7 +46,7 @@ export function CriticalPower() {
       </section>
 
       {/* Three distinct concepts */}
-      <section className="bg-canvas py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap">
           <SectionHead eyebrow="Three ideas, often confused" title="Availability, redundancy and resilience are not the same thing." />
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -63,7 +63,7 @@ export function CriticalPower() {
       </section>
 
       {/* Six focus areas */}
-      <section className="border-t border-hairline bg-canvas-2 py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-28">
@@ -102,7 +102,7 @@ export function CriticalPower() {
         </div>
       </section>
 
-      <div className="bg-canvas pt-[var(--space-section)]">
+      <div className="bg-canvas">
         <CtaBand eyebrow="Mission-critical" title="Planning a data centre or critical facility?" href="/contact" label="Discuss a facility" />
       </div>
     </>

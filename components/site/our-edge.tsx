@@ -42,7 +42,7 @@ export function OurEdge() {
       </PageHero>
 
       {/* Introduction */}
-      <section className="bg-canvas-2 py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
           <Reveal className="lg:col-span-5">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-lift ring-1 ring-graphite-950/10">
@@ -71,7 +71,7 @@ export function OurEdge() {
       </section>
 
       {/* Experience and global presence */}
-      <section className="bg-canvas py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap grid gap-5 lg:grid-cols-12">
           <Reveal className="rounded-2xl border border-hairline bg-white p-8 shadow-hair md:p-10 lg:col-span-7">
             <SectionHead eyebrow="Our experience" title="500 MW+ of project experience across eight sectors." lead="From transmission networks and renewables to industrial plant and data centers, the same study-first method carries across every sector we serve." />
@@ -91,7 +91,7 @@ export function OurEdge() {
       </section>
 
       {/* Differentiators: 2×2 card grid */}
-      <section className="bg-canvas-2 py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap">
           <SectionHead eyebrow="What sets us apart" title="Four habits that separate us from the rest of the field." />
           <ol className="mt-12 grid gap-5 md:grid-cols-2">
@@ -107,7 +107,7 @@ export function OurEdge() {
       </section>
 
       {/* Sectors: tile grid */}
-      <section className="bg-canvas py-[var(--space-section)] text-graphite-950">
+      <section className="bg-canvas py-[calc(var(--space-section)*0.55)] text-graphite-950">
         <div className="wrap">
           <SectionHead eyebrow="Sectors we serve" title="Eight sectors, one standard of engineering." lead="The full range of engineering work behind each of these sectors is on the capabilities page." />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
