@@ -17,7 +17,6 @@ npm run dev
 
 **Visit:**
 - 🏠 Homepage: http://localhost:3000
-- 🏢 Admin Panel: http://localhost:3000/admin
 
 ---
 
@@ -68,8 +67,6 @@ npm run dev
 
 The app will be available at:
 - **Frontend**: http://localhost:3000
-- **Admin Portal**: http://localhost:3000/admin
-- **Admin Panel**: http://localhost:3000/admin/dashboard
 
 ### Available Scripts
 
