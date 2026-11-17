@@ -84,8 +84,8 @@ function TopologyDiagram() {
         );
       })}
       <path d="M260 206V224" className="stroke-brand" fill="none" />
-      <rect x="190" y="224" width="140" height="30" rx="2" className="fill-brand stroke-brand" />
-      <text x="260" y="243" textAnchor="middle" className="fill-white text-[10px] font-bold">DUAL-CORDED CRITICAL LOAD</text>
+      <rect x="150" y="224" width="220" height="30" rx="2" className="fill-brand stroke-brand" />
+      <text x="260" y="243" textAnchor="middle" className="fill-white text-[9px] font-bold tracking-[0.04em]">DUAL-CORDED CRITICAL LOAD</text>
       <g className="fill-white/50 text-[8px] font-semibold tracking-[0.1em]">
         <text x="14" y="288">● AUTONOMOUS PATH</text>
         <text x="160" y="288">— REDUNDANT PATH</text>
