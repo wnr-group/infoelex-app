@@ -37,7 +37,7 @@ export function DeliverablesTable() {
             onClick={() => setFilter(f)}
             aria-pressed={f === filter}
             className={cn(
-              "rounded-sm border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] transition-colors",
+              "rounded-sm border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-colors",
               f === filter ? "border-brand bg-brand text-white" : "border-hairline bg-white text-graphite-600 hover:border-graphite-950/30"
             )}
           >
@@ -47,9 +47,9 @@ export function DeliverablesTable() {
       </div>
 
       <div className="mt-5 overflow-x-auto rounded-md border border-hairline bg-white">
-        <table className="w-full min-w-[40rem] border-collapse text-left text-[12px]">
+        <table className="w-full min-w-[40rem] border-collapse text-left text-[13px]">
           <thead>
-            <tr className="border-b border-hairline bg-canvas text-[9px] font-semibold uppercase tracking-[0.14em] text-steel">
+            <tr className="border-b border-hairline bg-canvas text-[11px] font-semibold uppercase tracking-[0.14em] text-steel">
               <th scope="col" className="px-4 py-3">Doc ref</th>
               <th scope="col" className="px-4 py-3">Deliverable</th>
               <th scope="col" className="px-4 py-3">Discipline</th>
@@ -59,7 +59,7 @@ export function DeliverablesTable() {
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.ref} className="border-b border-hairline last:border-0">
+              <tr key={r.ref} className="border-b border-hairline transition-colors duration-200 last:border-0 hover:bg-mist-blue/50">
                 <td className="px-4 py-3 font-bold tabular-nums text-brand">{r.ref}</td>
                 <td className="px-4 py-3 font-semibold">{r.title}</td>
                 <td className="px-4 py-3 text-graphite-600">{r.group}</td>

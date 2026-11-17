@@ -5,7 +5,7 @@ import { Reveal } from "@/components/home/reveal";
 import { cn } from "@/lib/utils";
 
 const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
-const H2 = "font-display text-[clamp(1.75rem,1.3rem+1.9vw,2.75rem)] font-bold leading-[1.1] tracking-[-0.025em] text-balance";
+const H2 = "font-display text-[clamp(1.75rem,1.35rem+1.7vw,2.5rem)] font-bold leading-[1.1] tracking-[-0.025em] text-balance";
 
 const HERO_STATS = [
   { label: "Topology standard", value: "N+1 / 2N / 3N/2", note: "Distributed redundant architectures" },
@@ -49,7 +49,7 @@ const STAGES = [
 ];
 
 function Tag({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <span className={cn("inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px]", className)}>{children}</span>;
+  return <span className={cn("inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] sm:text-[12px]", className)}>{children}</span>;
 }
 
 function SectionLabel({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
@@ -103,7 +103,7 @@ export function CriticalPower() {
         <Image src="/photos/substation.jpg" alt="" fill priority sizes="100vw" quality={80} className="-z-20 object-cover object-center opacity-35" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-[#1b2027]/70 via-[#1b2027]/60 to-[#1b2027]" />
         <div className={cn(WRAP, "pb-12 pt-28 md:pb-16 md:pt-32")}>
-          <div className="flex flex-col gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[11px]">
+          <div className="flex flex-col gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[12px]">
             <span className="w-fit rounded-sm border border-white/15 bg-white/5 px-3 py-1.5">DSG_SPEC // Critical Infrastructure Group</span>
             <span className="hidden gap-4 sm:flex">
               <span>Latency budget: ≤ 2.0ms</span>
@@ -116,26 +116,26 @@ export function CriticalPower() {
             <Tag className="rounded-sm border border-brand/50 bg-brand/15 px-3 py-1.5 text-[#ff8f84]">
               <span className="h-1.5 w-1.5 rounded-full bg-brand" /> High-Availability Power Engineering
             </Tag>
-            <h1 className="font-display mt-5 text-[clamp(2.25rem,1.4rem+4.2vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.03em] text-balance">
+            <h1 className="font-display mt-5 text-[clamp(2.25rem,1.5rem+4vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.03em] text-balance">
               Reliability Is Not Optional. <span className="text-brand">It&apos;s Essential.</span>
             </h1>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-paper/75 md:text-base">
               Specialist engineering solutions for hyperscale data centres, semiconductor fabrication, and mission-critical facilities where power interruption equals catastrophic systemic failure.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <Link href="#topologies" className="inline-flex items-center gap-3 rounded-sm bg-brand px-5 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:bg-brand-dim">
+              <Link href="#topologies" className="inline-flex items-center gap-3 rounded-sm bg-brand px-5 py-3 text-[12px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:bg-brand-dim">
                 Explore architectures <ArrowUpRight className="h-4 w-4" aria-hidden />
               </Link>
-              <span className="text-[11px] text-paper/50">Verified across a 100%+ global deployment</span>
+              <span className="text-[12px] text-paper/50">Verified across a 100%+ global deployment</span>
             </div>
           </Reveal>
 
           <dl className="mt-12 grid grid-cols-2 gap-6 border-t border-white/10 pt-6 lg:grid-cols-4">
             {HERO_STATS.map((s) => (
               <div key={s.label}>
-                <dt className="text-[10px] font-semibold uppercase tracking-[0.18em] text-paper/50">{s.label}</dt>
+                <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-paper/50">{s.label}</dt>
                 <dd className="mt-1.5 text-base font-bold tracking-tight sm:text-xl">{s.value}</dd>
-                <dd className="mt-1 text-[11px] text-paper/50">{s.note}</dd>
+                <dd className="mt-1 text-[12px] text-paper/50">{s.note}</dd>
               </div>
             ))}
           </dl>
@@ -149,33 +149,33 @@ export function CriticalPower() {
             <Reveal className="lg:col-span-5">
               <SectionLabel>Domain history | Zero margin for failure</SectionLabel>
               <h2 className={cn(H2, "mt-6")}>Where Seconds Mean Billions in Systemic Liability.</h2>
-              <p className="mt-5 text-[14px] leading-relaxed text-graphite-600">
+              <p className="mt-5 text-[15px] leading-relaxed text-graphite-600">
                 Modern digital civilization rests on continuous megawatt-scale power. Our critical power practice orchestrates the energy systems underpinning world-scale computation, defense and the confidential, mission-critical operations of tomorrow.
               </p>
-              <figure className="mt-7 rounded-md border border-hairline bg-canvas p-5">
-                <blockquote className="border-l-2 border-brand pl-4 text-[13px] italic leading-relaxed text-graphite-800">
+              <figure className="mt-7 card-lift rounded-md border border-hairline bg-canvas p-5">
+                <blockquote className="border-l-2 border-brand pl-4 text-[14px] italic leading-relaxed text-graphite-800">
                   &ldquo;In high-density compute environments, power quality is computational velocity. Voltage sags measured in microseconds can corrupt transactional blocks and damage multi-billion-dollar silicon.&rdquo;
                 </blockquote>
-                <figcaption className="mt-4 flex items-end justify-between gap-3 text-[11px]">
+                <figcaption className="mt-4 flex items-end justify-between gap-3 text-[12px]">
                   <span>
                     <span className="block font-bold">Dr. Aris Thorne</span>
                     <span className="text-steel">Director of Critical Facilities &amp; Resilience</span>
                   </span>
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-brand">Infoelex Labs</span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">Infoelex Labs</span>
                 </figcaption>
               </figure>
             </Reveal>
 
             <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
               {FACILITIES.map((f, i) => (
-                <Reveal as="li" key={f.title} delay={(i % 2) * 0.07} className="flex flex-col rounded-md border border-hairline bg-canvas p-5">
+                <Reveal as="li" key={f.title} delay={(i % 2) * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-canvas p-5">
                   <div className="flex items-start justify-between gap-3">
                     <Tag className="text-brand">{f.tag}</Tag>
                     <f.icon className="h-4 w-4 shrink-0 text-steel" aria-hidden />
                   </div>
-                  <h3 className="font-display mt-4 text-base font-bold tracking-tight">{f.title}</h3>
-                  <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">{f.copy}</p>
-                  <p className="mt-auto border-t border-hairline pt-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-steel">{f.foot}</p>
+                  <h3 className="font-display mt-4 text-lg font-bold tracking-tight">{f.title}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-graphite-600">{f.copy}</p>
+                  <p className="mt-auto border-t border-hairline pt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-steel">{f.foot}</p>
                 </Reveal>
               ))}
             </ul>
@@ -191,7 +191,7 @@ export function CriticalPower() {
             <Reveal as="h2" className={H2}>
               Topology Topographies
             </Reveal>
-            <p className="text-[13px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
+            <p className="text-[14px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
               INFOELEX designs and validates custom electrical distribution architectures tuned to each client&apos;s risk profile, load characteristics and site constraints.
             </p>
           </div>
@@ -206,14 +206,14 @@ export function CriticalPower() {
                 {ARCHITECTURES.map((a) => (
                   <li key={a.title} className="border-b border-white/10 pb-5 last:border-0 last:pb-0">
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h3 className="text-[13px] font-bold">{a.title}</h3>
-                      <span className="rounded-sm bg-white/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-paper/70">{a.badge}</span>
+                      <h3 className="text-[14px] font-bold">{a.title}</h3>
+                      <span className="rounded-sm bg-white/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-paper/70">{a.badge}</span>
                     </div>
-                    <p className="mt-2 text-[12px] leading-relaxed text-paper/60">{a.copy}</p>
+                    <p className="mt-2 text-[13px] leading-relaxed text-paper/60">{a.copy}</p>
                   </li>
                 ))}
               </ul>
-              <Link href="/contact" className="mt-6 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-brand hover:text-white">
+              <Link href="/contact" className="mt-6 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-brand hover:text-white">
                 Request topology trade-off study matrix <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
               </Link>
             </div>
@@ -227,20 +227,20 @@ export function CriticalPower() {
           <SectionLabel>Engineered pillars</SectionLabel>
           <Reveal className="mt-6 max-w-2xl">
             <h2 className={H2}>Four Pillars of Unyielding Resilience</h2>
-            <p className="mt-4 text-[13px] leading-relaxed text-graphite-600">
+            <p className="mt-4 text-[14px] leading-relaxed text-graphite-600">
               True uptime is achieved through systematic electro-magnetic analysis, fault-transient coordination, and autonomous physical subsystems operating in synchronized unison.
             </p>
           </Reveal>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {PILLARS.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={(i % 4) * 0.06} className="flex flex-col rounded-md border border-hairline bg-mist-blue/60 p-5">
+              <Reveal as="li" key={p.title} delay={(i % 4) * 0.06} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
                 <div className="flex items-start justify-between gap-3">
                   <Tag className="text-brand">{p.tag}</Tag>
                   <p.icon className="h-4 w-4 shrink-0 text-steel" aria-hidden />
                 </div>
-                <h3 className="font-display mt-4 text-base font-bold tracking-tight">{p.title}</h3>
-                <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">{p.copy}</p>
-                <p className="mt-auto flex justify-between gap-3 border-t border-hairline pt-4 text-[10px] font-semibold uppercase tracking-[0.1em]">
+                <h3 className="font-display mt-4 text-lg font-bold tracking-tight">{p.title}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-graphite-600">{p.copy}</p>
+                <p className="mt-auto flex justify-between gap-3 border-t border-hairline pt-4 text-[11px] font-semibold uppercase tracking-[0.1em]">
                   <span className="text-steel">{p.foot[0]}</span>
                   <span>{p.foot[1]}</span>
                 </p>
@@ -254,13 +254,13 @@ export function CriticalPower() {
       <section className="bg-canvas py-14 text-graphite-950 md:py-24">
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-14")}>
           <Reveal className="lg:col-span-5">
-            <figure className="relative aspect-[4/5] overflow-hidden rounded-md ring-1 ring-graphite-950/10">
+            <figure className="relative aspect-[4/5] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
               <Image src="/about-hero-bg.png" alt="Engineers carrying out integrated commissioning tests on a power system" fill sizes="(min-width: 1024px) 480px, 100vw" quality={85} className="object-cover object-[65%_center]" />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-4 pt-12 text-[9px] font-semibold uppercase tracking-[0.16em] text-white sm:text-[10px]">
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-4 pt-12 text-[11px] font-semibold uppercase tracking-[0.16em] text-white sm:text-[11px]">
                 Protocol Level 5 Integrated System Commissioning Test
               </figcaption>
             </figure>
-            <p className="mt-4 text-[12px] leading-relaxed text-steel">
+            <p className="mt-4 text-[13px] leading-relaxed text-steel">
               INFOELEX site engineers personally witness full-load and fault-injection tests from the first energization through to final sign-off.
             </p>
           </Reveal>
@@ -268,7 +268,7 @@ export function CriticalPower() {
             <Reveal>
               <SectionLabel>Testing &amp; commissioning rigor</SectionLabel>
               <h2 className={cn(H2, "mt-6")}>We Never Assume Operation. We Force Systemic Stress.</h2>
-              <p className="mt-4 text-[13px] leading-relaxed text-graphite-600">
+              <p className="mt-4 text-[14px] leading-relaxed text-graphite-600">
                 A design is only as reliable as its first physical execution under stress. Our commissioning teams exercise failure modes on the real equipment, from factory test to black building pull.
               </p>
             </Reveal>
@@ -278,9 +278,9 @@ export function CriticalPower() {
                   <span className="font-display text-sm font-bold tabular-nums text-brand">{t.n}</span>
                   <div>
                     <h3 className="text-sm font-bold">{t.title}</h3>
-                    <p className="mt-1.5 text-[13px] leading-relaxed text-graphite-600">{t.copy}</p>
+                    <p className="mt-1.5 text-[14px] leading-relaxed text-graphite-600">{t.copy}</p>
                   </div>
-                  <span className="col-start-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-steel sm:col-start-3 sm:text-right">{t.meta}</span>
+                  <span className="col-start-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-steel sm:col-start-3 sm:text-right">{t.meta}</span>
                 </Reveal>
               ))}
             </ol>
@@ -294,19 +294,19 @@ export function CriticalPower() {
           <SectionLabel>Methodical scope</SectionLabel>
           <Reveal className="mt-6 max-w-3xl">
             <h2 className={H2}>Single Point of Failure (SPOF) Elimination</h2>
-            <p className="mt-4 text-[13px] leading-relaxed text-graphite-600">
+            <p className="mt-4 text-[14px] leading-relaxed text-graphite-600">
               From utility substation interconnection to the individual server power supply card, INFOELEX applies a ruthless computational audit process.
             </p>
           </Reveal>
           <ul className="mt-10 grid gap-4 md:grid-cols-3">
             {STAGES.map((s, i) => (
-              <Reveal as="li" key={s.stage} delay={i * 0.07} className="flex flex-col rounded-md border border-hairline bg-white p-5 lg:p-6">
+              <Reveal as="li" key={s.stage} delay={i * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-white p-5 lg:p-6">
                 <Tag className="text-brand">{s.stage}</Tag>
-                <h3 className="font-display mt-4 text-base font-bold tracking-tight">{s.title}</h3>
-                <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">{s.copy}</p>
+                <h3 className="font-display mt-4 text-lg font-bold tracking-tight">{s.title}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-graphite-600">{s.copy}</p>
                 <div className="mt-auto border-t border-hairline pt-4">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-steel">{s.foot}</p>
-                  <p className="mt-1 text-[11px] font-bold">{s.tool}</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-steel">{s.foot}</p>
+                  <p className="mt-1 text-[12px] font-bold">{s.tool}</p>
                 </div>
               </Reveal>
             ))}
@@ -327,7 +327,7 @@ export function CriticalPower() {
             <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-paper/70">
               Whether you are planning a 100MW AI campus, validating a mission-critical utility interconnect, or performing an urgent concurrent maintainability audit on an existing white space, our chartered consultants are ready to assist.
             </p>
-            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-paper/55">
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-paper/55">
               {[
                 { icon: Gauge, t: "Direct access to principal engineers" },
                 { icon: Cpu, t: "NDA-ready engagement" },
@@ -339,10 +339,10 @@ export function CriticalPower() {
             </ul>
           </Reveal>
           <Reveal delay={0.1} className="flex flex-col gap-3 lg:col-span-4 lg:col-start-9">
-            <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[12px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+            <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Talk to engineering team <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>
-            <p className="text-[11px] text-paper/50">Response window: 24 business hours</p>
+            <p className="text-[12px] text-paper/50">Response window: 24 business hours</p>
           </Reveal>
         </div>
       </section>

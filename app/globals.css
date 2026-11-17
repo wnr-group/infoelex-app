@@ -300,3 +300,65 @@ html.has-custom-cursor * {
     animation: none;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Card interaction: lift, accent line, icon and image motion.
+   Uses the individual `translate`/`scale` properties so it composes
+   with the inline transforms framer-motion puts on revealed elements.
+   ══════════════════════════════════════════════════════════════ */
+.card-lift {
+  position: relative;
+  transition:
+    translate 0.45s var(--ease-signature),
+    box-shadow 0.45s var(--ease-signature),
+    border-color 0.45s var(--ease-signature),
+    background-color 0.45s var(--ease-signature);
+}
+.card-lift::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--color-brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-signature);
+  pointer-events: none;
+}
+.card-lift svg {
+  transition: scale 0.4s var(--ease-signature), color 0.3s;
+}
+.card-lift img {
+  transition: scale 0.9s var(--ease-signature);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card-lift:hover {
+    translate: 0 -4px;
+    box-shadow: 0 24px 44px -26px rgba(21, 23, 26, 0.45);
+    border-color: rgba(200, 40, 26, 0.35);
+  }
+  .card-lift:hover::after {
+    transform: scaleX(1);
+  }
+  .card-lift:hover svg:not(.no-hover) {
+    scale: 1.14;
+    color: var(--color-brand);
+  }
+  .card-lift:hover img {
+    scale: 1.05;
+  }
+}
+
+/* Arrow glyphs on links and buttons nudge in their direction of travel. */
+main a > svg.lucide-arrow-up-right,
+main a > svg.lucide-arrow-right {
+  transition: translate 0.3s var(--ease-signature);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  main a:hover > svg.lucide-arrow-up-right {
+    translate: 2px -2px;
+  }
+  main a:hover > svg.lucide-arrow-right {
+    translate: 3px 0;
+  }
+}

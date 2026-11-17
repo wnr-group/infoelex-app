@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Activity, ArrowUpRight, Cpu, Crosshair, Gauge, Layers, ShieldCheck, Zap, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
+import { CountUp } from "./count-up";
 import { cn } from "@/lib/utils";
 
 const HERO_STATS = [
@@ -63,14 +64,14 @@ const PRINCIPLES: { tag: string; title: string; copy: string; stack: string; ico
 ];
 
 function Tag({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <span className={cn("inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px]", className)}>{children}</span>;
+  return <span className={cn("inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] sm:text-[12px]", className)}>{children}</span>;
 }
 
 function SectionLabel({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return <Tag className={dark ? "text-paper/60" : "text-steel"}>{children}</Tag>;
 }
 
-const H2 = "font-display text-[clamp(1.75rem,1.3rem+1.9vw,2.75rem)] font-bold leading-[1.1] tracking-[-0.025em] text-balance";
+const H2 = "font-display text-[clamp(1.75rem,1.35rem+1.7vw,2.5rem)] font-bold leading-[1.1] tracking-[-0.025em] text-balance";
 const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
 
 /** Our Edge: technical-authority layout. Dark hero and registry bands alternate with light content sections. */
@@ -82,7 +83,7 @@ export function OurEdge() {
         <Image src="/photos/substation.jpg" alt="" fill priority sizes="100vw" quality={80} className="-z-20 object-cover object-center opacity-45" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-[#1b2027]/70 via-[#1b2027]/55 to-[#1b2027]" />
         <div className={cn(WRAP, "pb-12 pt-28 md:pb-16 md:pt-32")}>
-          <div className="flex flex-col gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[11px]">
+          <div className="flex flex-col gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[12px]">
             <span className="w-fit rounded-sm border border-white/15 bg-white/5 px-3 py-1.5">Home | Our Edge</span>
             <span className="hidden sm:inline">Ref: SR-GR-OC-2025 &nbsp;|&nbsp; Lat 51.5074° N / Lng 0.1278° W</span>
           </div>
@@ -91,7 +92,7 @@ export function OurEdge() {
             <Tag className="rounded-sm border border-brand/50 bg-brand/15 px-3 py-1.5 text-[#ff8f84]">
               <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Institutional Technical Authority
             </Tag>
-            <h1 className="font-display mt-5 text-[clamp(2.25rem,1.4rem+4.2vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.03em] text-balance">
+            <h1 className="font-display mt-5 text-[clamp(2.25rem,1.5rem+4vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.03em] text-balance">
               Engineering Excellence Built on Experience.
             </h1>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-paper/75 md:text-base">
@@ -102,12 +103,12 @@ export function OurEdge() {
           <dl className="mt-12 grid gap-6 border-t border-white/10 pt-6 sm:grid-cols-2 lg:grid-cols-[repeat(3,1fr)_auto] lg:items-end">
             {HERO_STATS.map((s) => (
               <div key={s.label}>
-                <dt className="text-[10px] font-semibold uppercase tracking-[0.18em] text-paper/50">{s.label}</dt>
+                <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-paper/50">{s.label}</dt>
                 <dd className="mt-1.5 text-lg font-bold tracking-tight sm:text-xl">{s.value}</dd>
               </div>
             ))}
             <div className="sm:col-span-2 lg:col-span-1">
-              <span className="inline-flex items-center gap-2 rounded-sm bg-brand px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+              <span className="inline-flex items-center gap-2 rounded-sm bg-brand px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" /> Telemetry stream live
               </span>
             </div>
@@ -136,15 +137,15 @@ export function OurEdge() {
                 </span>
                 <div>
                   <p className="text-sm font-bold">Direct Fiduciary Autonomy</p>
-                  <p className="mt-1 text-[13px] leading-relaxed text-steel">Zero conflict capture. Objective engineering judgment and rigorous code compliance.</p>
+                  <p className="mt-1 text-[14px] leading-relaxed text-steel">Zero conflict capture. Objective engineering judgment and rigorous code compliance.</p>
                 </div>
               </div>
             </Reveal>
 
             <Reveal delay={0.1} className="lg:col-span-7">
-              <figure className="relative aspect-[16/10] overflow-hidden rounded-md ring-1 ring-graphite-950/10">
+              <figure className="relative aspect-[16/10] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
                 <Image src="/about-hero-bg.png" alt="Engineers working at a real-time digital simulator facility" fill sizes="(min-width: 1024px) 720px, 100vw" quality={85} className="object-cover" />
-                <figcaption className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-2 bg-gradient-to-t from-black/75 to-transparent px-4 pb-3 pt-10 text-[9px] font-semibold uppercase tracking-[0.16em] text-white sm:text-[10px]">
+                <figcaption className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-2 bg-gradient-to-t from-black/75 to-transparent px-4 pb-3 pt-10 text-[11px] font-semibold uppercase tracking-[0.16em] text-white sm:text-[11px]">
                   <span>Real-Time Digital Simulator (RTDS) Facility | London HQ</span>
                   <span className="text-white/70">INFY-BY | Pegasus</span>
                 </figcaption>
@@ -154,10 +155,10 @@ export function OurEdge() {
                   { icon: Activity, title: "Transient Dynamics", copy: "Rigorous high-fidelity EMT analysis protecting synchronous and inverter-based assets against switching and fault transients." },
                   { icon: Layers, title: "Critical Topologies", copy: "Fault-tolerant electrical architecture constructed for zero unplanned downtime: utility substations, data centers and hospitals." },
                 ].map((c) => (
-                  <div key={c.title} className="rounded-md border border-hairline bg-canvas p-5">
+                  <div key={c.title} className="card-lift rounded-md border border-hairline bg-canvas p-5">
                     <c.icon className="h-4 w-4 text-brand" aria-hidden />
                     <p className="mt-3 text-sm font-bold">{c.title}</p>
-                    <p className="mt-1.5 text-[13px] leading-relaxed text-graphite-600">{c.copy}</p>
+                    <p className="mt-1.5 text-[14px] leading-relaxed text-graphite-600">{c.copy}</p>
                   </div>
                 ))}
               </div>
@@ -176,25 +177,25 @@ export function OurEdge() {
             <Reveal as="h2" className={H2}>
               Verified Operational Impact.
             </Reveal>
-            <p className="max-w-md text-[13px] leading-relaxed text-paper/65">
+            <p className="max-w-md text-[14px] leading-relaxed text-paper/65">
               InfoElex delivers audited and certified sovereign power grids, independent system operators and Fortune 50 utility organizations.
             </p>
           </div>
 
           <ul className="mt-10 grid gap-px overflow-hidden rounded-md bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
             {METRICS.map((m, i) => (
-              <Reveal as="li" key={m.label} delay={i * 0.06} className="bg-[#2a323b] p-6 lg:p-7">
+              <Reveal as="li" key={m.label} delay={i * 0.06} className="bg-[#2a323b] p-6 transition-colors duration-300 hover:bg-[#323b46] lg:p-7">
                 <Tag className="text-brand">
                   <span className="h-1.5 w-1.5 bg-brand" /> Metric 0{i + 1}
                 </Tag>
-                <p className="font-display mt-5 text-[clamp(2.25rem,1.8rem+1.6vw,3rem)] font-bold leading-none tracking-[-0.03em]">{m.n}</p>
-                <p className="mt-3 text-[13px] font-bold">{m.label}</p>
-                <p className="mt-2 text-[12px] leading-relaxed text-paper/60">{m.copy}</p>
+                <p className="font-display mt-5 text-[clamp(2.25rem,1.8rem+1.6vw,3rem)] font-bold leading-none tracking-[-0.03em]"><CountUp value={m.n} /></p>
+                <p className="mt-3 text-[14px] font-bold">{m.label}</p>
+                <p className="mt-2 text-[13px] leading-relaxed text-paper/60">{m.copy}</p>
               </Reveal>
             ))}
           </ul>
 
-          <div className="mt-px flex flex-col gap-2 rounded-b-md bg-[#1b2027] px-5 py-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[11px]">
+          <div className="mt-px flex flex-col gap-2 rounded-b-md bg-[#1b2027] px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[12px]">
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
               <span>
@@ -216,21 +217,21 @@ export function OurEdge() {
             <Reveal as="h2" className={H2}>
               Global perspective. Seamless localized precision.
             </Reveal>
-            <p className="text-[13px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
+            <p className="text-[14px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
               Infrastructure operates across differing regulatory concerns, extreme climatic environments and asynchronous market structures. INFOELEX synchronizes regional delivery through three high-fire engineering centers.
             </p>
           </div>
 
           <ul className="mt-10 grid gap-4 md:grid-cols-3">
             {HUBS.map((h, i) => (
-              <Reveal as="li" key={h.city} delay={i * 0.07} className="flex flex-col rounded-md border border-hairline bg-white p-5 lg:p-6">
-                <div className="flex items-center justify-between gap-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-steel sm:text-[10px]">
+              <Reveal as="li" key={h.city} delay={i * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-white p-5 lg:p-6">
+                <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel sm:text-[11px]">
                   <span>{h.role}</span>
                   <span className="shrink-0 rounded-sm bg-brand/10 px-2 py-1 text-brand">{h.badge}</span>
                 </div>
                 <h3 className="font-display mt-4 text-xl font-bold tracking-tight">{h.city}</h3>
-                <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">{h.copy}</p>
-                <dl className="mt-5 space-y-2 border-t border-hairline pt-4 text-[11px]">
+                <p className="mt-2 text-[14px] leading-relaxed text-graphite-600">{h.copy}</p>
+                <dl className="mt-5 space-y-2 border-t border-hairline pt-4 text-[12px]">
                   {h.rows.map(([k, v]) => (
                     <div key={k} className="flex justify-between gap-4">
                       <dt className="text-steel">{k}</dt>
@@ -238,7 +239,7 @@ export function OurEdge() {
                     </div>
                   ))}
                 </dl>
-                <p className="mt-auto flex items-center gap-2 pt-5 text-[10px] font-bold uppercase tracking-[0.14em] text-brand">
+                <p className="mt-auto flex items-center gap-2 pt-5 text-[11px] font-bold uppercase tracking-[0.14em] text-brand">
                   Operational hub online <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand" />
                 </p>
               </Reveal>
@@ -249,9 +250,9 @@ export function OurEdge() {
             <div className="flex flex-col gap-2 px-5 pt-5 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <p className="text-sm font-bold">Global Project Telemetry &amp; Field Coordination</p>
-                <p className="mt-1 text-[11px] text-paper/55">Continuous coordination centers validated by &amp; synchronized remote monitoring.</p>
+                <p className="mt-1 text-[12px] text-paper/55">Continuous coordination centers validated by &amp; synchronized remote monitoring.</p>
               </div>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand">Data sync: every 250ms</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">Data sync: every 250ms</span>
             </div>
             <div
               className="relative mt-5 h-52 sm:h-64 lg:h-72"
@@ -262,7 +263,7 @@ export function OurEdge() {
                 { label: "EMEA Hub: 5.6 GW active EMT", pos: "left-[30%] top-[50%] sm:left-[42%]" },
                 { label: "APAC: 6.8 GW interconnection", pos: "right-[4%] bottom-[10%]" },
               ].map((p) => (
-                <span key={p.label} className={cn("absolute max-w-[46%] rounded-sm border border-brand/60 bg-[#1b2027]/90 px-2 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] sm:max-w-none sm:px-3 sm:text-[10px]", p.pos)}>
+                <span key={p.label} className={cn("absolute max-w-[46%] rounded-sm border border-brand/60 bg-[#1b2027]/90 px-2 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] sm:max-w-none sm:px-3 sm:text-[11px]", p.pos)}>
                   <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-brand align-middle" />
                   {p.label}
                 </span>
@@ -282,20 +283,20 @@ export function OurEdge() {
             <Reveal as="h2" className={H2}>
               Engineering for certainty in a volatile energy landscape.
             </Reveal>
-            <p className="text-[13px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
+            <p className="text-[14px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
               Six foundational standards that govern every design review, calculation model and on-site commission handled by our teams.
             </p>
           </div>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PRINCIPLES.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={(i % 3) * 0.07} className="flex flex-col rounded-md border border-hairline bg-mist-blue/60 p-5 lg:p-6">
+              <Reveal as="li" key={p.title} delay={(i % 3) * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5 lg:p-6">
                 <div className="flex items-start justify-between gap-3">
                   <Tag className="text-brand">{p.tag}</Tag>
                   <p.icon className="h-4 w-4 shrink-0 text-steel" aria-hidden />
                 </div>
                 <h3 className="font-display mt-4 text-lg font-bold tracking-tight">{p.title}</h3>
-                <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">{p.copy}</p>
-                <p className="mt-auto border-t border-hairline pt-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-steel">{p.stack}</p>
+                <p className="mt-2 text-[14px] leading-relaxed text-graphite-600">{p.copy}</p>
+                <p className="mt-auto border-t border-hairline pt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-steel">{p.stack}</p>
               </Reveal>
             ))}
           </ul>
@@ -309,13 +310,13 @@ export function OurEdge() {
             <Tag className="rounded-sm border border-brand/50 bg-brand/15 px-3 py-1.5 text-[#ff8f84]">
               <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Institutional Mandate
             </Tag>
-            <h2 className="font-display mt-5 text-[clamp(2.25rem,1.4rem+4vw,4rem)] font-medium leading-[1.05] tracking-[-0.03em]">
+            <h2 className="font-display mt-5 text-[clamp(2rem,1.3rem+3.4vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.03em]">
               Engineering Without Compromise.
             </h2>
             <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-paper/70">
               When system failures carry multi-million-dollar consequences or jeopardize sovereign energy security, capital programs turn to INFOELEX for absolute technical certainty.
             </p>
-            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-paper/55">
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-paper/55">
               {["Chartered Engineers", "Independent Authority", "ISO 9001:2015 Certified"].map((t) => (
                 <li key={t} className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-brand" /> {t}
@@ -324,10 +325,10 @@ export function OurEdge() {
             </ul>
           </Reveal>
           <Reveal delay={0.1} className="flex flex-col gap-4 lg:col-span-4 lg:col-start-9">
-            <Link href="/capabilities" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[12px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+            <Link href="/capabilities" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Explore our capabilities <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>
-            <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm border border-white/20 px-6 py-4 text-[12px] font-bold uppercase tracking-[0.12em] transition-colors hover:border-white/50 hover:bg-white/5">
+            <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm border border-white/20 px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] transition-colors hover:border-white/50 hover:bg-white/5">
               Discuss a project <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>
           </Reveal>

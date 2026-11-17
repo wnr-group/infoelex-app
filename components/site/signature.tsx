@@ -5,7 +5,7 @@ import { Reveal } from "@/components/home/reveal";
 import { cn } from "@/lib/utils";
 
 const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
-const H2 = "font-display text-[clamp(1.75rem,1.3rem+1.9vw,2.75rem)] font-bold uppercase leading-[1.08] tracking-[-0.025em] text-balance";
+const H2 = "font-display text-[clamp(1.75rem,1.35rem+1.7vw,2.5rem)] font-bold uppercase leading-[1.08] tracking-[-0.025em] text-balance";
 
 const MANIFEST = [
   ["Primary topology", "Dual-ring redundant"],
@@ -53,7 +53,7 @@ const TOOLS = [
 ];
 
 function Tag({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <span className={cn("inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px]", className)}>{children}</span>;
+  return <span className={cn("inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] sm:text-[12px]", className)}>{children}</span>;
 }
 
 /** Our Signature: engineering methodology and quality framework on a white page. */
@@ -68,7 +68,7 @@ export function Signature() {
           style={{ backgroundImage: "linear-gradient(rgba(21,23,26,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(21,23,26,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }}
         />
         <div className={cn(WRAP, "relative")}>
-          <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-steel">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">
             <span>Home / Our Signature</span>
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Discipline: multi-system telemetry
@@ -78,24 +78,24 @@ export function Signature() {
           <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-start">
             <Reveal className="lg:col-span-7">
               <Tag className="rounded-sm border border-brand/30 bg-brand/5 px-3 py-1.5 text-brand">ISO 9001:2015 audited engineering quality framework</Tag>
-              <h1 className="font-display mt-5 text-[clamp(2.25rem,1.4rem+4.4vw,4.5rem)] font-bold uppercase leading-[1.02] tracking-[-0.03em] text-balance">
+              <h1 className="font-display mt-5 text-[clamp(2.25rem,1.5rem+4vw,4.25rem)] font-bold uppercase leading-[1.02] tracking-[-0.03em] text-balance">
                 Precision in process. <span className="text-brand">Excellence in execution.</span>
               </h1>
-              <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-graphite-600">
+              <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-graphite-600">
                 Our approach brings together engineering knowledge, structured methodologies, quality standards, and technical verification to mitigate thermodynamic and computational uncertainty across hyperscale power topologies.
               </p>
             </Reveal>
             <Reveal delay={0.1} className="lg:col-span-5">
               <div className="rounded-md bg-[#232a32] p-6 text-paper">
-                <div className="flex items-center justify-between text-[9px] font-semibold uppercase tracking-[0.16em] text-paper/50">
+                <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/50">
                   <span>Telemetry rating</span>
                   <span className="rounded-sm bg-brand px-1.5 py-0.5 text-white">QA</span>
                 </div>
                 <p className="font-display mt-3 text-[clamp(2.75rem,2rem+3vw,4rem)] font-bold leading-none tracking-[-0.03em]">
                   0.00<span className="text-brand">%</span>
                 </p>
-                <p className="mt-3 text-[12px] leading-relaxed text-paper/60">Unsupervised downtime tolerance across energized single-line configurations under operational commission.</p>
-                <dl className="mt-5 flex justify-between gap-4 border-t border-white/10 pt-3 text-[10px] font-semibold uppercase tracking-[0.12em]">
+                <p className="mt-3 text-[13px] leading-relaxed text-paper/60">Unsupervised downtime tolerance across energized single-line configurations under operational commission.</p>
+                <dl className="mt-5 flex justify-between gap-4 border-t border-white/10 pt-3 text-[11px] font-semibold uppercase tracking-[0.12em]">
                   <div><dt className="text-paper/45">P&amp;C registries</dt></div>
                   <div><dd>100% Traceable</dd></div>
                 </dl>
@@ -105,19 +105,19 @@ export function Signature() {
 
           <div className="mt-8 grid gap-4 pb-14 lg:grid-cols-12 md:pb-20">
             <Reveal className="lg:col-span-7">
-              <figure className="relative aspect-[16/10] overflow-hidden rounded-md ring-1 ring-graphite-950/10">
+              <figure className="relative aspect-[16/10] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
                 <Image src="/about-hero-bg.png" alt="Engineers reviewing a transient simulation in a control room" fill priority sizes="(min-width: 1024px) 720px, 100vw" quality={85} className="object-cover" />
                 <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/85 via-transparent to-transparent" />
                 <figcaption className="absolute inset-x-0 bottom-0 p-4 text-white">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.14em]"><span className="mr-2 rounded-sm bg-brand px-1.5 py-0.5">REL 01</span>Electromagnetic Transient &amp; Harmonic Spectrum Analysis</p>
-                  <p className="mt-1.5 text-[11px] text-white/70">Sub-millisecond transient stability verified prior to front-end hardware procurement for a 300kV interconnect terminal.</p>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.14em]"><span className="mr-2 rounded-sm bg-brand px-1.5 py-0.5">REL 01</span>Electromagnetic Transient &amp; Harmonic Spectrum Analysis</p>
+                  <p className="mt-1.5 text-[12px] text-white/70">Sub-millisecond transient stability verified prior to front-end hardware procurement for a 300kV interconnect terminal.</p>
                 </figcaption>
               </figure>
             </Reveal>
             <Reveal delay={0.1} className="lg:col-span-5">
-              <div className="h-full rounded-md border border-hairline bg-mist-blue/60 p-5">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-steel">Protocol manifest</p>
-                <dl className="mt-3 divide-y divide-hairline text-[12px]">
+              <div className="h-full card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Protocol manifest</p>
+                <dl className="mt-3 divide-y divide-hairline text-[13px]">
                   {MANIFEST.map(([k, v]) => (
                     <div key={k} className="flex justify-between gap-4 py-2.5">
                       <dt className="text-steel">{k}</dt>
@@ -126,8 +126,8 @@ export function Signature() {
                   ))}
                 </dl>
                 <div className="mt-4 rounded-sm border-l-2 border-brand bg-white p-4">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-brand">Governance directive</p>
-                  <p className="mt-2 text-[12px] italic leading-relaxed text-graphite-600">&ldquo;Every calculation is traceable to a physical principle and an independent reviewer, and no design is released without both.&rdquo;</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">Governance directive</p>
+                  <p className="mt-2 text-[13px] italic leading-relaxed text-graphite-600">&ldquo;Every calculation is traceable to a physical principle and an independent reviewer, and no design is released without both.&rdquo;</p>
                 </div>
               </div>
             </Reveal>
@@ -141,26 +141,26 @@ export function Signature() {
           <Reveal className="lg:col-span-5">
             <Tag className="text-steel">Foundational doctrine</Tag>
             <h2 className={cn(H2, "mt-5")}>Our engineering philosophy</h2>
-            <p className="mt-5 text-[13px] leading-relaxed text-graphite-600">
+            <p className="mt-5 text-[14px] leading-relaxed text-graphite-600">
               In modern mission-critical infrastructure, margin for error has diminished to zero. We maintain an uncompromising engineering ethos that rejects commercial expediency in favor of mathematical proof and empirical truth.
             </p>
             <div className="mt-6 rounded-sm border-l-2 border-brand bg-mist-blue/60 p-4">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-brand">Unrestricted authority</p>
-              <p className="mt-2 text-[12px] leading-relaxed text-graphite-600">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">Unrestricted authority</p>
+              <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">
                 INFOELEX maintains zero commission or affiliate ties with equipment manufacturers, switchgear vendors or software developers. Our engineers report only to the integrity of the model.
               </p>
             </div>
           </Reveal>
           <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
             {DOCTRINES.map((d, i) => (
-              <Reveal as="li" key={d.title} delay={(i % 2) * 0.07} className="flex flex-col rounded-md border border-hairline bg-mist-blue/60 p-5">
+              <Reveal as="li" key={d.title} delay={(i % 2) * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
                 <div className="flex items-start justify-between gap-3">
                   <Tag className="text-brand">{d.tag}</Tag>
                   <d.icon className="h-4 w-4 shrink-0 text-steel" aria-hidden />
                 </div>
-                <h3 className="font-display mt-4 text-base font-bold uppercase tracking-tight">{d.title}</h3>
-                <p className="mt-2 text-[12px] leading-relaxed text-graphite-600">{d.copy}</p>
-                <p className="mt-auto flex justify-between gap-3 border-t border-hairline pt-4 text-[10px] font-semibold uppercase tracking-[0.1em]">
+                <h3 className="font-display mt-4 text-lg font-bold uppercase tracking-tight">{d.title}</h3>
+                <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">{d.copy}</p>
+                <p className="mt-auto flex justify-between gap-3 border-t border-hairline pt-4 text-[11px] font-semibold uppercase tracking-[0.1em]">
                   <span className="text-steel">{d.foot[0]}</span>
                   <span className="text-right">{d.foot[1]}</span>
                 </p>
@@ -178,7 +178,7 @@ export function Signature() {
             <Reveal as="h2" className={H2}>
               The 5-stage verification methodology
             </Reveal>
-            <p className="text-[13px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
+            <p className="text-[14px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
               A sequential, gated quality protocol designed to de-risk high-capacity capital energy projects at every engineering milestone.
             </p>
           </div>
@@ -189,12 +189,12 @@ export function Signature() {
                 <Reveal as="li" key={s.n} delay={i * 0.05} className={cn("flex flex-col rounded-md border p-5", last ? "border-graphite-950 bg-[#232a32] text-paper" : "border-hairline bg-mist-blue/60")}>
                   <div className="flex items-start justify-between">
                     <span className="font-display text-3xl font-bold leading-none text-brand">{s.n}</span>
-                    <span className={cn("rounded-sm px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em]", last ? "bg-brand text-white" : "bg-white text-steel")}>{s.gate}</span>
+                    <span className={cn("rounded-sm px-1.5 py-0.5 text-[11px] font-bold uppercase tracking-[0.12em]", last ? "bg-brand text-white" : "bg-white text-steel")}>{s.gate}</span>
                   </div>
-                  <p className={cn("mt-4 text-[9px] font-semibold uppercase tracking-[0.16em]", last ? "text-paper/50" : "text-steel")}>Stage {s.n}</p>
-                  <h3 className="font-display mt-1 text-base font-bold uppercase tracking-tight">{s.title}</h3>
-                  <p className={cn("mt-2 text-[12px] leading-relaxed", last ? "text-paper/65" : "text-graphite-600")}>{s.copy}</p>
-                  <ul className={cn("mt-auto space-y-1 border-t pt-3 text-[10px] font-semibold", last ? "border-white/10 text-paper/80" : "border-hairline text-graphite-800")}>
+                  <p className={cn("mt-4 text-[11px] font-semibold uppercase tracking-[0.16em]", last ? "text-paper/50" : "text-steel")}>Stage {s.n}</p>
+                  <h3 className="font-display mt-1 text-lg font-bold uppercase tracking-tight">{s.title}</h3>
+                  <p className={cn("mt-2 text-[13px] leading-relaxed", last ? "text-paper/65" : "text-graphite-600")}>{s.copy}</p>
+                  <ul className={cn("mt-auto space-y-1 border-t pt-3 text-[11px] font-semibold", last ? "border-white/10 text-paper/80" : "border-hairline text-graphite-800")}>
                     {s.tags.map((t) => (
                       <li key={t} className="flex gap-2"><span aria-hidden className="mt-[0.5em] h-1 w-1 shrink-0 bg-brand" />{t}</li>
                     ))}
@@ -212,12 +212,12 @@ export function Signature() {
           <Reveal className="lg:col-span-5">
             <Tag className="text-steel">Quality assurance directive</Tag>
             <h2 className={cn(H2, "mt-5")}>Peer-review protocol &amp; standards adherence</h2>
-            <p className="mt-5 text-[13px] leading-relaxed text-graphite-600">
+            <p className="mt-5 text-[14px] leading-relaxed text-graphite-600">
               Calculations never leave INFOELEX as unverified individual output. Every model, calculation worksheet, single-line diagram, and protective device setting is subjected to our strict three-tier verification protocol before final release.
             </p>
-            <div className="mt-6 rounded-md border border-hairline bg-mist-blue/60 p-4">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-steel">Three-tier sign-off mandate</p>
-              <ul className="mt-3 divide-y divide-hairline text-[12px]">
+            <div className="mt-6 card-lift rounded-md border border-hairline bg-mist-blue/60 p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Three-tier sign-off mandate</p>
+              <ul className="mt-3 divide-y divide-hairline text-[13px]">
                 {TIERS.map(([k, v]) => (
                   <li key={k} className="flex justify-between gap-4 py-2.5">
                     <span>{k}</span>
@@ -229,7 +229,7 @@ export function Signature() {
           </Reveal>
           <Reveal delay={0.1} className="lg:col-span-7">
             <div className="rounded-md border border-hairline">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline bg-canvas px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-steel">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline bg-canvas px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">
                 <span>Standards authority alignment</span>
                 <span>Registry ref: QMS-9001-2025</span>
               </div>
@@ -237,10 +237,10 @@ export function Signature() {
                 {STANDARDS.map((s) => (
                   <li key={s.name} className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                     <div>
-                      <p className="text-[13px] font-bold">{s.name}</p>
-                      <p className="mt-1 text-[12px] leading-relaxed text-graphite-600">{s.copy}</p>
+                      <p className="text-[14px] font-bold">{s.name}</p>
+                      <p className="mt-1 text-[13px] leading-relaxed text-graphite-600">{s.copy}</p>
                     </div>
-                    <span className="w-fit shrink-0 rounded-sm bg-mist-blue px-2 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-graphite-800">{s.badge}</span>
+                    <span className="w-fit shrink-0 rounded-sm bg-mist-blue px-2 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-graphite-800">{s.badge}</span>
                   </li>
                 ))}
               </ul>
@@ -257,20 +257,20 @@ export function Signature() {
             <Reveal as="h2" className={H2}>
               Simulation infrastructure
             </Reveal>
-            <p className="text-[13px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
+            <p className="text-[14px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
               Industry-grade numerical modeling suites operated by dedicated simulation engineers to preempt hardware failures before installation.
             </p>
           </div>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {TOOLS.map((t, i) => (
-              <Reveal as="li" key={t.title} delay={(i % 3) * 0.06} className="flex flex-col rounded-md border border-hairline bg-mist-blue/60 p-5">
-                <div className="flex items-center justify-between gap-3 text-[9px] font-semibold uppercase tracking-[0.14em]">
+              <Reveal as="li" key={t.title} delay={(i % 3) * 0.06} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
+                <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.14em]">
                   <span className="text-brand">{t.tag}</span>
                   <span className="text-steel">{t.sub}</span>
                 </div>
-                <h3 className="font-display mt-3 text-base font-bold uppercase tracking-tight">{t.title}</h3>
-                <p className="mt-2 text-[12px] leading-relaxed text-graphite-600">{t.copy}</p>
-                <p className="mt-auto flex justify-between gap-3 border-t border-hairline pt-3 text-[10px] font-semibold">
+                <h3 className="font-display mt-3 text-lg font-bold uppercase tracking-tight">{t.title}</h3>
+                <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">{t.copy}</p>
+                <p className="mt-auto flex justify-between gap-3 border-t border-hairline pt-3 text-[11px] font-semibold">
                   <span className="text-steel">{t.row[0]}</span>
                   <span className="text-right">{t.row[1]}</span>
                 </p>
@@ -291,7 +291,7 @@ export function Signature() {
             <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-paper/70">
               We stand behind our deliverables with full chartered liability. Every project engineered through the INFOELEX Verification Methodology delivers zero unprogrammed operational downtime upon energization.
             </p>
-            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-paper/55">
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-paper/55">
               {["Fully Indemnified Engineering", "Deterministic Protection Models", "Full Regulatory Sanction"].map((t) => (
                 <li key={t} className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-brand" /> {t}</li>
               ))}
@@ -299,9 +299,9 @@ export function Signature() {
           </Reveal>
           <Reveal delay={0.1} className="lg:col-span-4 lg:col-start-9">
             <div className="rounded-md border border-white/10 bg-white/5 p-5">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-paper/50">Schedule engineering review</p>
-              <p className="mt-2 text-[12px] leading-relaxed text-paper/65">Engage our Senior Technical Principals for an independent audit of your high-voltage design or protection strategy.</p>
-              <Link href="/contact" className="mt-4 inline-flex w-full items-center justify-between gap-3 rounded-sm bg-brand px-5 py-3.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/50">Schedule engineering review</p>
+              <p className="mt-2 text-[13px] leading-relaxed text-paper/65">Engage our Senior Technical Principals for an independent audit of your high-voltage design or protection strategy.</p>
+              <Link href="/contact" className="mt-4 inline-flex w-full items-center justify-between gap-3 rounded-sm bg-brand px-5 py-3.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
                 Initiate consultation <ArrowUpRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>

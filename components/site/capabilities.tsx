@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { DeliverablesTable } from "./capabilities-table";
 
 const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
-const H2 = "font-display text-[clamp(1.5rem,1.2rem+1.4vw,2.25rem)] font-bold leading-[1.12] tracking-[-0.025em] text-balance";
+const H2 = "font-display text-[clamp(1.75rem,1.35rem+1.7vw,2.5rem)] font-bold leading-[1.12] tracking-[-0.025em] text-balance";
 
 const HERO_SPECS = [
   { label: "Active compliance standards", value: "IEEE 1547 • IEC 60909 • ETAP / PSCAD • DIgSILENT", note: "Applied across every study and design" },
@@ -147,7 +147,7 @@ const DISCIPLINES: Discipline[] = [
 ];
 
 function Tag({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <span className={cn("inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px]", className)}>{children}</span>;
+  return <span className={cn("inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] sm:text-[12px]", className)}>{children}</span>;
 }
 
 function DisciplineBlock({ d, flip }: { d: Discipline; flip: boolean }) {
@@ -156,31 +156,31 @@ function DisciplineBlock({ d, flip }: { d: Discipline; flip: boolean }) {
       <div className={cn(WRAP, "grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-14")}>
         <Reveal className={cn("lg:col-span-7", flip && "lg:order-2")}>
           <div className="flex items-center gap-3">
-            <span className="rounded-sm bg-brand px-2 py-1 text-[10px] font-bold tabular-nums text-white">Discipline {d.index}</span>
+            <span className="rounded-sm bg-brand px-2 py-1 text-[11px] font-bold tabular-nums text-white">Discipline {d.index}</span>
             <Tag className="text-steel">{d.tag}</Tag>
           </div>
           <h2 className={cn(H2, "mt-5")}>{d.title}</h2>
-          <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-graphite-600">{d.lead}</p>
+          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-graphite-600">{d.lead}</p>
 
           <ul className="mt-6 space-y-4">
             {d.points.map((p) => (
               <li key={p.title} className="flex gap-3">
                 <span aria-hidden className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
                 <div>
-                  <p className="text-[13px] font-bold leading-snug">{p.title}</p>
-                  <p className="mt-0.5 text-[12px] leading-relaxed text-graphite-600">{p.copy}</p>
+                  <p className="text-[14px] font-bold leading-snug">{p.title}</p>
+                  <p className="mt-0.5 text-[13px] leading-relaxed text-graphite-600">{p.copy}</p>
                 </div>
               </li>
             ))}
           </ul>
 
           <div className="mt-6 border-t border-hairline pt-4">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-steel">Key engineering deliverables</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Key engineering deliverables</p>
             <div className="mt-2.5 flex flex-wrap items-center gap-2">
               {d.deliverables.map((x) => (
-                <span key={x} className="rounded-sm border border-hairline bg-white px-2.5 py-1 text-[11px] text-graphite-800">{x}</span>
+                <span key={x} className="rounded-sm border border-hairline bg-white px-2.5 py-1 text-[12px] text-graphite-800">{x}</span>
               ))}
-              <Link href={d.href} className="ml-auto inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.12em] text-brand hover:underline">
+              <Link href={d.href} className="ml-auto inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.12em] text-brand hover:underline">
                 Learn more <ArrowUpRight className="h-3 w-3" aria-hidden />
               </Link>
             </div>
@@ -188,16 +188,16 @@ function DisciplineBlock({ d, flip }: { d: Discipline; flip: boolean }) {
         </Reveal>
 
         <Reveal delay={0.1} className={cn("lg:col-span-5", flip && "lg:order-1")}>
-          <figure className="relative aspect-[4/3] overflow-hidden rounded-md ring-1 ring-graphite-950/10">
+          <figure className="relative aspect-[4/3] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
             <Image src={d.image} alt={d.imageAlt} fill sizes="(min-width: 1024px) 480px, 100vw" quality={80} className="object-cover" />
             <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/85 via-[#1b2027]/20 to-transparent" />
             <figcaption className="absolute inset-x-0 bottom-0 p-4 text-white">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/70">{d.panel.label}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70">{d.panel.label}</p>
               <dl className="mt-2 grid grid-cols-3 gap-3">
                 {d.panel.rows.map(([k, v]) => (
                   <div key={k}>
-                    <dt className="text-[9px] uppercase tracking-[0.1em] text-white/55">{k}</dt>
-                    <dd className="mt-0.5 text-[11px] font-bold leading-tight sm:text-xs">{v}</dd>
+                    <dt className="text-[11px] uppercase tracking-[0.1em] text-white/55">{k}</dt>
+                    <dd className="mt-0.5 text-[12px] font-bold leading-tight sm:text-xs">{v}</dd>
                   </div>
                 ))}
               </dl>
@@ -218,18 +218,18 @@ export function Capabilities() {
         <Image src="/photos/pylon-sunset.jpg" alt="" fill priority sizes="100vw" quality={75} className="-z-20 object-cover opacity-30" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-[#1b2027]/75 to-[#1b2027]" />
         <div className={cn(WRAP, "pb-12 pt-28 md:pb-16 md:pt-32")}>
-          <div className="w-fit rounded-sm border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:text-[11px]">
+          <div className="w-fit rounded-sm border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:text-[12px]">
             Home | Capabilities
           </div>
           <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12 lg:items-end">
             <Reveal className="lg:col-span-7">
               <Tag className="text-brand">Core engineering services</Tag>
-              <h1 className="font-display mt-4 text-[clamp(2.25rem,1.4rem+4.2vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.03em] text-balance">
+              <h1 className="font-display mt-4 text-[clamp(2.25rem,1.5rem+4vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.03em] text-balance">
                 Integrated Engineering. Comprehensive Expertise.
               </h1>
             </Reveal>
             <Reveal delay={0.08} className="lg:col-span-5">
-              <p className="text-[14px] leading-relaxed text-paper/70">
+              <p className="text-[15px] leading-relaxed text-paper/70">
                 Engineering knowledge and technical capabilities to support complex electrical and power systems requirements across sovereign grids, industrial mega-plants and hyperscale digital architecture.
               </p>
             </Reveal>
@@ -237,10 +237,10 @@ export function Capabilities() {
 
           <dl className="mt-12 grid gap-px overflow-hidden rounded-md bg-white/10 md:grid-cols-3">
             {HERO_SPECS.map((s) => (
-              <div key={s.label} className="bg-[#232a32] p-5">
-                <dt className="text-[9px] font-semibold uppercase tracking-[0.16em] text-paper/50">{s.label}</dt>
-                <dd className="mt-2 text-[13px] font-bold leading-snug">{s.value}</dd>
-                <dd className="mt-1.5 text-[11px] text-paper/50">{s.note}</dd>
+              <div key={s.label} className="bg-[#232a32] p-5 transition-colors duration-300 hover:bg-[#2a323b]">
+                <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/50">{s.label}</dt>
+                <dd className="mt-2 text-[14px] font-bold leading-snug">{s.value}</dd>
+                <dd className="mt-1.5 text-[12px] text-paper/50">{s.note}</dd>
               </div>
             ))}
           </dl>
@@ -257,7 +257,7 @@ export function Capabilities() {
           <Tag className="text-steel">Technical deliverables register</Tag>
           <Reveal className="mt-5 max-w-2xl">
             <h2 className={H2}>Standard Deliverable Specifications</h2>
-            <p className="mt-3 text-[13px] leading-relaxed text-graphite-600">
+            <p className="mt-3 text-[14px] leading-relaxed text-graphite-600">
               Select a project phase or engineering discipline to view the verified technical artifacts, governing standards and independent review level for each deliverable.
             </p>
           </Reveal>
@@ -280,10 +280,10 @@ export function Capabilities() {
             </p>
           </Reveal>
           <Reveal delay={0.1} className="flex flex-col gap-3 lg:col-span-4 lg:col-start-9">
-            <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[12px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+            <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Schedule technical consultation <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>
-            <Link href="/critical-power" className="inline-flex items-center justify-between gap-3 rounded-sm border border-white/20 px-6 py-4 text-[12px] font-bold uppercase tracking-[0.12em] transition-colors hover:border-white/50 hover:bg-white/5">
+            <Link href="/critical-power" className="inline-flex items-center justify-between gap-3 rounded-sm border border-white/20 px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] transition-colors hover:border-white/50 hover:bg-white/5">
               Explore critical power <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>
           </Reveal>

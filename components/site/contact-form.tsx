@@ -10,17 +10,17 @@ import { contactSchema, type ContactInput } from "./contact-schema";
 import { CONTACT, ENQUIRY_TYPES } from "./data";
 
 const field =
-  "w-full rounded-sm border border-graphite-950/15 bg-canvas/60 px-3 py-2.5 text-[13px] text-graphite-950 outline-none transition-colors placeholder:text-steel/60 focus:border-brand focus:bg-white aria-[invalid=true]:border-brand";
+  "w-full rounded-sm border border-graphite-950/15 bg-canvas/60 px-3 py-2.5 text-[14px] text-graphite-950 outline-none transition-colors placeholder:text-steel/60 focus:border-brand focus:bg-white aria-[invalid=true]:border-brand";
 
 function Field({ id, label, required, error, children, className }: { id: string; label: string; required?: boolean; error?: string; children: React.ReactNode; className?: string }) {
   return (
     <div className={className}>
-      <label htmlFor={id} className="mb-1.5 flex justify-between text-[9px] font-semibold uppercase tracking-[0.14em] text-steel">
+      <label htmlFor={id} className="mb-1.5 flex justify-between text-[11px] font-semibold uppercase tracking-[0.14em] text-steel">
         {label}
         {required && <span aria-hidden className="text-brand">*</span>}
       </label>
       {children}
-      <p id={`${id}-error`} role={error ? "alert" : undefined} className="mt-1 min-h-4 text-[11px] text-brand">
+      <p id={`${id}-error`} role={error ? "alert" : undefined} className="mt-1 min-h-4 text-[12px] text-brand">
         {error}
       </p>
     </div>
@@ -70,10 +70,10 @@ export function ContactForm() {
     <AnimatePresence mode="wait" initial={false}>
       {status === "success" ? (
         <motion.div key="ok" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} role="status" className="py-10">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand">Request received</span>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">Request received</span>
           <h3 className="font-display mt-3 text-2xl font-bold tracking-tight text-balance">Thank you. We have your scoping request.</h3>
-          <p className="mt-3 max-w-md text-[13px] leading-relaxed text-graphite-600">An engineer will review your request and reply to the email address you gave.</p>
-          <button type="button" onClick={() => setStatus("idle")} className="mt-6 text-[11px] font-bold uppercase tracking-[0.12em] text-brand underline-offset-4 hover:underline">
+          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-graphite-600">An engineer will review your request and reply to the email address you gave.</p>
+          <button type="button" onClick={() => setStatus("idle")} className="mt-6 text-[12px] font-bold uppercase tracking-[0.12em] text-brand underline-offset-4 hover:underline">
             Submit another request
           </button>
         </motion.div>
@@ -119,7 +119,7 @@ export function ContactForm() {
           </div>
 
           {status === "error" && (
-            <p role="alert" className="mb-3 rounded-sm border border-brand/40 bg-brand/5 px-3 py-2.5 text-[12px] text-signal-deep">
+            <p role="alert" className="mb-3 rounded-sm border border-brand/40 bg-brand/5 px-3 py-2.5 text-[13px] text-signal-deep">
               {serverError} You can also email us at{" "}
               <a href={`mailto:${CONTACT.email}`} className="font-semibold underline">{CONTACT.email}</a>.
             </p>
@@ -128,7 +128,7 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="mt-1 inline-flex w-full items-center justify-center gap-3 rounded-sm bg-brand px-6 py-4 text-[11px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:bg-brand-dim disabled:cursor-not-allowed disabled:bg-graphite-600"
+            className="mt-1 inline-flex w-full items-center justify-center gap-3 rounded-sm bg-brand px-6 py-4 text-[12px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:bg-brand-dim disabled:cursor-not-allowed disabled:bg-graphite-600"
           >
             {status === "submitting" ? (
               <>
@@ -140,7 +140,7 @@ export function ContactForm() {
               </>
             )}
           </button>
-          <p className="mt-3 text-[10px] leading-relaxed text-steel">Your information is used only to respond to this request.</p>
+          <p className="mt-3 text-[11px] leading-relaxed text-steel">Your information is used only to respond to this request.</p>
         </motion.form>
       )}
     </AnimatePresence>

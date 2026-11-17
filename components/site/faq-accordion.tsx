@@ -31,8 +31,8 @@ export function FaqAccordion({ items, className }: { items: readonly FaqItem[]; 
                 onClick={() => setOpen(isOpen ? null : i)}
                 className="group flex w-full items-center gap-4 px-5 py-5 text-left outline-none focus-visible:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand sm:px-7 sm:py-6"
               >
-                <span className="font-display w-7 shrink-0 text-[11px] font-bold tabular-nums text-brand">{String(i + 1).padStart(2, "0")}</span>
-                <span className={cn("flex-1 text-[14px] font-semibold leading-snug transition-colors duration-300 sm:text-[15px]", isOpen ? "text-white" : "text-paper/80 group-hover:text-white")}>
+                <span className="font-display w-7 shrink-0 text-[12px] font-bold tabular-nums text-brand">{String(i + 1).padStart(2, "0")}</span>
+                <span className={cn("flex-1 text-[15px] font-semibold leading-snug transition-colors duration-300 sm:text-[15px]", isOpen ? "text-white" : "text-paper/80 group-hover:text-white")}>
                   {item.q}
                 </span>
                 <span
@@ -59,7 +59,7 @@ export function FaqAccordion({ items, className }: { items: readonly FaqItem[]; 
                   transition={{ duration: 0.35, ease: EASE }}
                   className="overflow-hidden"
                 >
-                  <p className="max-w-2xl pb-6 pl-[3.75rem] pr-5 text-[13px] leading-relaxed text-paper/65 sm:pl-[4.75rem] sm:pr-7">{item.a}</p>
+                  <p className="max-w-2xl pb-6 pl-[3.75rem] pr-5 text-[14px] leading-relaxed text-paper/65 sm:pl-[4.75rem] sm:pr-7">{item.a}</p>
                 </motion.div>
               )}
             </AnimatePresence>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowUpRight, Gauge, ShieldCheck, Zap } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
+import { CountUp } from "./count-up";
 import { cn } from "@/lib/utils";
 
 const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
@@ -129,21 +130,21 @@ const DISCIPLINES = [
 
 function CaseRow({ c, flip }: { c: Case; flip: boolean }) {
   return (
-    <Reveal as="li" className="grid overflow-hidden rounded-md border border-hairline bg-white lg:grid-cols-2">
+    <Reveal as="li" className="grid overflow-hidden card-lift rounded-md border border-hairline bg-white lg:grid-cols-2">
       <div className={cn("relative aspect-[4/3] lg:aspect-auto lg:min-h-[26rem]", flip && "lg:order-2")}>
         <Image src={c.image} alt={c.imageAlt} fill sizes="(min-width: 1024px) 620px, 100vw" quality={80} className="object-cover" />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/70 via-transparent to-transparent" />
-        <span className="absolute bottom-3 left-3 rounded-sm bg-black/70 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white">{c.code}</span>
-        <span className="absolute bottom-3 right-3 max-w-[55%] rounded-sm bg-black/70 px-2.5 py-1.5 text-right text-[9px] font-semibold uppercase tracking-[0.1em] text-white/80">{c.place}</span>
+        <span className="absolute bottom-3 left-3 rounded-sm bg-black/70 px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">{c.code}</span>
+        <span className="absolute bottom-3 right-3 max-w-[55%] rounded-sm bg-black/70 px-2.5 py-1.5 text-right text-[11px] font-semibold uppercase tracking-[0.1em] text-white/80">{c.place}</span>
       </div>
       <div className={cn("flex flex-col justify-center p-6 md:p-9", flip && "lg:order-1")}>
-        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand">{c.tag}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">{c.tag}</p>
         <h2 className="font-display mt-3 text-[clamp(1.4rem,1.1rem+1.1vw,1.9rem)] font-bold leading-[1.15] tracking-[-0.02em] text-balance">{c.title}</h2>
-        <p className="mt-3 text-[13px] leading-relaxed text-graphite-600">{c.copy}</p>
+        <p className="mt-3 text-[14px] leading-relaxed text-graphite-600">{c.copy}</p>
 
         <div className="mt-5 rounded-sm border border-hairline bg-canvas p-4">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-steel">{c.specLabel}</p>
-          <dl className="mt-2.5 space-y-2 text-[12px]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">{c.specLabel}</p>
+          <dl className="mt-2.5 space-y-2 text-[13px]">
             {c.specs.map(([k, v]) => (
               <div key={k} className="flex justify-between gap-4 border-t border-hairline pt-2 first:border-0 first:pt-0">
                 <dt className="text-steel">{k}</dt>
@@ -154,7 +155,7 @@ function CaseRow({ c, flip }: { c: Case; flip: boolean }) {
         </div>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
-          <Link href="/contact" className="inline-flex items-center gap-2 rounded-sm bg-graphite-950 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:bg-brand">
+          <Link href="/contact" className="inline-flex items-center gap-2 rounded-sm bg-graphite-950 px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:bg-brand">
             View case study &amp; specs <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
           </Link>
         </div>
@@ -173,7 +174,7 @@ export function Projects() {
       {/* Hero */}
       <section className="bg-white pt-28 text-graphite-950 md:pt-36">
         <div className={WRAP}>
-          <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-steel">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">
             <span>Home / Engineering Portfolio</span>
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Registry dossier • Reference series 2025
@@ -181,13 +182,13 @@ export function Projects() {
           </div>
           <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-end">
             <Reveal className="lg:col-span-8">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand">Commissioned capital programs</p>
-              <h1 className="font-display mt-4 text-[clamp(2.25rem,1.4rem+4.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.03em] text-balance">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">Commissioned capital programs</p>
+              <h1 className="font-display mt-4 text-[clamp(2.25rem,1.5rem+4vw,4.25rem)] font-bold leading-[1.02] tracking-[-0.03em] text-balance">
                 ENGINEERING EXPERTISE. <span className="text-brand">REAL-WORLD IMPACT.</span>
               </h1>
             </Reveal>
             <Reveal delay={0.08} className="lg:col-span-4">
-              <p className="text-[13px] leading-relaxed text-graphite-600">
+              <p className="text-[14px] leading-relaxed text-graphite-600">
                 Explore selected engineering projects, technical expertise, and the range of infrastructure challenges addressed by INFOELEX across high-voltage transmission, hyperscale compute, and mission-critical networks.
               </p>
             </Reveal>
@@ -196,9 +197,9 @@ export function Projects() {
           <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-t-md bg-white/10 lg:grid-cols-4">
             {HERO_STATS.map((s) => (
               <div key={s.label} className="bg-[#232a32] p-5 text-paper">
-                <dt className="text-[9px] font-semibold uppercase tracking-[0.16em] text-paper/50">{s.label}</dt>
-                <dd className="font-display mt-2 text-[clamp(1.75rem,1.4rem+1.5vw,2.5rem)] font-bold leading-none tracking-[-0.02em]">{s.value}</dd>
-                <dd className="mt-2 text-[11px] leading-snug text-paper/55">{s.note}</dd>
+                <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/50">{s.label}</dt>
+                <dd className="font-display mt-2 text-[clamp(1.75rem,1.4rem+1.5vw,2.5rem)] font-bold leading-none tracking-[-0.02em]"><CountUp value={s.value} /></dd>
+                <dd className="mt-2 text-[12px] leading-snug text-paper/55">{s.note}</dd>
               </div>
             ))}
           </dl>
@@ -217,7 +218,7 @@ export function Projects() {
                   onClick={() => setFilter(f)}
                   aria-pressed={f === filter}
                   className={cn(
-                    "rounded-sm border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] transition-colors",
+                    "rounded-sm border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-colors",
                     f === filter ? "border-brand bg-brand text-white" : "border-hairline bg-white text-graphite-600 hover:border-graphite-950/30"
                   )}
                 >
@@ -225,7 +226,7 @@ export function Projects() {
                 </button>
               ))}
             </div>
-            <p aria-live="polite" className="text-[10px] font-semibold uppercase tracking-[0.12em] text-steel">
+            <p aria-live="polite" className="text-[11px] font-semibold uppercase tracking-[0.12em] text-steel">
               Displaying {shown.length} of {CASES.length} verified case studies
             </p>
           </div>
@@ -238,13 +239,13 @@ export function Projects() {
 
           <ul className="mt-14 grid gap-4 md:grid-cols-3">
             {DISCIPLINES.map((d) => (
-              <li key={d.title} className="rounded-md border border-hairline bg-white p-5">
+              <li key={d.title} className="card-lift rounded-md border border-hairline bg-white p-5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand">{d.tag}</span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">{d.tag}</span>
                   <d.icon className="h-4 w-4 text-steel" aria-hidden />
                 </div>
-                <h3 className="font-display mt-3 text-base font-bold tracking-tight">{d.title}</h3>
-                <p className="mt-2 text-[12px] leading-relaxed text-graphite-600">{d.copy}</p>
+                <h3 className="font-display mt-3 text-lg font-bold tracking-tight">{d.title}</h3>
+                <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">{d.copy}</p>
               </li>
             ))}
           </ul>
@@ -255,7 +256,7 @@ export function Projects() {
       <section className="bg-[#232a32] py-16 text-paper md:py-24">
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-center")}>
           <Reveal className="lg:col-span-7">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand">Advisory direct line • Institutional engagement</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">Advisory direct line • Institutional engagement</p>
             <h2 className="font-display mt-4 text-[clamp(2rem,1.3rem+3.4vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-balance">
               HAVE A COMPLEX ENGINEERING CHALLENGE?
             </h2>
@@ -264,10 +265,10 @@ export function Projects() {
             </p>
           </Reveal>
           <Reveal delay={0.1} className="flex flex-col gap-3 lg:col-span-4 lg:col-start-9">
-            <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[12px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+            <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Submit project RFP <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>
-            <p className="text-[11px] text-paper/50">Average executive response within 24 hours</p>
+            <p className="text-[12px] text-paper/50">Average executive response within 24 hours</p>
           </Reveal>
         </div>
       </section>
