@@ -1,81 +1,204 @@
-import { Eyebrow, Reveal } from "@/components/home/reveal";
-import { APPROACH, METHOD, PHILOSOPHY, PRINCIPLES, TOOLS } from "./data";
-import { HeroArt } from "./hero-art";
-import { Cta, CtaBand, SectionMark } from "./primitives";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight, Atom, Scale, ScanSearch, ShieldCheck, type LucideIcon } from "lucide-react";
+import { Reveal } from "@/components/home/reveal";
+import { cn } from "@/lib/utils";
 
-/** A calculation-sheet: the IEC 60909 initial symmetrical short-circuit current, as an engineer would write it. */
-function CalcSheet() {
-  return (
-    <figure className="-rotate-1 overflow-hidden rounded-[1.75rem] border border-hairline bg-white font-mono text-[13px] leading-relaxed text-graphite-800 shadow-lift">
-      <figcaption className="flex items-center justify-between border-b border-hairline px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">
-        <span>Calculation sheet</span>
-        <span className="rounded-full bg-signal/10 px-2.5 py-0.5 text-signal">Rev. B · Checked</span>
-      </figcaption>
-      <div className="space-y-4 px-6 py-7">
-        <p className="text-steel">Initial symmetrical short-circuit current, three-phase</p>
-        <p className="text-lg text-graphite-950">
-          I<sub>k</sub>″ = c · U<sub>n</sub> / (√3 · Z<sub>k</sub>)
-        </p>
-        <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 border-t border-hairline pt-4 text-steel">
-          <span>c</span><span>voltage factor, from the standard</span>
-          <span>U<sub>n</sub></span><span>nominal system voltage</span>
-          <span>Z<sub>k</sub></span><span>short-circuit impedance at the fault point</span>
-        </div>
-      </div>
-      <div className="border-t border-hairline px-6 py-3 text-[11px] uppercase tracking-[0.14em] text-steel">Input → assumption → standard → result</div>
-    </figure>
-  );
+const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
+const H2 = "font-display text-[clamp(1.75rem,1.3rem+1.9vw,2.75rem)] font-bold uppercase leading-[1.08] tracking-[-0.025em] text-balance";
+
+const MANIFEST = [
+  ["Primary topology", "Dual-ring redundant"],
+  ["Protective response", "< 40ms clearing"],
+  ["Mini-LOI requirement", "LOD 400 fabricated"],
+  ["Arc-flash category", "Controlled at 0.8"],
+];
+
+const DOCTRINES: { tag: string; title: string; copy: string; foot: [string, string]; icon: LucideIcon }[] = [
+  { tag: "Doctrine 1/04", title: "First-Principles Physics", icon: Atom, copy: "We do not extrapolate from generic rules of thumb. System harmonics, harmonic impedance locus, and short-circuit dynamics are derived from fundamental electromagnetic theory and verified numerically.", foot: ["Validation", "Mathematical Derivation"] },
+  { tag: "Doctrine 2/04", title: "Fiduciary Independence", icon: Scale, copy: "Free from vendor incentives, our equipment specifications prioritize physical integrity and operational longevity over branded proprietary hardware.", foot: ["Status", "Zero Vendor Royalties"] },
+  { tag: "Doctrine 3/04", title: "Empirical Verification", icon: ScanSearch, copy: "Computational models must be corroborated against real-world field data and, where possible, tested on hardware-in-the-loop platforms before project sign-off.", foot: ["Method", "HIL & Open-Loop Benchmarking"] },
+  { tag: "Doctrine 4/04", title: "Uncompromising Reliability", icon: ShieldCheck, copy: "We engineer systems intended to survive a specific N-1/N-2 contingency standard, so that single failures cannot cascade into catastrophic, wider systemic outages.", foot: ["Standard", "Deterministic Resilience"] },
+];
+
+const STAGES = [
+  { n: "01", gate: "Gate 1", title: "Understand", copy: "Exhaustive stakeholder data capture: load forecasting, network constraint definitions, operational constraint mapping and regulatory mandate registration.", tags: ["Grid Interconnect Rules", "Site Constraint Audit", "Boundary Envelope Signoff"] },
+  { n: "02", gate: "Gate 2", title: "Analyse", copy: "Computationally steady-state, dynamic stability and electromagnetic transient modeling utilizing PSCAD, DIgSILENT, PowerFactory for rigorous validation.", tags: ["Harmonic Spectral Studies", "Transient Overvoltage (TOV)", "Short-Circuit Withstand"] },
+  { n: "03", gate: "Gate 3", title: "Engineer", copy: "Front-end engineering design (FEED), detailed drawings, relay coordination curves, procurement-grade specifications and cable and equipment sizing.", tags: ["Single-Line Schematics", "BOQ Hardware Tagging", "Relay Coordinate Pairs"] },
+  { n: "04", gate: "Gate 4", title: "Verify", copy: "Multi-tier peer scrutiny, independent line-by-line calculation checking, boundary validation and strict safety compliance audits.", tags: ["Chartered PE Final Signoff", "NFPA 70E Arc Boundaries"] },
+  { n: "05", gate: "Final", title: "Deliver", copy: "On-site factory acceptance testing (FAT) oversight, energization sequencing, interconnection compliance sign-off, and commissioning support.", tags: ["FAT/SAT Verification", "Energization Sequencing", "As-Built Specification Package"] },
+];
+
+const STANDARDS = [
+  { name: "IEEE (Institute of Electrical and Electronics Engineers)", copy: "IEEE 1584 Arc Flash, IEEE 399 Power Systems, IEEE 519 Harmonics.", badge: "Mandatory core" },
+  { name: "IEC (International Electrotechnical Commission)", copy: "IEC 60909 Short-Circuit Currents, IEC 61850 Substation Communication.", badge: "Global compliance" },
+  { name: "CIGRE (Council on Large Electric Systems)", copy: "High-voltage transmission line modelling, insulation coordination and transient guidelines.", badge: "Best practice" },
+  { name: "NERC (North American Electric Reliability Corp.)", copy: "Bulk power system reliability standards, including PRC and MOD series.", badge: "ERO enforcement" },
+  { name: "NFPA (National Fire Protection Association)", copy: "NFPA 70E Standard for Electrical Safety in the Workplace; NFPA 70 National Electrical Code.", badge: "Life safety audit" },
+];
+
+const TIERS: [string, string][] = [
+  ["Tier 1: Computational Authoring", "Lead Modeller"],
+  ["Tier 2: Peer Sensitivity Challenge", "Senior Specialist"],
+  ["Tier 3: Statutory Stamp & Sealing", "Chartered PE / CEng"],
+];
+
+const TOOLS = [
+  { tag: "Simtec Engine", sub: "Transient", title: "PSCAD / EMTDC", copy: "Electromagnetic transient simulation platform. Resolves non-linear switching surges, ferroresonance and synchronous machine dynamics.", row: ["Standard", "IPC Validation Environment"] },
+  { tag: "Power System Design", sub: "Analysis", title: "ETAP Enterprise", copy: "Comprehensive load flow, short calculations (IEC & ANSI), arc flash hazard assessment and DC control system modelling.", row: ["Output", "Substation & Facility Power"] },
+  { tag: "RMS Dynamics", sub: "Stability", title: "DIgSILENT PowerFactory", copy: "Works with network stability, renewable-energy source integration and grid-code compliance in time-domain studies.", row: ["Focus", "Root Locus & Dynamic RMS"] },
+  { tag: "Electromagnetic Engineering", sub: "Safety Field", title: "CDEGS Suite", copy: "Earthing design, soil-layer resistivity modelling, GPR touch and step potential and interference analysis.", row: ["Standard", "IEEE Std 80 / Std 81"] },
+  { tag: "Thermal Modeling", sub: "Ampacity", title: "CYMCAP Ampacity", copy: "Underground cable current-carrying capacity and thermal rating, including soil and ambient temperature effects.", row: ["Reference", "IEC 60287 & Neher-McGrath"] },
+  { tag: "Spatial Coordination", sub: "BIM", title: "Autodesk Revit LOD 400", copy: "Fabrication-ready spatial clash detection. Generates cable routing, equipment clearance volumes and HVAC clearance validation.", row: ["Tolerance", "Millimeter Clash Zero"] },
+];
+
+function Tag({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <span className={cn("inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px]", className)}>{children}</span>;
 }
 
-/** Our Signature: methodical. A centred ring opener, a zig-zag timeline, a spec sheet, circular principles. */
+/** Our Signature: engineering methodology and quality framework on a white page. */
 export function Signature() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-sage/70 via-canvas to-canvas pb-10 pt-32 text-graphite-950 md:pt-40">
-        <div className="wrap relative">
-          <div className="mx-auto max-w-2xl text-center">
-            <Reveal className="flex justify-center">
-              <SectionMark index="05" label="Our Signature" />
-            </Reveal>
-            <Reveal delay={0.06}>
-              <h1 className="font-display mt-6 text-page text-balance">Every result, checked twice.</h1>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-graphite-600 md:text-lg">
-                Our signature is a method: six stages, each producing a document you can audit, so every number in a design can be traced and defended.
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-white pt-28 text-graphite-950 md:pt-36">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-60 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]"
+          style={{ backgroundImage: "linear-gradient(rgba(21,23,26,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(21,23,26,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }}
+        />
+        <div className={cn(WRAP, "relative")}>
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-steel">
+            <span>Home / Our Signature</span>
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Discipline: multi-system telemetry
+            </span>
+          </div>
+
+          <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-start">
+            <Reveal className="lg:col-span-7">
+              <Tag className="rounded-sm border border-brand/30 bg-brand/5 px-3 py-1.5 text-brand">ISO 9001:2015 audited engineering quality framework</Tag>
+              <h1 className="font-display mt-5 text-[clamp(2.25rem,1.4rem+4.4vw,4.5rem)] font-bold uppercase leading-[1.02] tracking-[-0.03em] text-balance">
+                Precision in process. <span className="text-brand">Excellence in execution.</span>
+              </h1>
+              <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-graphite-600">
+                Our approach brings together engineering knowledge, structured methodologies, quality standards, and technical verification to mitigate thermodynamic and computational uncertainty across hyperscale power topologies.
               </p>
             </Reveal>
+            <Reveal delay={0.1} className="lg:col-span-5">
+              <div className="rounded-md bg-[#232a32] p-6 text-paper">
+                <div className="flex items-center justify-between text-[9px] font-semibold uppercase tracking-[0.16em] text-paper/50">
+                  <span>Telemetry rating</span>
+                  <span className="rounded-sm bg-brand px-1.5 py-0.5 text-white">QA</span>
+                </div>
+                <p className="font-display mt-3 text-[clamp(2.75rem,2rem+3vw,4rem)] font-bold leading-none tracking-[-0.03em]">
+                  0.00<span className="text-brand">%</span>
+                </p>
+                <p className="mt-3 text-[12px] leading-relaxed text-paper/60">Unsupervised downtime tolerance across energized single-line configurations under operational commission.</p>
+                <dl className="mt-5 flex justify-between gap-4 border-t border-white/10 pt-3 text-[10px] font-semibold uppercase tracking-[0.12em]">
+                  <div><dt className="text-paper/45">P&amp;C registries</dt></div>
+                  <div><dd>100% Traceable</dd></div>
+                </dl>
+              </div>
+            </Reveal>
           </div>
-          <Reveal delay={0.15} className="mx-auto mt-10 max-w-[32rem]">
-            <HeroArt kind="signature" />
-          </Reveal>
+
+          <div className="mt-8 grid gap-4 pb-14 lg:grid-cols-12 md:pb-20">
+            <Reveal className="lg:col-span-7">
+              <figure className="relative aspect-[16/10] overflow-hidden rounded-md ring-1 ring-graphite-950/10">
+                <Image src="/about-hero-bg.png" alt="Engineers reviewing a transient simulation in a control room" fill priority sizes="(min-width: 1024px) 720px, 100vw" quality={85} className="object-cover" />
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/85 via-transparent to-transparent" />
+                <figcaption className="absolute inset-x-0 bottom-0 p-4 text-white">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.14em]"><span className="mr-2 rounded-sm bg-brand px-1.5 py-0.5">REL 01</span>Electromagnetic Transient &amp; Harmonic Spectrum Analysis</p>
+                  <p className="mt-1.5 text-[11px] text-white/70">Sub-millisecond transient stability verified prior to front-end hardware procurement for a 300kV interconnect terminal.</p>
+                </figcaption>
+              </figure>
+            </Reveal>
+            <Reveal delay={0.1} className="lg:col-span-5">
+              <div className="h-full rounded-md border border-hairline bg-mist-blue/60 p-5">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-steel">Protocol manifest</p>
+                <dl className="mt-3 divide-y divide-hairline text-[12px]">
+                  {MANIFEST.map(([k, v]) => (
+                    <div key={k} className="flex justify-between gap-4 py-2.5">
+                      <dt className="text-steel">{k}</dt>
+                      <dd className="text-right font-semibold">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="mt-4 rounded-sm border-l-2 border-brand bg-white p-4">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-brand">Governance directive</p>
+                  <p className="mt-2 text-[12px] italic leading-relaxed text-graphite-600">&ldquo;Every calculation is traceable to a physical principle and an independent reviewer, and no design is released without both.&rdquo;</p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* Zig-zag method timeline */}
-      <section className="bg-canvas py-[calc(var(--space-section)*0.5)] text-graphite-950">
-        <div className="wrap">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <Eyebrow className="justify-center">The method</Eyebrow>
-            <h2 className="font-display mt-5 text-section text-balance">Six stages, each with a document you can audit.</h2>
+      {/* Philosophy */}
+      <section className="bg-white py-14 text-graphite-950 md:py-24">
+        <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:gap-14")}>
+          <Reveal className="lg:col-span-5">
+            <Tag className="text-steel">Foundational doctrine</Tag>
+            <h2 className={cn(H2, "mt-5")}>Our engineering philosophy</h2>
+            <p className="mt-5 text-[13px] leading-relaxed text-graphite-600">
+              In modern mission-critical infrastructure, margin for error has diminished to zero. We maintain an uncompromising engineering ethos that rejects commercial expediency in favor of mathematical proof and empirical truth.
+            </p>
+            <div className="mt-6 rounded-sm border-l-2 border-brand bg-mist-blue/60 p-4">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-brand">Unrestricted authority</p>
+              <p className="mt-2 text-[12px] leading-relaxed text-graphite-600">
+                INFOELEX maintains zero commission or affiliate ties with equipment manufacturers, switchgear vendors or software developers. Our engineers report only to the integrity of the model.
+              </p>
+            </div>
           </Reveal>
-          <ol className="relative mt-16">
-            <span aria-hidden className="absolute bottom-0 left-5 top-0 w-px bg-gradient-to-b from-transparent via-graphite-950/20 to-transparent lg:left-1/2" />
-            {METHOD.map((m, i) => {
-              const left = i % 2 === 0;
+          <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+            {DOCTRINES.map((d, i) => (
+              <Reveal as="li" key={d.title} delay={(i % 2) * 0.07} className="flex flex-col rounded-md border border-hairline bg-mist-blue/60 p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <Tag className="text-brand">{d.tag}</Tag>
+                  <d.icon className="h-4 w-4 shrink-0 text-steel" aria-hidden />
+                </div>
+                <h3 className="font-display mt-4 text-base font-bold uppercase tracking-tight">{d.title}</h3>
+                <p className="mt-2 text-[12px] leading-relaxed text-graphite-600">{d.copy}</p>
+                <p className="mt-auto flex justify-between gap-3 border-t border-hairline pt-4 text-[10px] font-semibold uppercase tracking-[0.1em]">
+                  <span className="text-steel">{d.foot[0]}</span>
+                  <span className="text-right">{d.foot[1]}</span>
+                </p>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Methodology */}
+      <section className="bg-white pb-14 text-graphite-950 md:pb-24">
+        <div className={cn(WRAP, "border-t border-hairline pt-14 md:pt-20")}>
+          <Tag className="text-steel">Engineering lifecycle</Tag>
+          <div className="mt-5 grid gap-5 md:grid-cols-2 md:items-end md:gap-16">
+            <Reveal as="h2" className={H2}>
+              The 5-stage verification methodology
+            </Reveal>
+            <p className="text-[13px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
+              A sequential, gated quality protocol designed to de-risk high-capacity capital energy projects at every engineering milestone.
+            </p>
+          </div>
+          <ol className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {STAGES.map((s, i) => {
+              const last = i === STAGES.length - 1;
               return (
-                <Reveal as="li" key={m.step} className="relative grid pb-12 last:pb-0 lg:grid-cols-2 lg:gap-16">
-                  <span className="absolute left-5 top-6 z-10 flex h-3.5 w-3.5 -translate-x-1/2 items-center justify-center rounded-full border-2 border-signal bg-canvas lg:left-1/2" />
-                  <div className={`pl-14 lg:pl-0 ${left ? "lg:col-start-1 lg:pr-4 lg:text-right" : "lg:col-start-2 lg:pl-4"}`}>
-                    <p className="font-display text-[3rem] leading-none tracking-[-0.04em] text-transparent opacity-30 [-webkit-text-stroke:1.5px_var(--color-graphite-950)]">{m.step}</p>
-                    <h3 className="font-display mt-2 text-card">{m.title}</h3>
-                    <p className={`mt-2 max-w-md text-[15px] leading-relaxed text-graphite-600 ${left ? "lg:ml-auto" : ""}`}>{m.does}</p>
-                    <ul className={`mt-4 flex flex-wrap gap-2 ${left ? "lg:justify-end" : ""}`}>
-                      {m.gets.map((g) => (
-                        <li key={g} className="rounded-full border border-hairline bg-white px-3 py-1 text-[13px] shadow-hair">{g}</li>
-                      ))}
-                    </ul>
+                <Reveal as="li" key={s.n} delay={i * 0.05} className={cn("flex flex-col rounded-md border p-5", last ? "border-graphite-950 bg-[#232a32] text-paper" : "border-hairline bg-mist-blue/60")}>
+                  <div className="flex items-start justify-between">
+                    <span className="font-display text-3xl font-bold leading-none text-brand">{s.n}</span>
+                    <span className={cn("rounded-sm px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em]", last ? "bg-brand text-white" : "bg-white text-steel")}>{s.gate}</span>
                   </div>
+                  <p className={cn("mt-4 text-[9px] font-semibold uppercase tracking-[0.16em]", last ? "text-paper/50" : "text-steel")}>Stage {s.n}</p>
+                  <h3 className="font-display mt-1 text-base font-bold uppercase tracking-tight">{s.title}</h3>
+                  <p className={cn("mt-2 text-[12px] leading-relaxed", last ? "text-paper/65" : "text-graphite-600")}>{s.copy}</p>
+                  <ul className={cn("mt-auto space-y-1 border-t pt-3 text-[10px] font-semibold", last ? "border-white/10 text-paper/80" : "border-hairline text-graphite-800")}>
+                    {s.tags.map((t) => (
+                      <li key={t} className="flex gap-2"><span aria-hidden className="mt-[0.5em] h-1 w-1 shrink-0 bg-brand" />{t}</li>
+                    ))}
+                  </ul>
                 </Reveal>
               );
             })}
@@ -83,78 +206,108 @@ export function Signature() {
         </div>
       </section>
 
-      {/* Philosophy + approach + calc sheet on a warm stage */}
-      <section className="bg-canvas py-[calc(var(--space-section)*0.3)] text-graphite-950">
-        <div className="wrap">
-          <Reveal className="grid gap-12 overflow-hidden rounded-[2.5rem] border border-hairline bg-gradient-to-br from-white via-white to-sage p-8 shadow-hair md:p-14 lg:grid-cols-12 lg:gap-14">
-            <div className="lg:col-span-6">
-              <Eyebrow>Engineering philosophy</Eyebrow>
-              <h2 className="font-display mt-5 text-section text-balance">{PHILOSOPHY.quote}</h2>
-              <p className="mt-5 max-w-md leading-relaxed text-graphite-600">{PHILOSOPHY.copy}</p>
-              <ul className="mt-8 grid gap-x-6 gap-y-5 sm:grid-cols-2">
-                {APPROACH.map((a) => (
-                  <li key={a.title}>
-                    <p className="flex items-center gap-2.5 font-display text-card"><span className="h-1.5 w-1.5 rounded-full bg-signal" />{a.title}</p>
-                    <p className="mt-1.5 pl-4 text-sm leading-relaxed text-graphite-600">{a.copy}</p>
+      {/* Peer review + standards */}
+      <section className="bg-white pb-14 text-graphite-950 md:pb-24">
+        <div className={cn(WRAP, "grid gap-10 border-t border-hairline pt-14 md:pt-20 lg:grid-cols-12 lg:gap-14")}>
+          <Reveal className="lg:col-span-5">
+            <Tag className="text-steel">Quality assurance directive</Tag>
+            <h2 className={cn(H2, "mt-5")}>Peer-review protocol &amp; standards adherence</h2>
+            <p className="mt-5 text-[13px] leading-relaxed text-graphite-600">
+              Calculations never leave INFOELEX as unverified individual output. Every model, calculation worksheet, single-line diagram, and protective device setting is subjected to our strict three-tier verification protocol before final release.
+            </p>
+            <div className="mt-6 rounded-md border border-hairline bg-mist-blue/60 p-4">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-steel">Three-tier sign-off mandate</p>
+              <ul className="mt-3 divide-y divide-hairline text-[12px]">
+                {TIERS.map(([k, v]) => (
+                  <li key={k} className="flex justify-between gap-4 py-2.5">
+                    <span>{k}</span>
+                    <span className="text-right font-bold">{v}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="flex flex-col justify-center lg:col-span-6">
-              <CalcSheet />
-              <p className="mt-5 max-w-sm text-[13px] leading-relaxed text-steel">
-                Illustrative calculation: every figure in our reports traces back through an input, an assumption and a standard.
-              </p>
+          </Reveal>
+          <Reveal delay={0.1} className="lg:col-span-7">
+            <div className="rounded-md border border-hairline">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline bg-canvas px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-steel">
+                <span>Standards authority alignment</span>
+                <span>Registry ref: QMS-9001-2025</span>
+              </div>
+              <ul className="divide-y divide-hairline">
+                {STANDARDS.map((s) => (
+                  <li key={s.name} className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                    <div>
+                      <p className="text-[13px] font-bold">{s.name}</p>
+                      <p className="mt-1 text-[12px] leading-relaxed text-graphite-600">{s.copy}</p>
+                    </div>
+                    <span className="w-fit shrink-0 rounded-sm bg-mist-blue px-2 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-graphite-800">{s.badge}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Engineering tools: spec-sheet rows */}
-      <section className="bg-canvas py-[calc(var(--space-section)*0.5)] text-graphite-950">
-        <div className="wrap grid gap-10 lg:grid-cols-12 lg:gap-14">
-          <Reveal className="lg:col-span-4">
-            <Eyebrow>Engineering tools</Eyebrow>
-            <h2 className="font-display mt-5 text-section text-balance">The analysis behind every result.</h2>
-            <p className="mt-4 leading-relaxed text-graphite-600">Industry-standard simulation and analysis, used by engineers who understand what the model is telling them.</p>
-          </Reveal>
-          <dl className="lg:col-span-8">
+      {/* Simulation infrastructure */}
+      <section className="bg-white pb-14 text-graphite-950 md:pb-24">
+        <div className={cn(WRAP, "border-t border-hairline pt-14 md:pt-20")}>
+          <Tag className="text-steel">Computational footprint</Tag>
+          <div className="mt-5 grid gap-5 md:grid-cols-2 md:items-end md:gap-16">
+            <Reveal as="h2" className={H2}>
+              Simulation infrastructure
+            </Reveal>
+            <p className="text-[13px] leading-relaxed text-graphite-600 md:max-w-md md:justify-self-end">
+              Industry-grade numerical modeling suites operated by dedicated simulation engineers to preempt hardware failures before installation.
+            </p>
+          </div>
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {TOOLS.map((t, i) => (
-              <Reveal key={t.title} delay={i * 0.05} className="grid gap-2 border-t border-hairline py-6 last:border-b sm:grid-cols-[14rem_1fr] sm:gap-8">
-                <dt className="font-display text-card">{t.title}</dt>
-                <dd className="leading-relaxed text-graphite-600">{t.copy}</dd>
+              <Reveal as="li" key={t.title} delay={(i % 3) * 0.06} className="flex flex-col rounded-md border border-hairline bg-mist-blue/60 p-5">
+                <div className="flex items-center justify-between gap-3 text-[9px] font-semibold uppercase tracking-[0.14em]">
+                  <span className="text-brand">{t.tag}</span>
+                  <span className="text-steel">{t.sub}</span>
+                </div>
+                <h3 className="font-display mt-3 text-base font-bold uppercase tracking-tight">{t.title}</h3>
+                <p className="mt-2 text-[12px] leading-relaxed text-graphite-600">{t.copy}</p>
+                <p className="mt-auto flex justify-between gap-3 border-t border-hairline pt-3 text-[10px] font-semibold">
+                  <span className="text-steel">{t.row[0]}</span>
+                  <span className="text-right">{t.row[1]}</span>
+                </p>
               </Reveal>
             ))}
-          </dl>
+          </ul>
         </div>
       </section>
 
-      {/* Principles: three round badges */}
-      <section className="bg-canvas py-[calc(var(--space-section)*0.4)] text-graphite-950">
-        <div className="wrap">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <Eyebrow className="justify-center">Quality standards and verified results</Eyebrow>
-            <h2 className="font-display mt-5 text-section text-balance">Three rules we do not bend.</h2>
-            <p className="mt-4 leading-relaxed text-graphite-600">Our commitment: nothing is issued until the result has been checked, validated and documented.</p>
+      {/* Closing */}
+      <section className="bg-[#232a32] py-16 text-paper md:py-24">
+        <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-center")}>
+          <Reveal className="lg:col-span-7">
+            <Tag className="text-brand">Accountability without exception</Tag>
+            <h2 className="font-display mt-5 text-[clamp(2rem,1.3rem+3.4vw,3.5rem)] font-bold uppercase leading-[1.05] tracking-[-0.03em] text-balance">
+              Commitment to verified results.
+            </h2>
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-paper/70">
+              We stand behind our deliverables with full chartered liability. Every project engineered through the INFOELEX Verification Methodology delivers zero unprogrammed operational downtime upon energization.
+            </p>
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-paper/55">
+              {["Fully Indemnified Engineering", "Deterministic Protection Models", "Full Regulatory Sanction"].map((t) => (
+                <li key={t} className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-brand" /> {t}</li>
+              ))}
+            </ul>
           </Reveal>
-          <div className="mt-14 grid justify-items-center gap-8 md:grid-cols-3">
-            {PRINCIPLES.map((p, i) => (
-              <Reveal key={p.word} delay={i * 0.1} className="flex aspect-square w-full max-w-[19rem] flex-col items-center justify-center rounded-full border border-hairline bg-gradient-to-b from-white to-canvas-2 p-10 text-center shadow-lift">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-signal text-white">✓</span>
-                <h3 className="font-display mt-4 text-section">{p.word}</h3>
-                <p className="mt-2 max-w-[13rem] text-sm leading-relaxed text-graphite-600">{p.copy}</p>
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-12 flex justify-center">
-            <Cta href="/contact">Talk to an engineer</Cta>
-          </div>
+          <Reveal delay={0.1} className="lg:col-span-4 lg:col-start-9">
+            <div className="rounded-md border border-white/10 bg-white/5 p-5">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-paper/50">Schedule engineering review</p>
+              <p className="mt-2 text-[12px] leading-relaxed text-paper/65">Engage our Senior Technical Principals for an independent audit of your high-voltage design or protection strategy.</p>
+              <Link href="/contact" className="mt-4 inline-flex w-full items-center justify-between gap-3 rounded-sm bg-brand px-5 py-3.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                Initiate consultation <ArrowUpRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
-
-      <div className="bg-canvas pt-[calc(var(--space-section)*0.3)]">
-        <CtaBand tone="sage" eyebrow="Work with us" title="Want to see how a study is documented?" href="/contact" label="Get in touch" />
-      </div>
     </>
   );
 }
