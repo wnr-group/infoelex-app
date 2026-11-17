@@ -1,217 +1,152 @@
-"use client";
-
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
-import { Eyebrow, Reveal } from "@/components/home/reveal";
+import Image from "next/image";
+import { Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
+import { Reveal } from "@/components/home/reveal";
 import { cn } from "@/lib/utils";
-import { contactSchema, type ContactInput } from "./contact-schema";
-import { CONTACT, ENQUIRY_TYPES } from "./data";
-import { HeroArt } from "./hero-art";
-import { SectionMark } from "./primitives";
+import { ContactForm } from "./contact-form";
+import { CONTACT } from "./data";
 
-const field =
-  "peer w-full rounded-xl border border-graphite-950/15 bg-canvas/60 px-4 py-3 text-base text-graphite-950 outline-none transition-colors placeholder:text-steel/70 focus:border-signal focus:bg-white aria-[invalid=true]:border-signal";
+const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
 
-function Field({ id, label, error, children, className }: { id: string; label: string; error?: string; children: React.ReactNode; className?: string }) {
-  return (
-    <div className={className}>
-      <label htmlFor={id} className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">
-        {label}
-      </label>
-      {children}
-      <p id={`${id}-error`} role={error ? "alert" : undefined} className="mt-1.5 min-h-5 text-[13px] text-signal">
-        {error}
-      </p>
-    </div>
-  );
+const HUBS = [
+  {
+    code: "HQ-01",
+    name: `${CONTACT.office[1]}`,
+    lines: [CONTACT.office[0], "Power system studies, electrical design, automation and data center power for India and the GCC."],
+  },
+];
+
+const FAQ = [
+  { q: "How quickly can an NDA be executed?", a: "Standard mutual NDAs can be executed on request using our standard template or your corporate paper. Scoping calls can be convened immediately after signing." },
+  { q: "What is the initial feasibility review timeline?", a: "On receipt of technical specifications and single-line diagrams, our principal engineers provide a preliminary scope and proposal memorandum within a few business days." },
+  { q: "Who leads client technical evaluations?", a: "Every mandate is directly led by a chartered or licensed professional engineer with extensive experience in utility transmission, generation and critical facilities." },
+  { q: "Can INFOELEX assist with emergency power failures?", a: "Contact us with the details of the incident. We can support forensic root-cause analysis, transient modelling and emergency recovery coordination." },
+];
+
+function Tag({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <span className={cn("inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px]", className)}>{children}</span>;
 }
 
-type Status = "idle" | "submitting" | "success" | "error";
-
-function ContactForm() {
-  const [status, setStatus] = useState<Status>("idle");
-  const [serverError, setServerError] = useState("");
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ContactInput>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: { enquiry: ENQUIRY_TYPES[0], name: "", email: "", organisation: "", message: "", website: "" },
-  });
-
-  const onSubmit = async (data: ContactInput) => {
-    setStatus("submitting");
-    setServerError("");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) {
-        const body = (await res.json().catch(() => ({}))) as { error?: string };
-        throw new Error(body.error ?? "Something went wrong.");
-      }
-      reset();
-      setStatus("success");
-    } catch (err) {
-      setServerError(err instanceof Error ? err.message : "Something went wrong.");
-      setStatus("error");
-    }
-  };
-
-  const aria = (k: keyof ContactInput) => ({ "aria-invalid": !!errors[k], "aria-describedby": `${k}-error` }) as const;
-
-  return (
-    <AnimatePresence mode="wait" initial={false}>
-      {status === "success" ? (
-        <motion.div key="ok" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} role="status" className="py-10">
-          <span className="font-display text-sm tabular-nums text-signal">Sent</span>
-          <h2 className="font-display mt-4 text-section text-balance">Thank you. We have your message.</h2>
-          <p className="mt-5 max-w-md leading-relaxed text-graphite-600">An engineer will review your enquiry and reply to the email address you gave.</p>
-          <button type="button" onClick={() => setStatus("idle")} className="mt-8 text-[12.5px] font-bold uppercase tracking-[0.1em] text-signal underline-offset-4 hover:underline">
-            Send another enquiry
-          </button>
-        </motion.div>
-      ) : (
-        <motion.form key="form" onSubmit={handleSubmit(onSubmit)} noValidate initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative space-y-1">
-          <div className="grid gap-x-5 sm:grid-cols-2">
-            <Field id="name" label="Name *" error={errors.name?.message}>
-              <input id="name" autoComplete="name" className={field} placeholder="Your full name" {...aria("name")} {...register("name")} />
-            </Field>
-            <Field id="email" label="Email *" error={errors.email?.message}>
-              <input id="email" type="email" autoComplete="email" className={field} placeholder="you@company.com" {...aria("email")} {...register("email")} />
-            </Field>
-          </div>
-          <div className="grid gap-x-5 sm:grid-cols-2">
-            <Field id="organisation" label="Organisation" error={errors.organisation?.message}>
-              <input id="organisation" autoComplete="organization" className={field} placeholder="Company name" {...aria("organisation")} {...register("organisation")} />
-            </Field>
-            <Field id="enquiry" label="Enquiry type" error={errors.enquiry?.message}>
-              <select id="enquiry" className={cn(field, "cursor-pointer")} {...aria("enquiry")} {...register("enquiry")}>
-                {ENQUIRY_TYPES.map((t) => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </select>
-            </Field>
-          </div>
-          <Field id="message" label="Project or message *" error={errors.message?.message}>
-            <textarea id="message" rows={5} className={cn(field, "resize-none")} placeholder="Tell us about the network, facility or study you need." {...aria("message")} {...register("message")} />
-          </Field>
-
-          {/* Honeypot, hidden from people and assistive tech */}
-          <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-            <label>Website<input tabIndex={-1} autoComplete="off" {...register("website")} /></label>
-          </div>
-
-          {status === "error" && (
-            <p role="alert" className="rounded-xl border border-signal/40 bg-signal/5 px-4 py-3 text-sm text-signal-deep">
-              {serverError} You can also email us at{" "}
-              <a href={`mailto:${CONTACT.email}`} className="font-semibold underline">{CONTACT.email}</a>.
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={status === "submitting"}
-            className="group mt-3 inline-flex w-full items-center justify-center gap-3 rounded-full bg-brand px-8 py-4 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-brand-dim disabled:cursor-not-allowed disabled:bg-graphite-600 sm:w-auto"
-          >
-            {status === "submitting" ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Sending…
-              </>
-            ) : (
-              <>
-                Send enquiry <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-              </>
-            )}
-          </button>
-        </motion.form>
-      )}
-    </AnimatePresence>
-  );
-}
-
-/** Contact: form first. Details on the left, an overlapping form card on the right, then the interactive map of ways to reach us. */
+/** Contact: advisory hero, direct channels beside a technical scoping form, then consultation guidelines. */
 export function Contact() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-br from-white via-canvas to-warm/70 pb-16 pt-32 text-graphite-950 md:pb-24 md:pt-40">
-        <div aria-hidden className="pointer-events-none absolute -left-24 bottom-0 h-96 w-96 rounded-full bg-signal/[0.06] blur-3xl" />
-        <div className="wrap relative grid gap-12 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-5 lg:pt-6">
-            <Reveal>
-              <SectionMark index="07" label="Contact" />
-            </Reveal>
-            <Reveal delay={0.06}>
-              <h1 className="font-display mt-6 text-page text-balance">
-                Let&apos;s engineer what comes <span className="text-signal">next.</span>
+      {/* Hero */}
+      <section className="bg-white pt-28 text-graphite-950 md:pt-36">
+        <div className={WRAP}>
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-steel">
+            <span>Home / Contact &amp; Advisory</span>
+            <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-brand" /> Telecommunication dispatch • Node secure</span>
+          </div>
+          <div className="mt-10 grid gap-8 pb-12 lg:grid-cols-12 lg:items-end md:pb-20">
+            <Reveal className="lg:col-span-8">
+              <Tag className="rounded-sm border border-brand/30 bg-white px-3 py-1.5 text-brand">Technical engagement protocol</Tag>
+              <h1 className="font-display mt-5 text-[clamp(2.25rem,1.4rem+4.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.03em] text-balance">
+                Let&apos;s Build Something That <span className="text-brand">Matters.</span>
               </h1>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <p className="mt-5 max-w-md text-base leading-relaxed text-graphite-600 md:text-lg">
-                Tell us what you are building or studying. We reply with the right engineer, not a sales sequence.
+              <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-graphite-600">
+                Connect with INFOELEX to discuss your high-voltage infrastructure, critical power topology, or cross-border engineering assignments.
               </p>
-              <ul className="mt-6 flex flex-wrap gap-2">
-                {["Enquiries", "Business collaborations", "Project discussions"].map((t) => (
-                  <li key={t} className="rounded-full bg-white px-3.5 py-1.5 text-[13px] text-graphite-800 shadow-hair">{t}</li>
-                ))}
-              </ul>
             </Reveal>
-            <Reveal delay={0.18}>
-              <dl className="mt-10 space-y-5">
-                <div className="flex items-start gap-4">
-                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-sm shadow-hair">@</span>
+            <Reveal delay={0.1} className="lg:col-span-4">
+              <div className="rounded-sm border-l-2 border-brand bg-[#232a32] p-5 text-paper">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-brand">Advisory commitment</p>
+                <p className="mt-2 text-[12px] leading-relaxed text-paper/80">Direct access to principal electrical engineers • Confidential scoping • Prompt response from an engineer</p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Channels + form */}
+      <section className="bg-white py-12 text-graphite-950 md:py-20">
+        <div className={cn(WRAP, "grid gap-8 lg:grid-cols-12 lg:gap-10")}>
+          <div className="space-y-8 lg:col-span-5">
+            <Reveal className="rounded-md bg-[#232a32] p-6 text-paper">
+              <p className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.16em] text-paper/55">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Official direct channels
+              </p>
+              <h2 className="font-display mt-3 text-xl font-bold tracking-tight">Engineering Command Desk</h2>
+              <dl className="mt-5 space-y-4">
+                <div className="flex gap-3">
+                  <Phone className="mt-1 h-4 w-4 shrink-0 text-brand" aria-hidden />
                   <div>
-                    <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Email</dt>
-                    <dd className="mt-1"><a href={`mailto:${CONTACT.email}`} className="font-display text-card underline-offset-4 hover:text-signal hover:underline">{CONTACT.email}</a></dd>
+                    <dt className="text-[9px] font-semibold uppercase tracking-[0.14em] text-paper/45">Technical hotline</dt>
+                    <dd className="mt-1"><a href={CONTACT.phoneHref} className="font-display text-lg font-bold tracking-tight hover:text-brand">{CONTACT.phone}</a></dd>
                   </div>
                 </div>
-                <div className="flex items-start gap-4">
-                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-sm shadow-hair">☎</span>
+                <div className="flex gap-3">
+                  <Mail className="mt-1 h-4 w-4 shrink-0 text-brand" aria-hidden />
                   <div>
-                    <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Phone</dt>
-                    <dd className="mt-1"><a href={CONTACT.phoneHref} className="font-display text-card underline-offset-4 hover:text-signal hover:underline">{CONTACT.phone}</a></dd>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-sm shadow-hair">⌖</span>
-                  <div>
-                    <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Office</dt>
-                    <dd className="mt-1 leading-relaxed text-graphite-600">{CONTACT.office[0]}<br />{CONTACT.office[1]}</dd>
+                    <dt className="text-[9px] font-semibold uppercase tracking-[0.14em] text-paper/45">Direct scoping advisory</dt>
+                    <dd className="mt-1"><a href={`mailto:${CONTACT.email}`} className="font-display text-lg font-bold tracking-tight hover:text-brand">{CONTACT.email}</a></dd>
                   </div>
                 </div>
               </dl>
+              <div className="mt-5 rounded-sm bg-white/5 p-4 text-[11px] leading-relaxed text-paper/65">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-paper/45">Operating protocol</p>
+                <p className="mt-1.5">Monday to Friday, business hours (IST). Urgent critical-power enquiries are triaged first.</p>
+              </div>
+              <p className="mt-3 flex gap-2.5 rounded-sm bg-white/5 p-4 text-[11px] leading-relaxed text-paper/65">
+                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-brand" aria-hidden />
+                <span><strong className="text-paper">Mutual NDA standard:</strong> we execute bilateral non-disclosure instruments before ingesting single-line diagrams, load-flow files or confidential network schematics.</span>
+              </p>
+            </Reveal>
+
+            <div>
+              <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em]">
+                <span className="h-2 w-2 bg-brand" /> Regional operation hubs
+              </p>
+              <ul className="mt-4 space-y-3">
+                {HUBS.map((h) => (
+                  <Reveal as="li" key={h.code} className="rounded-md border border-hairline bg-mist-blue/60 p-4">
+                    <p className="flex items-center gap-2 text-[12px] font-bold"><span className="text-brand">{h.code}</span> <MapPin className="h-3.5 w-3.5 text-steel" aria-hidden /> {h.name}</p>
+                    {h.lines.map((l) => (
+                      <p key={l} className="mt-1.5 text-[11px] leading-relaxed text-graphite-600">{l}</p>
+                    ))}
+                  </Reveal>
+                ))}
+              </ul>
+            </div>
+
+            <Reveal>
+              <figure className="relative aspect-[16/9] overflow-hidden rounded-md ring-1 ring-graphite-950/10">
+                <Image src="/about-hero-bg.png" alt="Engineers at a coordination centre" fill sizes="(min-width: 1024px) 480px, 100vw" quality={75} className="object-cover object-[65%_center]" />
+              </figure>
+              <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.16em] text-steel">Global coordination centre</p>
             </Reveal>
           </div>
 
           <Reveal delay={0.1} className="lg:col-span-7">
-            <div className="rounded-[2.5rem] border border-hairline bg-white p-7 shadow-lift sm:p-10 lg:p-12">
-              <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Send an enquiry</p>
+            <div className="rounded-md border border-hairline border-t-2 border-t-brand bg-white p-6 shadow-lift sm:p-8">
+              <div className="flex items-center justify-between gap-3 text-[9px] font-semibold uppercase tracking-[0.16em]">
+                <span className="text-brand">Protocol ENQ-2025</span>
+                <span className="text-steel">Encrypted in transit</span>
+              </div>
+              <h2 className="font-display mt-3 text-[clamp(1.5rem,1.2rem+1.1vw,2rem)] font-bold tracking-[-0.02em]">Submit Technical Scoping Request</h2>
+              <p className="mt-2 mb-6 text-[12px] leading-relaxed text-graphite-600">
+                Direct submission to the INFOELEX engineering partner panel. Complete the technical fields below to facilitate immediate assignment to the appropriate discipline lead.
+              </p>
               <ContactForm />
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Ways to reach us: interactive */}
-      <section className="bg-canvas py-[calc(var(--space-section)*0.5)] text-graphite-950">
-        <div className="wrap grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
-          <Reveal className="order-2 lg:order-1 lg:col-span-7">
-            <HeroArt kind="contact" className="mx-auto max-w-[36rem]" />
-          </Reveal>
-          <Reveal delay={0.1} className="order-1 lg:order-2 lg:col-span-5">
-            <Eyebrow>Where to find us</Eyebrow>
-            <h2 className="font-display mt-5 text-section text-balance">Based in Coimbatore, working across India and the GCC.</h2>
-            <p className="mt-5 max-w-md leading-relaxed text-graphite-600">
-              Choose the way that suits you. Every enquiry is read by an engineer who can help with the study, design or support you describe.
-            </p>
-          </Reveal>
+      {/* Guidelines */}
+      <section className="bg-[#232a32] py-14 text-paper md:py-20">
+        <div className={WRAP}>
+          <div className="flex items-end justify-between gap-4">
+            <h2 className="font-display text-[clamp(1.4rem,1.1rem+1.2vw,2rem)] font-bold tracking-[-0.02em]">Consultation &amp; Feasibility Guidelines</h2>
+            <span className="hidden text-[9px] font-semibold uppercase tracking-[0.16em] text-paper/45 sm:block">FAQ index</span>
+          </div>
+          <ul className="mt-8 grid gap-3 md:grid-cols-2">
+            {FAQ.map((f, i) => (
+              <Reveal as="li" key={f.q} delay={(i % 2) * 0.06} className="rounded-sm bg-white/5 p-5">
+                <h3 className="text-[13px] font-bold">{f.q}</h3>
+                <p className="mt-2 text-[12px] leading-relaxed text-paper/65">{f.a}</p>
+              </Reveal>
+            ))}
+          </ul>
         </div>
       </section>
     </>
