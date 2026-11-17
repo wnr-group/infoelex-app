@@ -80,8 +80,8 @@ export function OurEdge() {
     <>
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-[#1b2027] text-paper">
-        <Image src="/photos/substation.jpg" alt="" fill priority sizes="100vw" quality={80} className="-z-20 object-cover object-center opacity-45" />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-[#1b2027]/70 via-[#1b2027]/55 to-[#1b2027]" />
+        <Image src="/photos/edge-hero.png" alt="" fill priority sizes="100vw" quality={80} className="-z-20 object-cover object-[70%_center] opacity-90" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-[#1b2027]/55 via-[#1b2027]/35 to-[#1b2027]" />
         <div className={cn(WRAP, "pb-12 pt-28 md:pb-16 md:pt-32")}>
           <div className="flex flex-col gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[12px]">
             <span className="w-fit rounded-sm border border-white/15 bg-white/5 px-3 py-1.5">Home | Our Edge</span>
@@ -144,7 +144,7 @@ export function OurEdge() {
 
             <Reveal delay={0.1} className="lg:col-span-7">
               <figure className="relative aspect-[16/10] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-                <Image src="/about-hero-bg.png" alt="Engineers working at a real-time digital simulator facility" fill sizes="(min-width: 1024px) 720px, 100vw" quality={85} className="object-cover" />
+                <Image src="/photos/edge-control-room.png" alt="Two power system engineers reviewing waveforms and a single-line diagram on a wall of monitors" fill sizes="(min-width: 1024px) 720px, 100vw" quality={85} className="object-cover object-center" />
                 <figcaption className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-2 bg-gradient-to-t from-black/75 to-transparent px-4 pb-3 pt-10 text-[11px] font-semibold uppercase tracking-[0.16em] text-white sm:text-[11px]">
                   <span>Real-Time Digital Simulator (RTDS) Facility | London HQ</span>
                   <span className="text-white/70">INFY-BY | Pegasus</span>
