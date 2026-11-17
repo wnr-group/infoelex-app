@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
 import { cn } from "@/lib/utils";
 import { ContactForm } from "./contact-form";
+import { FaqAccordion } from "./faq-accordion";
 import { CONTACT } from "./data";
 
 const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
@@ -139,14 +140,7 @@ export function Contact() {
             <h2 className="font-display text-[clamp(1.4rem,1.1rem+1.2vw,2rem)] font-bold tracking-[-0.02em]">Consultation &amp; Feasibility Guidelines</h2>
             <span className="hidden text-[9px] font-semibold uppercase tracking-[0.16em] text-paper/45 sm:block">FAQ index</span>
           </div>
-          <ul className="mt-8 grid gap-3 md:grid-cols-2">
-            {FAQ.map((f, i) => (
-              <Reveal as="li" key={f.q} delay={(i % 2) * 0.06} className="rounded-sm bg-white/5 p-5">
-                <h3 className="text-[13px] font-bold">{f.q}</h3>
-                <p className="mt-2 text-[12px] leading-relaxed text-paper/65">{f.a}</p>
-              </Reveal>
-            ))}
-          </ul>
+          <FaqAccordion items={FAQ} className="mx-auto mt-8 max-w-4xl" />
         </div>
       </section>
     </>
