@@ -21,7 +21,7 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 /** Routes whose first screen is a dark image, so the transparent header needs the light logo and light text. */
-const DARK_TOP = ["/about", "/our-edge", "/critical-power"];
+const DARK_TOP = ["/about", "/our-edge", "/critical-power", "/capabilities"];
 
 export function Logo({ floating = false, isDarkBg = false }: { floating?: boolean; isDarkBg?: boolean }) {
   return (
