@@ -71,8 +71,8 @@ const DISCIPLINES: Discipline[] = [
     href: "/services/earthing-grounding",
     visual: {
       kind: "spec",
-      image: "/photos/substation.jpg",
-      alt: "High-voltage substation equipment",
+      image: "/photos/cap-electrical.png",
+      alt: "Engineer walking along a row of gas-insulated switchgear in an indoor substation hall",
       caption: ["GIS | Electrical | Balanced plant", "Substation design"],
       spec: { tag: "Design envelope", headline: "LV to 400kV", rows: [["System voltage", "Up to 400 kV"], ["Calculation set", "IEC 60364 / IEEE 80"], ["Review", "Chartered engineer"]], foot: "Balanced plant arrangement verified" },
     },
