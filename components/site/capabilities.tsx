@@ -16,8 +16,8 @@ const HERO_SPECS = [
 
 type Visual =
   | { kind: "telemetry"; image: string; alt: string; caption: [string, string]; telemetry: { label: string; value: string; note: string; series: number[] } }
-  | { kind: "spec"; image: string; alt: string; caption: [string, string]; spec: { tag: string; headline: string; rows: [string, string][]; foot: string } }
-  | { kind: "table"; title: string; head: string[]; rows: string[][]; note: string }
+  | { kind: "spec"; image: string; alt: string; caption: [string, string]; anchor?: "right"; spec: { tag: string; headline: string; rows: [string, string][]; foot: string } }
+  | { kind: "table"; image?: string; alt?: string; caption?: [string, string]; title: string; head: string[]; rows: string[][]; note: string }
   | { kind: "metrics"; title: string; items: [string, string][]; bars: number[]; note: string };
 
 type Discipline = {
@@ -93,6 +93,9 @@ const DISCIPLINES: Discipline[] = [
     href: "/services/protection-arc-flash",
     visual: {
       kind: "table",
+      image: "/photos/cap-protection.png",
+      alt: "Gloved technician connecting test leads to the test block of a numerical protection relay",
+      caption: ["Relay testing | Secondary injection", "Numerical relay"],
       title: "Relay coordination | Trip schedule",
       head: ["Device", "Pickup", "Time", "Curve"],
       rows: [
@@ -164,9 +167,10 @@ const DISCIPLINES: Discipline[] = [
     href: "/services/specialist-studies",
     visual: {
       kind: "spec",
-      image: "/about-office-bg.png",
-      alt: "Consulting engineers in a design review",
-      caption: ["Independent advisory | Review room", "Design review"],
+      image: "/photos/cap-consultancy.png",
+      alt: "Two consulting engineers reviewing drawings beside a 132 kV substation at sunset",
+      caption: ["Independent advisory | Site review", "Design review"],
+      anchor: "right",
       spec: { tag: "Advisory scope", headline: "Conflict-free", rows: [["Independence", "No vendor ties"], ["Reviewer", "Chartered"], ["Turnaround", "Agreed up front"]], foot: "Opinions you can rely on in negotiation" },
     },
   },
@@ -226,7 +230,7 @@ function VisualPanel({ v }: { v: Visual }) {
   if (v.kind === "spec") {
     return (
       <PhotoFrame image={v.image} alt={v.alt} caption={v.caption}>
-        <div className="absolute inset-x-3 top-3 rounded-sm bg-[#1b2027]/90 p-4 text-paper backdrop-blur sm:right-auto sm:w-64">
+        <div className={cn("absolute inset-x-3 top-3 rounded-sm bg-[#1b2027]/90 p-4 text-paper backdrop-blur sm:w-64", v.anchor === "right" ? "sm:left-auto" : "sm:right-auto")}>
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand">{v.spec.tag}</p>
           <p className="font-display mt-1 text-xl font-bold tracking-tight">{v.spec.headline}</p>
           <dl className="mt-3 space-y-1.5 border-t border-white/10 pt-3 text-xs">
@@ -245,6 +249,16 @@ function VisualPanel({ v }: { v: Visual }) {
   if (v.kind === "table") {
     return (
       <div className="card-lift overflow-hidden rounded-md bg-[#232a32] text-paper">
+        {v.image && v.alt && v.caption && (
+          <figure className="relative aspect-[16/9]">
+            <Image src={v.image} alt={v.alt} fill sizes="(min-width: 1024px) 480px, 100vw" quality={80} className="object-cover" />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/85 via-transparent to-transparent" />
+            <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 px-4 pb-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
+              <span>{v.caption[0]}</span>
+              <span className="hidden text-white/65 sm:inline">{v.caption[1]}</span>
+            </figcaption>
+          </figure>
+        )}
         <p className="border-b border-white/10 px-5 py-3.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-paper/60">{v.title}</p>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[20rem] text-left text-[13px]">
