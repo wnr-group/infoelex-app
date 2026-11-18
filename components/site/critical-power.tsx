@@ -100,7 +100,7 @@ export function CriticalPower() {
     <>
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-[#1b2027] text-paper">
-        <Image src="/photos/substation.jpg" alt="" fill priority sizes="100vw" quality={80} className="-z-20 object-cover object-center opacity-35" />
+        <Image src="/photos/critical-power-hero.png" alt="" fill priority sizes="100vw" quality={80} className="-z-20 object-cover object-center opacity-70" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-[#1b2027]/70 via-[#1b2027]/60 to-[#1b2027]" />
         <div className={cn(WRAP, "pb-12 pt-28 md:pb-16 md:pt-32")}>
           <div className="flex flex-col gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[12px]">
@@ -255,7 +255,7 @@ export function CriticalPower() {
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-14")}>
           <Reveal className="lg:col-span-5">
             <figure className="relative aspect-[4/5] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-              <Image src="/about-hero-bg.png" alt="Engineers carrying out integrated commissioning tests on a power system" fill sizes="(min-width: 1024px) 480px, 100vw" quality={85} className="object-cover object-[65%_center]" />
+              <Image src="/photos/critical-power-commissioning.png" alt="Engineer with a tablet beside load banks and generator paralleling switchgear during an integrated system test" fill sizes="(min-width: 1024px) 480px, 100vw" quality={85} className="object-cover object-[70%_center]" />
               <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-4 pt-12 text-[11px] font-semibold uppercase tracking-[0.16em] text-white sm:text-[11px]">
                 Protocol Level 5 Integrated System Commissioning Test
               </figcaption>
