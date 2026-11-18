@@ -26,17 +26,30 @@ const DARK_TOP = ["/about", "/our-edge", "/critical-power"];
 /** Routes built on the 1280px content grid; their header lines up with it so the logo shares the content's left edge. */
 const CONTENT_GRID = ["/our-edge", "/capabilities", "/critical-power", "/projects", "/our-signature", "/beyond-engineering", "/contact"];
 
-export function Logo({ floating = false, isDarkBg = false }: { floating?: boolean; isDarkBg?: boolean }) {
+export function Logo({ floating = false, isDarkBg = false, tagline = false }: { floating?: boolean; isDarkBg?: boolean; tagline?: boolean }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={isDarkBg ? "/logo-light.svg" : "/logo.svg"}
-      alt="Infoelex Private Limited"
-      className={cn(
-        "h-10 w-auto sm:h-11 md:h-[52px]",
-        floating && isDarkBg && "drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+    <span className="inline-flex flex-col items-start">
+      {tagline && (
+        <span
+          className={cn(
+            "mb-1 whitespace-nowrap text-[8px] font-semibold uppercase leading-none tracking-[0.3em] sm:text-[9px] md:text-[11px]",
+            isDarkBg ? "text-white/90" : "text-graphite-600",
+            floating && isDarkBg && "drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
+          )}
+        >
+          Inspire Excellence
+        </span>
       )}
-    />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={isDarkBg ? "/logo-light.svg" : "/logo.svg"}
+        alt="Infoelex Private Limited"
+        className={cn(
+          "h-10 w-auto sm:h-11 md:h-[52px]",
+          floating && isDarkBg && "drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+        )}
+      />
+    </span>
   );
 }
 
@@ -80,7 +93,7 @@ export function Navbar() {
         <div className={cn("mx-auto flex h-20 items-center justify-between", onContentGrid ? "max-w-[1280px]" : "max-w-[1440px]", gutter)}>
           {/* LOGO */}
           <Link href="/" className="flex-shrink-0" aria-label="Infoelex home">
-            <Logo floating={!scrolled} isDarkBg={isDarkBg} />
+            <Logo tagline floating={!scrolled} isDarkBg={isDarkBg} />
           </Link>
 
           {/* DESKTOP NAV */}
@@ -156,7 +169,7 @@ export function Navbar() {
           >
             <div className={cn("relative flex h-20 items-center justify-between border-b border-gray-100", gutter)}>
               <Link href="/" onClick={() => setMobileOpen(false)} aria-label="Infoelex home">
-                <Logo />
+                <Logo tagline />
               </Link>
               <button type="button" aria-label="Close menu" onClick={() => setMobileOpen(false)} className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-800">
                 <X className="h-6 w-6" />
