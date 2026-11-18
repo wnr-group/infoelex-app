@@ -1,10 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowUpRight, Gauge, ShieldCheck, Zap } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
+import { ParallaxImage } from "./primitives";
+import { ScrollProgress } from "./scroll-progress";
 import { CountUp } from "./count-up";
 import { cn } from "@/lib/utils";
 
@@ -130,9 +131,9 @@ const DISCIPLINES = [
 
 function CaseRow({ c, flip }: { c: Case; flip: boolean }) {
   return (
-    <Reveal as="li" className="grid overflow-hidden card-lift rounded-md border border-hairline bg-white lg:grid-cols-2">
+    <Reveal as="li" from={flip ? "right" : "left"} className="grid overflow-hidden card-lift rounded-md border border-hairline bg-white lg:grid-cols-2">
       <div className={cn("relative aspect-[4/3] lg:aspect-auto lg:min-h-[26rem]", flip && "lg:order-2")}>
-        <Image src={c.image} alt={c.imageAlt} fill sizes="(min-width: 1024px) 620px, 100vw" quality={80} className="object-cover" />
+        <ParallaxImage src={c.image} alt={c.imageAlt} sizes="(min-width: 1024px) 620px, 100vw" className="absolute inset-0" />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/70 via-transparent to-transparent" />
         <span className="absolute bottom-3 left-3 rounded-sm bg-black/70 px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">{c.code}</span>
         <span className="absolute bottom-3 right-3 max-w-[55%] rounded-sm bg-black/70 px-2.5 py-1.5 text-right text-[11px] font-semibold uppercase tracking-[0.1em] text-white/80">{c.place}</span>
@@ -171,6 +172,7 @@ export function Projects() {
 
   return (
     <>
+      <ScrollProgress />
       {/* Hero */}
       <section className="bg-white pt-28 text-graphite-950 md:pt-36">
         <div className={WRAP}>
@@ -181,13 +183,13 @@ export function Projects() {
             </span>
           </div>
           <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-end">
-            <Reveal className="lg:col-span-8">
+            <Reveal from="left" className="lg:col-span-8">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">Commissioned capital programs</p>
               <h1 className="font-display mt-4 text-[clamp(2.25rem,1.5rem+4vw,4.25rem)] font-bold leading-[1.02] tracking-[-0.03em] text-balance">
                 ENGINEERING EXPERTISE. <span className="text-brand">REAL-WORLD IMPACT.</span>
               </h1>
             </Reveal>
-            <Reveal delay={0.08} className="lg:col-span-4">
+            <Reveal from="right" delay={0.08} className="lg:col-span-4">
               <p className="text-[14px] leading-relaxed text-graphite-600">
                 Explore selected engineering projects, technical expertise, and the range of infrastructure challenges addressed by INFOELEX across high-voltage transmission, hyperscale compute, and mission-critical networks.
               </p>
@@ -255,7 +257,7 @@ export function Projects() {
       {/* Closing */}
       <section className="bg-[#232a32] py-16 text-paper md:py-24">
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-center")}>
-          <Reveal className="lg:col-span-7">
+          <Reveal from="left" className="lg:col-span-7">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">Advisory direct line • Institutional engagement</p>
             <h2 className="font-display mt-4 text-[clamp(2rem,1.3rem+3.4vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-balance">
               HAVE A COMPLEX ENGINEERING CHALLENGE?
@@ -264,7 +266,7 @@ export function Projects() {
               Our senior technical principals are available for confidential project scoping, peer-review audits, and utility-scale engineering feasibility assessments.
             </p>
           </Reveal>
-          <Reveal delay={0.1} className="flex flex-col gap-3 lg:col-span-4 lg:col-start-9">
+          <Reveal from="right" delay={0.1} className="flex flex-col gap-3 lg:col-span-4 lg:col-start-9">
             <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Submit project RFP <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>

@@ -1,7 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, BatteryCharging, Cpu, Factory, Gauge, Network, Radio, Repeat, Server, ShieldAlert, Thermometer, Zap, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
+import { fromCol } from "@/components/home/motion";
+import { ParallaxImage } from "./primitives";
+import { ScrollProgress } from "./scroll-progress";
 import { cn } from "@/lib/utils";
 
 const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
@@ -98,9 +100,10 @@ function TopologyDiagram() {
 export function CriticalPower() {
   return (
     <>
+      <ScrollProgress />
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-[#1b2027] text-paper">
-        <Image src="/photos/critical-power-hero.png" alt="" fill priority sizes="100vw" quality={80} className="-z-20 object-cover object-center opacity-70" />
+        <ParallaxImage src="/photos/critical-power-hero.png" alt="" priority sizes="100vw" className="absolute inset-0 -z-20" imgClassName="object-center opacity-70" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-[#1b2027]/70 via-[#1b2027]/60 to-[#1b2027]" />
         <div className={cn(WRAP, "pb-12 pt-28 md:pb-16 md:pt-32")}>
           <div className="flex flex-col gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[12px]">
@@ -146,7 +149,7 @@ export function CriticalPower() {
       <section className="bg-white py-14 text-graphite-950 md:py-24">
         <div className={WRAP}>
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
-            <Reveal className="lg:col-span-5">
+            <Reveal from="left" className="lg:col-span-5">
               <SectionLabel>Domain history | Zero margin for failure</SectionLabel>
               <h2 className={cn(H2, "mt-6")}>Where Seconds Mean Billions in Systemic Liability.</h2>
               <p className="mt-5 text-[15px] leading-relaxed text-graphite-600">
@@ -168,7 +171,7 @@ export function CriticalPower() {
 
             <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
               {FACILITIES.map((f, i) => (
-                <Reveal as="li" key={f.title} delay={(i % 2) * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-canvas p-5">
+                <Reveal as="li" key={f.title} from={fromCol(i, 2)} delay={(i % 2) * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-canvas p-5">
                   <div className="flex items-start justify-between gap-3">
                     <Tag className="text-brand">{f.tag}</Tag>
                     <f.icon className="h-4 w-4 shrink-0 text-steel" aria-hidden />
@@ -196,7 +199,7 @@ export function CriticalPower() {
             </p>
           </div>
 
-          <Reveal className="mt-10 grid overflow-hidden rounded-md bg-[#232a32] text-paper lg:grid-cols-[1.1fr_1fr]">
+          <Reveal from="scale" className="mt-10 grid overflow-hidden rounded-md bg-[#232a32] text-paper lg:grid-cols-[1.1fr_1fr]">
             <div className="border-b border-white/10 p-5 lg:border-b-0 lg:border-r lg:p-8">
               <TopologyDiagram />
             </div>
@@ -233,7 +236,7 @@ export function CriticalPower() {
           </Reveal>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {PILLARS.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={(i % 4) * 0.06} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
+              <Reveal as="li" key={p.title} from={fromCol(i, 4)} delay={(i % 4) * 0.06} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
                 <div className="flex items-start justify-between gap-3">
                   <Tag className="text-brand">{p.tag}</Tag>
                   <p.icon className="h-4 w-4 shrink-0 text-steel" aria-hidden />
@@ -253,9 +256,9 @@ export function CriticalPower() {
       {/* Testing & commissioning */}
       <section className="bg-canvas py-14 text-graphite-950 md:py-24">
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-14")}>
-          <Reveal className="lg:col-span-5">
+          <Reveal from="left" className="lg:col-span-5">
             <figure className="relative aspect-[4/5] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-              <Image src="/photos/critical-power-commissioning.png" alt="Engineer with a tablet beside load banks and generator paralleling switchgear during an integrated system test" fill sizes="(min-width: 1024px) 480px, 100vw" quality={85} className="object-cover object-[70%_center]" />
+              <ParallaxImage src="/photos/critical-power-commissioning.png" alt="Engineer with a tablet beside load banks and generator paralleling switchgear during an integrated system test" sizes="(min-width: 1024px) 480px, 100vw" className="absolute inset-0" imgClassName="object-[70%_center]" />
               <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-4 pt-12 text-[11px] font-semibold uppercase tracking-[0.16em] text-white sm:text-[11px]">
                 Protocol Level 5 Integrated System Commissioning Test
               </figcaption>
@@ -274,7 +277,7 @@ export function CriticalPower() {
             </Reveal>
             <ol className="mt-8 divide-y divide-hairline border-y border-hairline">
               {TESTS.map((t, i) => (
-                <Reveal as="li" key={t.n} delay={i * 0.05} className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 py-5 sm:grid-cols-[auto_1fr_auto]">
+                <Reveal as="li" key={t.n} from="left" delay={i * 0.05} className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 py-5 sm:grid-cols-[auto_1fr_auto]">
                   <span className="font-display text-sm font-bold tabular-nums text-brand">{t.n}</span>
                   <div>
                     <h3 className="text-sm font-bold">{t.title}</h3>
@@ -300,7 +303,7 @@ export function CriticalPower() {
           </Reveal>
           <ul className="mt-10 grid gap-4 md:grid-cols-3">
             {STAGES.map((s, i) => (
-              <Reveal as="li" key={s.stage} delay={i * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-white p-5 lg:p-6">
+              <Reveal as="li" key={s.stage} from={fromCol(i, 3)} delay={i * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-white p-5 lg:p-6">
                 <Tag className="text-brand">{s.stage}</Tag>
                 <h3 className="font-display mt-4 text-lg font-bold tracking-tight">{s.title}</h3>
                 <p className="mt-2 text-[14px] leading-relaxed text-graphite-600">{s.copy}</p>
@@ -317,7 +320,7 @@ export function CriticalPower() {
       {/* Closing consult */}
       <section className="bg-[#232a32] py-16 text-paper md:py-24">
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-center")}>
-          <Reveal className="lg:col-span-7">
+          <Reveal from="left" className="lg:col-span-7">
             <Tag className="rounded-sm border border-brand/50 bg-brand/15 px-3 py-1.5 text-[#ff8f84]">
               <ShieldAlert className="h-3 w-3" aria-hidden /> Consultation &amp; Architectural Advisory
             </Tag>
@@ -338,7 +341,7 @@ export function CriticalPower() {
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={0.1} className="flex flex-col gap-3 lg:col-span-4 lg:col-start-9">
+          <Reveal from="right" delay={0.1} className="flex flex-col gap-3 lg:col-span-4 lg:col-start-9">
             <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Talk to engineering team <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>

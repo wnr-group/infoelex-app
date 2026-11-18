@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
+import { fromCol } from "@/components/home/motion";
+import { ParallaxImage } from "./primitives";
+import { ScrollProgress } from "./scroll-progress";
 import { cn } from "@/lib/utils";
 
 const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
@@ -38,6 +41,7 @@ function Tag({ children, className }: { children: React.ReactNode; className?: s
 export function Beyond() {
   return (
     <>
+      <ScrollProgress />
       {/* Hero */}
       <section className="bg-white pt-28 text-graphite-950 md:pt-36">
         <div className={WRAP}>
@@ -46,7 +50,7 @@ export function Beyond() {
             <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-brand" /> CSR mandate ref: CL-2025</span>
           </div>
           <div className="mt-10 grid gap-8 pb-12 lg:grid-cols-12 lg:items-center md:pb-20">
-            <Reveal className="lg:col-span-6">
+            <Reveal from="left" className="lg:col-span-6">
               <Tag className="text-brand">Societal commitment &amp; stewardship</Tag>
               <h1 className="font-display mt-4 text-[clamp(2.25rem,1.5rem+4vw,4.25rem)] font-bold uppercase leading-[1.02] tracking-[-0.03em] text-balance">
                 Making a difference <span className="text-brand">beyond</span> engineering.
@@ -64,9 +68,9 @@ export function Beyond() {
                 </figcaption>
               </figure>
             </Reveal>
-            <Reveal delay={0.1} className="lg:col-span-6">
+            <Reveal from="right" delay={0.1} className="lg:col-span-6">
               <figure className="relative aspect-[4/3] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-                <Image src="/photos/beyond-hero.png" alt="Volunteer engineers working with local students" fill priority sizes="(min-width: 1024px) 620px, 100vw" quality={85} className="object-cover" />
+                <ParallaxImage src="/photos/beyond-hero.png" alt="Volunteer engineers working with local students" priority sizes="(min-width: 1024px) 620px, 100vw" className="absolute inset-0" />
                 <figcaption className="absolute bottom-3 left-3 max-w-[70%] rounded-sm bg-brand p-3 text-white">
                   <p className="text-[12px] font-bold">100% Employee-Led</p>
                   <p className="mt-1 text-[11px] leading-snug text-white/85">Every field program is directed by practising engineers and volunteered on company time.</p>
@@ -91,7 +95,7 @@ export function Beyond() {
           </div>
           <ul className="mt-10 grid gap-4 md:grid-cols-3">
             {PILLARS.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={i * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5 lg:p-6">
+              <Reveal as="li" key={p.title} from={fromCol(i, 3)} delay={i * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5 lg:p-6">
                 <Tag className="text-brand">{p.tag}</Tag>
                 <h3 className="font-display mt-4 text-lg font-bold tracking-tight">{p.title}</h3>
                 <p className="mt-2 text-[13px] leading-relaxed text-graphite-600">{p.copy}</p>
@@ -106,9 +110,9 @@ export function Beyond() {
             ))}
           </ul>
 
-          <Reveal className="mt-6 grid overflow-hidden card-lift rounded-md border border-hairline bg-mist-blue/60 md:grid-cols-[1fr_1.1fr]">
+          <Reveal from="scale" className="mt-6 grid overflow-hidden card-lift rounded-md border border-hairline bg-mist-blue/60 md:grid-cols-[1fr_1.1fr]">
             <div className="relative aspect-[16/10] md:aspect-auto md:min-h-[16rem]">
-              <Image src="/photos/beyond-talk.png" alt="A volunteer engineer talking with community members" fill sizes="(min-width: 768px) 520px, 100vw" quality={80} className="object-cover object-[70%_center]" />
+              <ParallaxImage src="/photos/beyond-talk.png" alt="A volunteer engineer talking with community members" sizes="(min-width: 768px) 520px, 100vw" className="absolute inset-0" imgClassName="object-[70%_center]" />
             </div>
             <figure className="flex flex-col justify-center p-6 md:p-10">
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">Community engagement spotlight</p>
@@ -136,9 +140,9 @@ export function Beyond() {
           </Reveal>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {FOCUS.map((f, i) => (
-              <Reveal as="li" key={f.title} delay={(i % 3) * 0.06} className="flex flex-col overflow-hidden card-lift rounded-md border border-hairline bg-white">
+              <Reveal as="li" key={f.title} from={fromCol(i, 3)} delay={(i % 3) * 0.06} className="flex flex-col overflow-hidden card-lift rounded-md border border-hairline bg-white">
                 <div className="relative aspect-[16/10]">
-                  <Image src={f.image} alt="" fill sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" quality={75} className="object-cover" />
+                  <ParallaxImage src={f.image} alt="" sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" className="absolute inset-0" />
                   <span className="absolute left-3 top-3 rounded-sm bg-brand px-2 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white">#{f.n} · {f.tag}</span>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
@@ -155,7 +159,7 @@ export function Beyond() {
                 </div>
               </Reveal>
             ))}
-            <Reveal as="li" delay={0.1} className="flex flex-col justify-center rounded-md bg-[#232a32] p-6 text-paper">
+            <Reveal as="li" from="scale" delay={0.1} className="flex flex-col justify-center rounded-md bg-[#232a32] p-6 text-paper">
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">Our operating commitment</p>
               <h3 className="font-display mt-3 text-xl font-bold tracking-tight">Measurable Social Responsibility</h3>
               <p className="mt-2 text-[13px] leading-relaxed text-paper/65">
@@ -182,8 +186,8 @@ export function Beyond() {
             </p>
           </div>
           <ul className="mt-10 grid auto-rows-[7rem] grid-cols-6 gap-2 sm:auto-rows-[10rem] sm:gap-3 md:auto-rows-[15rem]">
-            {GALLERY.map((g) => (
-              <Reveal as="li" key={g.title} className={cn("relative card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10", g.big ? "col-span-4 row-span-2" : "col-span-2")}>
+            {GALLERY.map((g, i) => (
+              <Reveal as="li" key={g.title} from="scale" delay={(i % 3) * 0.06} className={cn("relative card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10", g.big ? "col-span-4 row-span-2" : "col-span-2")}>
                 <Image src={g.src} alt={g.alt} fill sizes={g.big ? "66vw" : "33vw"} quality={75} className={cn("object-cover", g.pos)} />
                 <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-2 text-white sm:p-3">
@@ -200,7 +204,7 @@ export function Beyond() {
       {/* Partner */}
       <section className="bg-white py-14 text-graphite-950 md:py-24">
         <div className={cn(WRAP, "grid gap-8 lg:grid-cols-12 lg:items-center")}>
-          <Reveal className="lg:col-span-7">
+          <Reveal from="left" className="lg:col-span-7">
             <Tag className="text-brand">Organization &amp; third-party collaboration</Tag>
             <h2 className={cn(H2, "mt-4")}>Partner with our community initiatives</h2>
             <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-graphite-600">
@@ -219,7 +223,7 @@ export function Beyond() {
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={0.1} className="lg:col-span-4 lg:col-start-9">
+          <Reveal from="right" delay={0.1} className="lg:col-span-4 lg:col-start-9">
             <Link href="/contact" className="inline-flex w-full items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
               Connect with Infoelex <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>

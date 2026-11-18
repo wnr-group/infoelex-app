@@ -1,7 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Activity, ArrowUpRight, Cpu, Crosshair, Gauge, Layers, ShieldCheck, Zap, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
+import { fromCol } from "@/components/home/motion";
+import { ParallaxImage } from "./primitives";
+import { ScrollProgress } from "./scroll-progress";
 import { CountUp } from "./count-up";
 import { cn } from "@/lib/utils";
 
@@ -78,9 +80,10 @@ const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
 export function OurEdge() {
   return (
     <>
+      <ScrollProgress />
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-[#1b2027] text-paper">
-        <Image src="/photos/edge-hero.png" alt="" fill priority sizes="100vw" quality={80} className="-z-20 object-cover object-[70%_center] opacity-90" />
+        <ParallaxImage src="/photos/edge-hero.png" alt="" priority sizes="100vw" className="absolute inset-0 -z-20" imgClassName="object-[70%_center] opacity-90" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-[#1b2027]/55 via-[#1b2027]/35 to-[#1b2027]" />
         <div className={cn(WRAP, "pb-12 pt-28 md:pb-16 md:pt-32")}>
           <div className="flex flex-col gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/70 sm:flex-row sm:items-center sm:justify-between sm:text-[12px]">
@@ -123,7 +126,7 @@ export function OurEdge() {
             <span aria-hidden className="h-px w-8 bg-current opacity-40" /> Section 01 | Identity &amp; Mandate
           </SectionLabel>
           <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-14">
-            <Reveal className="lg:col-span-5">
+            <Reveal from="left" className="lg:col-span-5">
               <h2 className={H2}>Independent technical authority engineered for sovereign scale.</h2>
               <p className="mt-6 text-[15px] font-semibold leading-relaxed text-graphite-800">
                 The modern power grid operates on razor-thin deterministic thresholds.
@@ -142,9 +145,9 @@ export function OurEdge() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.1} className="lg:col-span-7">
+            <Reveal from="right" delay={0.1} className="lg:col-span-7">
               <figure className="relative aspect-[16/10] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-                <Image src="/photos/edge-control-room.png" alt="Two power system engineers reviewing waveforms and a single-line diagram on a wall of monitors" fill sizes="(min-width: 1024px) 720px, 100vw" quality={85} className="object-cover object-center" />
+                <ParallaxImage src="/photos/edge-control-room.png" alt="Two power system engineers reviewing waveforms and a single-line diagram on a wall of monitors" sizes="(min-width: 1024px) 720px, 100vw" className="absolute inset-0" imgClassName="object-center" />
                 <figcaption className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-2 bg-gradient-to-t from-black/75 to-transparent px-4 pb-3 pt-10 text-[11px] font-semibold uppercase tracking-[0.16em] text-white sm:text-[11px]">
                   <span>Real-Time Digital Simulator (RTDS) Facility | London HQ</span>
                   <span className="text-white/70">INFY-BY | Pegasus</span>
@@ -184,7 +187,7 @@ export function OurEdge() {
 
           <ul className="mt-10 grid gap-px overflow-hidden rounded-md bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
             {METRICS.map((m, i) => (
-              <Reveal as="li" key={m.label} delay={i * 0.06} className="bg-[#2a323b] p-6 transition-colors duration-300 hover:bg-[#323b46] lg:p-7">
+              <Reveal as="li" key={m.label} from={fromCol(i, 4)} delay={i * 0.06} className="bg-[#2a323b] p-6 transition-colors duration-300 hover:bg-[#323b46] lg:p-7">
                 <Tag className="text-brand">
                   <span className="h-1.5 w-1.5 bg-brand" /> Metric 0{i + 1}
                 </Tag>
@@ -224,7 +227,7 @@ export function OurEdge() {
 
           <ul className="mt-10 grid gap-4 md:grid-cols-3">
             {HUBS.map((h, i) => (
-              <Reveal as="li" key={h.city} delay={i * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-white p-5 lg:p-6">
+              <Reveal as="li" key={h.city} from={fromCol(i, 3)} delay={i * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-white p-5 lg:p-6">
                 <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel sm:text-[11px]">
                   <span>{h.role}</span>
                   <span className="shrink-0 rounded-sm bg-brand/10 px-2 py-1 text-brand">{h.badge}</span>
@@ -246,7 +249,7 @@ export function OurEdge() {
             ))}
           </ul>
 
-          <Reveal className="mt-6 overflow-hidden rounded-md bg-[#232a32] text-paper">
+          <Reveal from="scale" className="mt-6 overflow-hidden rounded-md bg-[#232a32] text-paper">
             <div className="flex flex-col gap-2 px-5 pt-5 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <p className="text-sm font-bold">Global Project Telemetry &amp; Field Coordination</p>
@@ -289,7 +292,7 @@ export function OurEdge() {
           </div>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PRINCIPLES.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={(i % 3) * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5 lg:p-6">
+              <Reveal as="li" key={p.title} from={fromCol(i, 3)} delay={(i % 3) * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5 lg:p-6">
                 <div className="flex items-start justify-between gap-3">
                   <Tag className="text-brand">{p.tag}</Tag>
                   <p.icon className="h-4 w-4 shrink-0 text-steel" aria-hidden />
@@ -306,7 +309,7 @@ export function OurEdge() {
       {/* Closing mandate */}
       <section className="bg-[#232a32] py-16 text-paper md:py-24">
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-center")}>
-          <Reveal className="lg:col-span-7">
+          <Reveal from="left" className="lg:col-span-7">
             <Tag className="rounded-sm border border-brand/50 bg-brand/15 px-3 py-1.5 text-[#ff8f84]">
               <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Institutional Mandate
             </Tag>
@@ -324,7 +327,7 @@ export function OurEdge() {
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={0.1} className="flex flex-col gap-4 lg:col-span-4 lg:col-start-9">
+          <Reveal from="right" delay={0.1} className="flex flex-col gap-4 lg:col-span-4 lg:col-start-9">
             <Link href="/capabilities" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Explore our capabilities <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>

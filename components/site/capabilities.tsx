@@ -1,7 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
+import { ParallaxImage } from "./primitives";
+import { ScrollProgress } from "./scroll-progress";
 import { cn } from "@/lib/utils";
 import { DeliverablesTable } from "./capabilities-table";
 
@@ -198,7 +199,7 @@ function Sparkline({ series }: { series: number[] }) {
 function PhotoFrame({ image, alt, caption, children }: { image: string; alt: string; caption: [string, string]; children?: React.ReactNode }) {
   return (
     <figure className="card-lift relative aspect-[4/3] overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-      <Image src={image} alt={alt} fill sizes="(min-width: 1024px) 480px, 100vw" quality={80} className="object-cover" />
+      <ParallaxImage src={image} alt={alt} sizes="(min-width: 1024px) 480px, 100vw" className="absolute inset-0" />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/85 via-transparent to-transparent" />
       {children}
       <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 px-4 pb-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
@@ -251,7 +252,7 @@ function VisualPanel({ v }: { v: Visual }) {
       <div className="card-lift overflow-hidden rounded-md bg-[#232a32] text-paper">
         {v.image && v.alt && v.caption && (
           <figure className="relative aspect-[16/9]">
-            <Image src={v.image} alt={v.alt} fill sizes="(min-width: 1024px) 480px, 100vw" quality={80} className="object-cover" />
+            <ParallaxImage src={v.image} alt={v.alt} sizes="(min-width: 1024px) 480px, 100vw" className="absolute inset-0" />
             <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/85 via-transparent to-transparent" />
             <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 px-4 pb-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
               <span>{v.caption[0]}</span>
@@ -310,7 +311,7 @@ function DisciplineBlock({ d, flip, tinted }: { d: Discipline; flip: boolean; ti
   return (
     <section id={d.id} className={cn("scroll-mt-20 py-12 text-graphite-950 md:py-20", tinted ? "bg-mist-blue/70" : "bg-white")}>
       <div className={cn(WRAP, "grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-14")}>
-        <Reveal className={cn("lg:col-span-7", flip && "lg:order-2")}>
+        <Reveal from={flip ? "right" : "left"} className={cn("lg:col-span-7", flip && "lg:order-2")}>
           <div className="flex flex-wrap items-center gap-3">
             <span className="rounded-sm bg-brand px-2 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-white">Discipline {d.index}</span>
             <Tag className="text-steel">{d.tag}</Tag>
@@ -343,7 +344,7 @@ function DisciplineBlock({ d, flip, tinted }: { d: Discipline; flip: boolean; ti
           </div>
         </Reveal>
 
-        <Reveal delay={0.1} className={cn("lg:col-span-5", flip && "lg:order-1")}>
+        <Reveal from={flip ? "left" : "right"} delay={0.1} className={cn("lg:col-span-5", flip && "lg:order-1")}>
           <VisualPanel v={d.visual} />
         </Reveal>
       </div>
@@ -355,6 +356,7 @@ function DisciplineBlock({ d, flip, tinted }: { d: Discipline; flip: boolean; ti
 export function Capabilities() {
   return (
     <>
+      <ScrollProgress />
       {/* Hero */}
       <section className="bg-white pt-28 text-graphite-950 md:pt-36">
         <div className={WRAP}>
@@ -363,13 +365,13 @@ export function Capabilities() {
             <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-brand" /> ISO 9001:2015 audited • Engineering services</span>
           </div>
           <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-end">
-            <Reveal className="lg:col-span-7">
+            <Reveal from="left" className="lg:col-span-7">
               <Tag className="text-brand">Core engineering services</Tag>
               <h1 className="font-display mt-4 text-[clamp(2.25rem,1.5rem+4vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.03em] text-balance">
                 Integrated Engineering. <span className="text-brand">Comprehensive Expertise.</span>
               </h1>
             </Reveal>
-            <Reveal delay={0.08} className="lg:col-span-5">
+            <Reveal from="right" delay={0.08} className="lg:col-span-5">
               <p className="text-[15px] leading-relaxed text-graphite-600">
                 Engineering knowledge and technical capabilities to support complex electrical and power systems requirements across sovereign grids, industrial mega-plants and hyperscale digital architecture.
               </p>
@@ -411,7 +413,7 @@ export function Capabilities() {
       {/* Closing */}
       <section className="bg-[#232a32] py-16 text-paper md:py-24">
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-center")}>
-          <Reveal className="lg:col-span-7">
+          <Reveal from="left" className="lg:col-span-7">
             <Tag className="text-brand">Direct engineering consultation</Tag>
             <h2 className="font-display mt-5 text-[clamp(2rem,1.3rem+3.4vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-balance">
               Discuss Your Engineering Requirements
@@ -420,7 +422,7 @@ export function Capabilities() {
               Speak directly with our chartered electrical engineering directors to scope system studies, FEED packages, substation designs, or regulatory compliance verification.
             </p>
           </Reveal>
-          <Reveal delay={0.1} className="flex flex-col gap-3 lg:col-span-4 lg:col-start-9">
+          <Reveal from="right" delay={0.1} className="flex flex-col gap-3 lg:col-span-4 lg:col-start-9">
             <Link href="/contact" className="inline-flex items-center justify-between gap-3 rounded-sm bg-brand px-6 py-4 text-[13px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Schedule technical consultation <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Link>

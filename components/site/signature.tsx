@@ -1,7 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Atom, Scale, ScanSearch, ShieldCheck, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
+import { fromCol } from "@/components/home/motion";
+import { ParallaxImage } from "./primitives";
+import { ScrollProgress } from "./scroll-progress";
 import { cn } from "@/lib/utils";
 
 const WRAP = "mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10";
@@ -60,6 +62,7 @@ function Tag({ children, className }: { children: React.ReactNode; className?: s
 export function Signature() {
   return (
     <>
+      <ScrollProgress />
       {/* Hero */}
       <section className="relative overflow-hidden bg-white pt-28 text-graphite-950 md:pt-36">
         <div
@@ -76,7 +79,7 @@ export function Signature() {
           </div>
 
           <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-start">
-            <Reveal className="lg:col-span-7">
+            <Reveal from="left" className="lg:col-span-7">
               <Tag className="rounded-sm border border-brand/30 bg-brand/5 px-3 py-1.5 text-brand">ISO 9001:2015 audited engineering quality framework</Tag>
               <h1 className="font-display mt-5 text-[clamp(2.25rem,1.5rem+4vw,4.25rem)] font-bold uppercase leading-[1.02] tracking-[-0.03em] text-balance">
                 Precision in process. <span className="text-brand">Excellence in execution.</span>
@@ -85,7 +88,7 @@ export function Signature() {
                 Our approach brings together engineering knowledge, structured methodologies, quality standards, and technical verification to mitigate thermodynamic and computational uncertainty across hyperscale power topologies.
               </p>
             </Reveal>
-            <Reveal delay={0.1} className="lg:col-span-5">
+            <Reveal from="right" delay={0.1} className="lg:col-span-5">
               <div className="rounded-md bg-[#232a32] p-6 text-paper">
                 <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/50">
                   <span>Telemetry rating</span>
@@ -104,9 +107,9 @@ export function Signature() {
           </div>
 
           <div className="mt-8 grid gap-4 pb-14 lg:grid-cols-12 md:pb-20">
-            <Reveal className="lg:col-span-7">
+            <Reveal from="left" className="lg:col-span-7">
               <figure className="relative aspect-[16/10] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-                <Image src="/photos/signature-analysis.png" alt="Analyst at a dual-monitor workstation running a transient waveform and harmonic spectrum study beside a network one-line diagram" fill priority sizes="(min-width: 1024px) 720px, 100vw" quality={85} className="object-cover" />
+                <ParallaxImage src="/photos/signature-analysis.png" alt="Analyst at a dual-monitor workstation running a transient waveform and harmonic spectrum study beside a network one-line diagram" priority sizes="(min-width: 1024px) 720px, 100vw" className="absolute inset-0" />
                 <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/85 via-transparent to-transparent" />
                 <figcaption className="absolute inset-x-0 bottom-0 p-4 text-white">
                   <p className="text-[11px] font-bold uppercase tracking-[0.14em]"><span className="mr-2 rounded-sm bg-brand px-1.5 py-0.5">REL 01</span>Electromagnetic Transient &amp; Harmonic Spectrum Analysis</p>
@@ -114,7 +117,7 @@ export function Signature() {
                 </figcaption>
               </figure>
             </Reveal>
-            <Reveal delay={0.1} className="lg:col-span-5">
+            <Reveal from="right" delay={0.1} className="lg:col-span-5">
               <div className="h-full card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Protocol manifest</p>
                 <dl className="mt-3 divide-y divide-hairline text-[13px]">
@@ -138,7 +141,7 @@ export function Signature() {
       {/* Philosophy */}
       <section className="bg-white py-14 text-graphite-950 md:py-24">
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:gap-14")}>
-          <Reveal className="lg:col-span-5">
+          <Reveal from="left" className="lg:col-span-5">
             <Tag className="text-steel">Foundational doctrine</Tag>
             <h2 className={cn(H2, "mt-5")}>Our engineering philosophy</h2>
             <p className="mt-5 text-[14px] leading-relaxed text-graphite-600">
@@ -153,7 +156,7 @@ export function Signature() {
           </Reveal>
           <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
             {DOCTRINES.map((d, i) => (
-              <Reveal as="li" key={d.title} delay={(i % 2) * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
+              <Reveal as="li" key={d.title} from={fromCol(i, 2)} delay={(i % 2) * 0.07} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
                 <div className="flex items-start justify-between gap-3">
                   <Tag className="text-brand">{d.tag}</Tag>
                   <d.icon className="h-4 w-4 shrink-0 text-steel" aria-hidden />
@@ -186,7 +189,7 @@ export function Signature() {
             {STAGES.map((s, i) => {
               const last = i === STAGES.length - 1;
               return (
-                <Reveal as="li" key={s.n} delay={i * 0.05} className={cn("flex flex-col rounded-md border p-5", last ? "border-graphite-950 bg-[#232a32] text-paper" : "border-hairline bg-mist-blue/60")}>
+                <Reveal as="li" key={s.n} from={fromCol(i, 5)} delay={i * 0.05} className={cn("flex flex-col rounded-md border p-5", last ? "border-graphite-950 bg-[#232a32] text-paper" : "border-hairline bg-mist-blue/60")}>
                   <div className="flex items-start justify-between">
                     <span className="font-display text-3xl font-bold leading-none text-brand">{s.n}</span>
                     <span className={cn("rounded-sm px-1.5 py-0.5 text-[11px] font-bold uppercase tracking-[0.12em]", last ? "bg-brand text-white" : "bg-white text-steel")}>{s.gate}</span>
@@ -209,7 +212,7 @@ export function Signature() {
       {/* Peer review + standards */}
       <section className="bg-white pb-14 text-graphite-950 md:pb-24">
         <div className={cn(WRAP, "grid gap-10 border-t border-hairline pt-14 md:pt-20 lg:grid-cols-12 lg:gap-14")}>
-          <Reveal className="lg:col-span-5">
+          <Reveal from="left" className="lg:col-span-5">
             <Tag className="text-steel">Quality assurance directive</Tag>
             <h2 className={cn(H2, "mt-5")}>Peer-review protocol &amp; standards adherence</h2>
             <p className="mt-5 text-[14px] leading-relaxed text-graphite-600">
@@ -227,7 +230,7 @@ export function Signature() {
               </ul>
             </div>
           </Reveal>
-          <Reveal delay={0.1} className="lg:col-span-7">
+          <Reveal from="right" delay={0.1} className="lg:col-span-7">
             <div className="rounded-md border border-hairline">
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline bg-canvas px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">
                 <span>Standards authority alignment</span>
@@ -263,7 +266,7 @@ export function Signature() {
           </div>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {TOOLS.map((t, i) => (
-              <Reveal as="li" key={t.title} delay={(i % 3) * 0.06} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
+              <Reveal as="li" key={t.title} from={fromCol(i, 3)} delay={(i % 3) * 0.06} className="flex flex-col card-lift rounded-md border border-hairline bg-mist-blue/60 p-5">
                 <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.14em]">
                   <span className="text-brand">{t.tag}</span>
                   <span className="text-steel">{t.sub}</span>
@@ -283,7 +286,7 @@ export function Signature() {
       {/* Closing */}
       <section className="bg-[#232a32] py-16 text-paper md:py-24">
         <div className={cn(WRAP, "grid gap-10 lg:grid-cols-12 lg:items-center")}>
-          <Reveal className="lg:col-span-7">
+          <Reveal from="left" className="lg:col-span-7">
             <Tag className="text-brand">Accountability without exception</Tag>
             <h2 className="font-display mt-5 text-[clamp(2rem,1.3rem+3.4vw,3.5rem)] font-bold uppercase leading-[1.05] tracking-[-0.03em] text-balance">
               Commitment to verified results.
@@ -297,7 +300,7 @@ export function Signature() {
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={0.1} className="lg:col-span-4 lg:col-start-9">
+          <Reveal from="right" delay={0.1} className="lg:col-span-4 lg:col-start-9">
             <div className="rounded-md border border-white/10 bg-white/5 p-5">
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-paper/50">Schedule engineering review</p>
               <p className="mt-2 text-[13px] leading-relaxed text-paper/65">Engage our Senior Technical Principals for an independent audit of your high-voltage design or protection strategy.</p>
