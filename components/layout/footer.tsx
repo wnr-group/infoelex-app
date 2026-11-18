@@ -105,7 +105,7 @@ export function Footer() {
 
         <div className="flex flex-col gap-4 border-t border-hairline py-6 text-sm text-steel md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <p>© {new Date().getFullYear()} Infoelex. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} INFOELEX Private Limited. All rights reserved.</p>
             {LEGAL_LINKS.map((l) => (
               <Link key={l.href} href={l.href} className="transition-colors hover:text-graphite-950">{l.label}</Link>
             ))}
