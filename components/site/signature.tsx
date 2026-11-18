@@ -106,7 +106,7 @@ export function Signature() {
           <div className="mt-8 grid gap-4 pb-14 lg:grid-cols-12 md:pb-20">
             <Reveal className="lg:col-span-7">
               <figure className="relative aspect-[16/10] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-                <Image src="/about-hero-bg.png" alt="Engineers reviewing a transient simulation in a control room" fill priority sizes="(min-width: 1024px) 720px, 100vw" quality={85} className="object-cover" />
+                <Image src="/photos/signature-analysis.png" alt="Analyst at a dual-monitor workstation running a transient waveform and harmonic spectrum study beside a network one-line diagram" fill priority sizes="(min-width: 1024px) 720px, 100vw" quality={85} className="object-cover" />
                 <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#1b2027]/85 via-transparent to-transparent" />
                 <figcaption className="absolute inset-x-0 bottom-0 p-4 text-white">
                   <p className="text-[11px] font-bold uppercase tracking-[0.14em]"><span className="mr-2 rounded-sm bg-brand px-1.5 py-0.5">REL 01</span>Electromagnetic Transient &amp; Harmonic Spectrum Analysis</p>
