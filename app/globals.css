@@ -113,6 +113,10 @@ body {
   --color-slate-deep: #2b323b;
   --color-signal: #c8281a;
   --color-signal-deep: #a8210f;
+  --color-warm: #f9efe5;
+  --color-warm-deep: #f2dcc9;
+  --color-sage: #e9efe6;
+  --color-mist-blue: #e6ecf2;
 
   --font-display: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   --text-display: clamp(3rem, 1.5rem + 6vw, 6.75rem);
@@ -123,6 +127,15 @@ body {
   --text-headline--letter-spacing: -0.02em;
   --text-title: clamp(1.25rem, 1.05rem + 0.75vw, 1.75rem);
   --text-title--line-height: 1.25;
+  /* Page-level scale: calmer than the homepage display sizes */
+  --text-page: clamp(2.125rem, 1.5rem + 2.6vw, 3.5rem);
+  --text-page--line-height: 1.08;
+  --text-page--letter-spacing: -0.025em;
+  --text-section: clamp(1.5rem, 1.15rem + 1.3vw, 2.25rem);
+  --text-section--line-height: 1.15;
+  --text-section--letter-spacing: -0.02em;
+  --text-card: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-card--line-height: 1.3;
   --text-eyebrow: 0.75rem;
   --text-eyebrow--line-height: 1;
   --text-eyebrow--letter-spacing: 0.18em;
@@ -216,5 +229,136 @@ html.has-custom-cursor * {
 @media (prefers-reduced-motion: reduce) {
   .turbine-rotor {
     animation: none;
+  }
+}
+
+/* ── Section pages: engineering drawing + power-flow animations ── */
+@keyframes draw-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-in 1.4s var(--ease-signature) 0.15s forwards;
+}
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.flow {
+  animation: flow-dash 1.2s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .draw {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .flow {
+    animation: none;
+  }
+}
+
+/* ── Interactive hero diagrams ── */
+.px-layer {
+  transform: translate(calc(var(--px, 0) * var(--d, 8) * 1px), calc(var(--py, 0) * var(--d, 8) * 1px));
+  transition: transform 0.6s var(--ease-signature);
+}
+@keyframes pulse-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.orbit-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: orbit-spin 90s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .px-layer {
+    transform: none;
+  }
+  .pulse-ring,
+  .orbit-spin {
+    animation: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Card interaction: lift, accent line, icon and image motion.
+   Uses the individual `translate`/`scale` properties so it composes
+   with the inline transforms framer-motion puts on revealed elements.
+   ══════════════════════════════════════════════════════════════ */
+.card-lift {
+  position: relative;
+  transition:
+    translate 0.45s var(--ease-signature),
+    box-shadow 0.45s var(--ease-signature),
+    border-color 0.45s var(--ease-signature),
+    background-color 0.45s var(--ease-signature);
+}
+.card-lift::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--color-brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-signature);
+  pointer-events: none;
+}
+.card-lift svg {
+  transition: scale 0.4s var(--ease-signature), color 0.3s;
+}
+.card-lift img {
+  transition: scale 0.9s var(--ease-signature);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card-lift:hover {
+    translate: 0 -4px;
+    box-shadow: 0 24px 44px -26px rgba(21, 23, 26, 0.45);
+    border-color: rgba(200, 40, 26, 0.35);
+  }
+  .card-lift:hover::after {
+    transform: scaleX(1);
+  }
+  .card-lift:hover svg:not(.no-hover) {
+    scale: 1.14;
+    color: var(--color-brand);
+  }
+  .card-lift:hover img {
+    scale: 1.05;
+  }
+}
+
+/* Arrow glyphs on links and buttons nudge in their direction of travel. */
+main a > svg.lucide-arrow-up-right,
+main a > svg.lucide-arrow-right {
+  transition: translate 0.3s var(--ease-signature);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  main a:hover > svg.lucide-arrow-up-right {
+    translate: 2px -2px;
+  }
+  main a:hover > svg.lucide-arrow-right {
+    translate: 3px 0;
   }
 }

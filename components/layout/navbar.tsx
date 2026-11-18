@@ -2,61 +2,54 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { NavMegaMenu, type MegaMenuItem } from "@/components/layout/nav-mega-menu";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const SECTORS_MENU: MegaMenuItem[] = [
-  { title: "Power Generation", href: "/sectors/power-generation" },
-  { title: "Renewables & Energy Storage", href: "/sectors/renewables-energy-storage" },
-  { title: "Transmission & Distribution", href: "/sectors/transmission-distribution" },
-  { title: "Oil, Gas & Petrochemical", href: "/sectors/oil-gas-petrochemical" },
-  { title: "Industrial", href: "/sectors/industrial" },
-  { title: "Data Centres", href: "/sectors/data-centres" },
-  { title: "Building Services", href: "/sectors/building-services" },
-  { title: "Water", href: "/sectors/water" },
-];
-
-const SERVICES_MENU: MegaMenuItem[] = [
-  { title: "Power System Analysis", href: "/services/power-system-analysis" },
-  { title: "Power Quality", href: "/services/power-quality" },
-  { title: "Compliance Studies", href: "/services/compliance-studies" },
-  { title: "Protection & Arc Flash", href: "/services/protection-arc-flash" },
-  { title: "Dynamic & Transients (RMS)", href: "/services/dynamic-transients-rms" },
-  { title: "Electromagnetic Transients (EMT)", href: "/services/electromagnetic-transients-emt" },
-  { title: "Earthing & Grounding", href: "/services/earthing-grounding" },
-  { title: "Specialist Studies", href: "/services/specialist-studies" },
-];
-
-type NavItem = {
-  label: string;
-  href: string;
-  mega?: MegaMenuItem[];
-};
+type NavItem = { label: string; href: string };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Sectors", href: "#sector", mega: SECTORS_MENU },
-  { label: "Services", href: "#services", mega: SERVICES_MENU },
-  { label: "About Us", href: "/about" },
-  { label: "CSR", href: "/csr" },
+  { label: "Our Edge", href: "/our-edge" },
+  { label: "Capabilities", href: "/capabilities" },
+  { label: "Critical Power", href: "/critical-power" },
+  { label: "Projects", href: "/projects" },
+  { label: "Our Signature", href: "/our-signature" },
+  { label: "Beyond Engineering", href: "/beyond-engineering" },
 ];
 
-export function Logo({ floating = false, isDarkBg = false }: { floating?: boolean; isDarkBg?: boolean }) {
+/** Routes whose first screen is a dark image, so the transparent header needs the light logo and light text. */
+const DARK_TOP = ["/about", "/our-edge", "/critical-power"];
+
+/** Routes built on the 1280px content grid; their header lines up with it so the logo shares the content's left edge. */
+const CONTENT_GRID = ["/our-edge", "/capabilities", "/critical-power", "/projects", "/our-signature", "/beyond-engineering", "/contact"];
+
+export function Logo({ floating = false, isDarkBg = false, tagline = false }: { floating?: boolean; isDarkBg?: boolean; tagline?: boolean }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={isDarkBg ? "/logo-light.svg" : "/logo.svg"}
-      alt="Infoelex Private Limited"
-      className={cn(
-        "h-10 w-auto sm:h-11 md:h-[52px]",
-        floating && isDarkBg && "drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+    <span className="inline-flex flex-col items-start">
+      {tagline && (
+        <span
+          className={cn(
+            "mb-1 whitespace-nowrap text-[8px] font-semibold uppercase leading-none tracking-[0.3em] sm:text-[9px] md:text-[11px]",
+            isDarkBg ? "text-white/90" : "text-graphite-600",
+            floating && isDarkBg && "drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
+          )}
+        >
+          Inspire Excellence
+        </span>
       )}
-    />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={isDarkBg ? "/logo-light.svg" : "/logo.svg"}
+        alt="Infoelex Private Limited"
+        className={cn(
+          "h-10 w-auto sm:h-11 md:h-[52px]",
+          floating && isDarkBg && "drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+        )}
+      />
+    </span>
   );
 }
 
@@ -64,25 +57,10 @@ export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
-  const isDarkBg = !scrolled && pathname === "/about";
+  const isDarkBg = !scrolled && DARK_TOP.includes(pathname);
+  const onContentGrid = CONTENT_GRID.includes(pathname);
+  const gutter = onContentGrid ? "px-4 sm:px-6 lg:px-10" : "px-6 md:px-10 lg:px-14 xl:px-16";
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [active, setActive] = useState("#home");
-  const headerRef = useRef<HTMLElement>(null);
-  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const clearCloseTimeout = () => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-  };
-
-  const scheduleClose = () => {
-    clearCloseTimeout();
-    closeTimeoutRef.current = setTimeout(() => setOpenMenu(null), 200);
-  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -92,65 +70,17 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = ["#home", ...NAV_ITEMS.filter((item) => item.href.startsWith("#")).map((item) => item.href)]
-      .map((href) => document.querySelector(href))
-      .filter((el): el is Element => el !== null);
-
-    if (sections.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(`#${entry.target.id}`);
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
-    );
-
-    sections.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     document.documentElement.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
       document.documentElement.style.overflow = "";
     };
   }, [mobileOpen]);
 
-  useEffect(() => {
-    if (!openMenu) return;
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpenMenu(null);
-    };
-    const onPointerDown = (e: MouseEvent) => {
-      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
-        setOpenMenu(null);
-      }
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("mousedown", onPointerDown);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("mousedown", onPointerDown);
-    };
-  }, [openMenu]);
-
-  useEffect(() => {
-    return () => clearCloseTimeout();
-  }, []);
-
-  // Pipe-separated links: show | before "About Us" and "CSR"
-  const PIPE_BEFORE = ["About Us", "CSR"];
+  const isActive = (href: string) => pathname === href;
 
   return (
     <>
       <header
-        ref={headerRef}
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
           scrolled
@@ -159,114 +89,44 @@ export function Navbar() {
               : "bg-white shadow-md"
             : "bg-transparent shadow-none"
         )}
-        onMouseEnter={clearCloseTimeout}
-        onMouseLeave={scheduleClose}
       >
-        <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14 xl:px-16">
-
+        <div className={cn("mx-auto flex h-20 items-center justify-between", onContentGrid ? "max-w-[1280px]" : "max-w-[1440px]", gutter)}>
           {/* LOGO */}
-          <Link
-            href={isHome ? "#home" : "/"}
-            className="flex-shrink-0"
-            aria-label="Infoelex home"
-          >
-            <Logo floating={!scrolled} isDarkBg={isDarkBg} />
+          <Link href="/" className="flex-shrink-0" aria-label="Infoelex home">
+            <Logo tagline floating={!scrolled} isDarkBg={isDarkBg} />
           </Link>
 
           {/* DESKTOP NAV */}
           <nav
-            className={cn(
-              "hidden items-center md:flex",
-              !scrolled && isDarkBg &&
-                "[filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.3))]"
-            )}
+            aria-label="Primary"
+            className={cn("hidden items-center xl:flex", isDarkBg && "[filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.3))]")}
           >
             {NAV_ITEMS.map((item) => (
-              <div key={item.label} className="flex items-center">
-                {/* Pipe separator before certain items */}
-                {PIPE_BEFORE.includes(item.label) && (
-                  <span
-                    className={cn(
-                      "mx-2 h-4 w-px transition-colors duration-200",
-                      isDarkBg ? "bg-white/20" : "bg-gray-300"
-                    )}
-                    aria-hidden="true"
-                  />
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={cn(
+                  "relative px-3 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 2xl:px-4",
+                  isActive(item.href) ? "text-brand" : isDarkBg ? "text-white/90 hover:text-white" : "text-gray-700 hover:text-brand"
                 )}
-
-                {item.mega ? (
-                  <div className="relative">
-                    <button
-                      type="button"
-                      aria-haspopup="true"
-                      aria-expanded={openMenu === item.label}
-                      onMouseEnter={() => {
-                        clearCloseTimeout();
-                        setOpenMenu(item.label);
-                      }}
-                      onClick={() =>
-                        setOpenMenu((current) =>
-                          current === item.label ? null : item.label
-                        )
-                      }
-                      className={cn(
-                        "flex items-center gap-1 px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
-                        (item.href === "/" ? pathname === "/" && active === "#home" : active === item.href || pathname === item.href)
-                          ? "text-brand"
-                          : isDarkBg
-                          ? "text-white/90 hover:text-brand"
-                          : "text-gray-700 hover:text-brand"
-                      )}
-                    >
-                      {item.label}
-                      <ChevronDown
-                        className={cn(
-                          "h-3 w-3 transition-transform duration-200",
-                          openMenu === item.label
-                            ? "rotate-180 text-brand"
-                            : isDarkBg
-                            ? "text-white/60"
-                            : "text-gray-500"
-                        )}
-                      />
-                    </button>
-
-                    <AnimatePresence>
-                      {openMenu === item.label && (
-                        <NavMegaMenu items={item.mega} onNavigate={() => setOpenMenu(null)} />
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-                  <Link
-                    href={item.href === "/" ? (isHome ? "#home" : "/") : item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
-                    onMouseEnter={() => {
-                      clearCloseTimeout();
-                      setOpenMenu(null);
-                    }}
-                    className={cn(
-                      "relative px-3 py-1.5 text-[12.5px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
-                      (item.href === "/" ? pathname === "/" && active === "#home" : active === item.href || pathname === item.href)
-                        ? "text-brand"
-                        : isDarkBg
-                        ? "text-white/90 hover:text-brand"
-                        : "text-gray-700 hover:text-brand"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
+              >
+                {item.label}
+                {isActive(item.href) && (
+                  <motion.span layoutId="nav-active" className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-brand 2xl:inset-x-4" transition={{ duration: 0.35, ease: EASE }} />
                 )}
-              </div>
+              </Link>
             ))}
           </nav>
 
           {/* CTA BUTTON */}
-          <div className="hidden md:block">
+          <div className="hidden xl:block">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 bg-brand px-5 py-2.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-red-800"
+              aria-current={isActive("/contact") ? "page" : undefined}
+              className="inline-flex items-center gap-2 bg-brand px-5 py-2.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-brand-dim"
             >
-              Get in Touch
+              Contact
               <span className="text-base leading-none">→</span>
             </Link>
           </div>
@@ -278,37 +138,18 @@ export function Navbar() {
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
             className={cn(
-              "relative z-[60] flex h-10 w-10 items-center justify-center md:hidden transition-colors duration-200",
-              mobileOpen
-                ? "text-gray-800"
-                : isDarkBg
-                ? "text-white hover:text-brand"
-                : "text-gray-800 hover:text-brand",
-              !scrolled &&
-                !mobileOpen &&
-                isDarkBg &&
-                "[filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.5))]"
+              "relative z-[60] flex h-10 w-10 items-center justify-center transition-colors duration-200 xl:hidden",
+              mobileOpen ? "text-gray-800" : isDarkBg ? "text-white hover:text-brand" : "text-gray-800 hover:text-brand",
+              isDarkBg && !mobileOpen && "[filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.5))]"
             )}
           >
             <AnimatePresence mode="wait" initial={false}>
               {mobileOpen ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                >
+                <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.25 }}>
                   <X className="h-6 w-6" />
                 </motion.span>
               ) : (
-                <motion.span
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                >
+                <motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.25 }}>
                   <Menu className="h-6 w-6" />
                 </motion.span>
               )}
@@ -324,113 +165,46 @@ export function Navbar() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white md:hidden"
+            className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white xl:hidden"
           >
-            <div className="relative flex h-20 items-center justify-between border-b border-gray-100 px-6">
-              <Link
-                href={isHome ? "#home" : "/"}
-                onClick={() => setMobileOpen(false)}
-                aria-label="Infoelex home"
-              >
-                <Logo />
+            <div className={cn("relative flex h-20 items-center justify-between border-b border-gray-100", gutter)}>
+              <Link href="/" onClick={() => setMobileOpen(false)} aria-label="Infoelex home">
+                <Logo tagline />
               </Link>
-
-              <button
-                type="button"
-                aria-label="Close menu"
-                onClick={() => setMobileOpen(false)}
-                className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-800"
-              >
+              <button type="button" aria-label="Close menu" onClick={() => setMobileOpen(false)} className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-800">
                 <X className="h-6 w-6" />
               </button>
             </div>
 
-            <nav className="relative flex flex-1 flex-col justify-center gap-1 px-6 py-8">
-              {NAV_ITEMS.map((item, i) => (
+            <nav aria-label="Mobile" className="relative flex flex-1 flex-col justify-center px-6 py-8">
+              {[{ label: "Home", href: "/" }, ...NAV_ITEMS].map((item, i) => (
                 <motion.div
-                  key={item.label}
+                  key={item.href}
                   initial={{ y: 40, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{
-                    duration: 0.55,
-                    delay: 0.12 + i * 0.06,
-                    ease: EASE,
-                  }}
+                  transition={{ duration: 0.55, delay: 0.12 + i * 0.05, ease: EASE }}
                   className="border-b border-gray-100"
                 >
-                  {item.mega ? (
-                    <>
-                      <button
-                        type="button"
-                        aria-expanded={mobileExpanded === item.label}
-                        onClick={() =>
-                          setMobileExpanded((current) =>
-                            current === item.label ? null : item.label
-                          )
-                        }
-                        className="flex w-full items-center justify-between gap-4 py-4 text-left"
-                      >
-                        <span className="text-base font-semibold text-gray-900 sm:text-xl">
-                          {item.label}
-                        </span>
-                        <ChevronDown
-                          className={cn(
-                            "h-5 w-5 shrink-0 text-gray-400 transition-transform duration-300",
-                            mobileExpanded === item.label && "rotate-180 text-brand"
-                          )}
-                        />
-                      </button>
-
-                      <AnimatePresence initial={false}>
-                        {mobileExpanded === item.label && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.35, ease: EASE }}
-                            className="overflow-hidden"
-                          >
-                            <div className="flex flex-col gap-4 pb-6 pl-9">
-                              {item.mega.map((sub) => (
-                                <Link
-                                  key={sub.title}
-                                  href={sub.href}
-                                  onClick={() => setMobileOpen(false)}
-                                  className="text-base font-medium text-gray-600 transition-colors active:text-brand"
-                                >
-                                  {sub.title}
-                                </Link>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    <Link
-                      href={item.href === "/" ? (isHome ? "#home" : "/") : item.href.startsWith("#") ? (isHome ? item.href : `/${item.href}`) : item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="block py-4 text-base font-semibold text-gray-900 transition-colors active:text-brand sm:text-xl"
-                    >
-                      {item.label}
-                    </Link>
-                  )}
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className={cn("flex items-center justify-between py-4 text-lg font-semibold transition-colors active:text-brand sm:text-xl", isActive(item.href) ? "text-brand" : "text-gray-900")}
+                  >
+                    {item.label}
+                    <span aria-hidden className="text-gray-300">→</span>
+                  </Link>
                 </motion.div>
               ))}
             </nav>
 
-            <motion.div
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.55, delay: 0.55, ease: EASE }}
-              className="relative px-6 pb-10"
-            >
+            <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.55, delay: 0.55, ease: EASE }} className="relative px-6 pb-10">
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="flex w-full items-center justify-center gap-2 rounded-[4px] border border-brand bg-brand px-6 py-4 text-base font-semibold text-white"
+                className="flex w-full items-center justify-center gap-2 border border-brand bg-brand px-6 py-4 text-base font-semibold text-white"
               >
-                Let&apos;s Talk
+                Contact
                 <span>→</span>
               </Link>
             </motion.div>
