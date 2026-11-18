@@ -50,7 +50,7 @@ export function AboutOffice() {
             >
               <motion.div style={{ scale: imgScale, opacity: imgOpacity }} className="absolute inset-0">
                 <Image
-                  src="/about-office-bg.png"
+                  src="/about-office-bg.webp"
                   alt="Infoelex office"
                   fill
                   className="object-cover"

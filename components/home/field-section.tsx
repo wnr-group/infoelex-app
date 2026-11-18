@@ -9,7 +9,7 @@ import { Reveal } from "./reveal";
 
 const TILES = [
   {
-    src: "/photos/substation.jpg",
+    src: "/photos/substation.webp",
     alt: "Air-insulated substation at sunset with switchgear and busbars",
     tag: "Substations",
     title: "Protection, coordination and arc-flash studies for live networks.",
@@ -18,7 +18,7 @@ const TILES = [
     position: "object-center",
   },
   {
-    src: "/photos/wind-turbines.jpg",
+    src: "/photos/wind-turbines.webp",
     alt: "Wind turbines on a hillside at sunrise",
     tag: "Renewables",
     title: "Grid-code compliance for wind, solar and hybrid plants.",
@@ -27,7 +27,7 @@ const TILES = [
     position: "object-[70%_50%]",
   },
   {
-    src: "/photos/solar-farm.jpg",
+    src: "/photos/solar-farm.webp",
     alt: "Aerial view of rows of solar panels",
     tag: "Utility-scale solar",
     title: "Plant modelling and connection studies, from yield to point of interconnection.",
@@ -49,7 +49,7 @@ export function FieldSection() {
       <div ref={heroRef} className="relative h-[62vh] min-h-[380px] overflow-hidden">
         <motion.div className="absolute inset-x-0 -inset-y-[10%]" style={reduce ? undefined : { y }}>
           <Image
-            src="/photos/pylon-sunset.jpg"
+            src="/photos/pylon-sunset.webp"
             alt="High-voltage transmission tower against a dusk sky"
             fill
             sizes="100vw"

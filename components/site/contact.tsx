@@ -111,7 +111,7 @@ export function Contact() {
 
             <Reveal>
               <figure className="relative aspect-[16/9] overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-                <Image src="/photos/contact-office.png" alt="A receptionist welcoming two visiting engineers in a bright office lobby with a world map on the wall" fill sizes="(min-width: 1024px) 480px, 100vw" quality={75} className="object-cover object-center" />
+                <Image src="/photos/contact-office.webp" alt="A receptionist welcoming two visiting engineers in a bright office lobby with a world map on the wall" fill sizes="(min-width: 1024px) 480px, 100vw" quality={75} className="object-cover object-center" />
               </figure>
               <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel">Global offices | Reception</p>
             </Reveal>
