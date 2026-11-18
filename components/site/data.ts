@@ -158,7 +158,7 @@ export const PROJECTS: Project[] = [
     summary: "Load flow, short-circuit and stability studies for grid connection and network reinforcement.",
     detail:
       "Network models are built and tested across normal and fault conditions to show where reinforcement is needed and what a new connection will do to the system around it.",
-    image: "/photos/pylon-sunset.jpg",
+    image: "/photos/pylon-sunset.webp",
     imageAlt: "Transmission pylon silhouetted against a sunset sky",
     href: "/sectors/transmission-distribution",
   },
@@ -170,7 +170,7 @@ export const PROJECTS: Project[] = [
     summary: "Grid-code compliance, plant modelling and connection studies for solar, wind and hybrid plants.",
     detail:
       "Solar, wind and hybrid plants are studied for the weak grids they plug into: stability, harmonics and ride-through, so connection approvals arrive on schedule.",
-    image: "/photos/wind-turbines.jpg",
+    image: "/photos/wind-turbines.webp",
     imageAlt: "Wind turbines in an open landscape",
     href: "/sectors/renewables-energy-storage",
   },
@@ -182,7 +182,7 @@ export const PROJECTS: Project[] = [
     summary: "Sizing, dispatch strategy, protection and EMT validation for utility and behind-the-meter storage.",
     detail:
       "Storage is sized and validated against grid codes, with the protection and control studies that decide whether it stays connected when the grid is disturbed.",
-    image: "/photos/solar-farm.jpg",
+    image: "/photos/solar-farm.webp",
     imageAlt: "Rows of solar panels in a field",
     href: "/sectors/renewables-energy-storage",
   },
@@ -194,7 +194,7 @@ export const PROJECTS: Project[] = [
     summary: "Plant-wide electrical design, motor-starting and protection studies for process industries.",
     detail:
       "Heavy loads, drives and captive generation are engineered as one system, with studies that show how the plant behaves during starts, faults and changeovers.",
-    image: "/powered-shell-bg.png",
+    image: "/powered-shell-bg.webp",
     imageAlt: "Industrial power plant and switchyard at dusk under a stormy sky",
     href: "/sectors/power-generation",
   },

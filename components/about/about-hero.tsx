@@ -20,7 +20,7 @@ export function AboutHero() {
       {/* PARALLAX BG IMAGE WITH ELEGANT GRADIENT OVERLAY */}
       <motion.div style={{ y: imgY, scale: imgScale }} className="absolute inset-0">
         <Image
-          src="/about-hero-bg.png"
+          src="/about-hero-bg.webp"
           alt="Infoelex data center campus"
           fill
           priority

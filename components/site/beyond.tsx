@@ -17,20 +17,20 @@ const PILLARS = [
 ];
 
 const FOCUS = [
-  { n: "01", tag: "Healthcare support", title: "Blood Donation Initiatives", copy: "Bi-annual corporate donor drives hosted across our regional offices, in partnership with national blood services to support acute local medical demands.", stats: [["Community partner", "NHS Blood & Transplant"], ["Annual coordination", "1,200+ Pints"]], image: "/photos/beyond-blood.png" },
-  { n: "02", tag: "STEM equity", title: "Education Support & STEM Access", copy: "Underwriting modern computational laboratory hardware and sponsoring full-tuition scholarships for underrepresented female and first-generation students.", stats: [["Partner institution", "STEM Trust & Universities"], ["Scholarships funded", "40 Full Rides"]], image: "/photos/beyond-stem.png" },
-  { n: "03", tag: "Direct relief", title: "Food Distribution & Relief", copy: "Logistical coordination, regular food-voucher packing drives, and annual funding for civic organizations to relieve neighbourhood food insecurity.", stats: [["Regional food banks", "City Harvest & Trussell"], ["Meals provided", "50,000+ Meals Equivalent"]], image: "/photos/beyond-food.png" },
-  { n: "04", tag: "Power safety", title: "Sustainable Power & Safety", copy: "Pro-bono electrical safety audits for non-profit shelters, rural clinics and community centres, including solar solutions where grid supply is unreliable.", stats: [["Focus sector", "Shelters & Rural Clinics"], ["Safety audits completed", "250+ Non-Profit Sites"]], image: "/photos/beyond-safety.png" },
-  { n: "05", tag: "Youth mentorship", title: "Mentorship & Youth Development", copy: "Structured workshops, school visits and mentoring cycles. Competitive robotics club sponsorships, and full-immersion shadow programming for local young people.", stats: [["Active programs", "Mentors & STEM Meet"], ["Youth impacted", "1,500+ Students"]], image: "/photos/beyond-mentor.png" },
+  { n: "01", tag: "Healthcare support", title: "Blood Donation Initiatives", copy: "Bi-annual corporate donor drives hosted across our regional offices, in partnership with national blood services to support acute local medical demands.", stats: [["Community partner", "NHS Blood & Transplant"], ["Annual coordination", "1,200+ Pints"]], image: "/photos/beyond-blood.webp" },
+  { n: "02", tag: "STEM equity", title: "Education Support & STEM Access", copy: "Underwriting modern computational laboratory hardware and sponsoring full-tuition scholarships for underrepresented female and first-generation students.", stats: [["Partner institution", "STEM Trust & Universities"], ["Scholarships funded", "40 Full Rides"]], image: "/photos/beyond-stem.webp" },
+  { n: "03", tag: "Direct relief", title: "Food Distribution & Relief", copy: "Logistical coordination, regular food-voucher packing drives, and annual funding for civic organizations to relieve neighbourhood food insecurity.", stats: [["Regional food banks", "City Harvest & Trussell"], ["Meals provided", "50,000+ Meals Equivalent"]], image: "/photos/beyond-food.webp" },
+  { n: "04", tag: "Power safety", title: "Sustainable Power & Safety", copy: "Pro-bono electrical safety audits for non-profit shelters, rural clinics and community centres, including solar solutions where grid supply is unreliable.", stats: [["Focus sector", "Shelters & Rural Clinics"], ["Safety audits completed", "250+ Non-Profit Sites"]], image: "/photos/beyond-safety.webp" },
+  { n: "05", tag: "Youth mentorship", title: "Mentorship & Youth Development", copy: "Structured workshops, school visits and mentoring cycles. Competitive robotics club sponsorships, and full-immersion shadow programming for local young people.", stats: [["Active programs", "Mentors & STEM Meet"], ["Youth impacted", "1,500+ Students"]], image: "/photos/beyond-mentor.webp" },
 ];
 
 const GALLERY = [
-  { src: "/photos/beyond-canal.png", alt: "Volunteers restoring a canal towpath at dusk", title: "Urban Ecology Restoration", sub: "Canal Corridor Project", tag: "Est. 2024", pos: "object-center", big: true },
-  { src: "/photos/beyond-physics.png", alt: "Volunteer engineers running a school physics outreach session", title: "Primary Physics Outreach", sub: "Classroom Demos", pos: "object-[70%_center]" },
-  { src: "/photos/beyond-clinic.png", alt: "Engineers at a community emergency power readiness clinic", title: "Emergency Power Readiness Clinic", sub: "Tyne & Wear", pos: "object-center" },
-  { src: "/photos/beyond-audit.png", alt: "Engineers advising a community group on electrical safety", title: "Pro Bono Energy Efficiency Audit", sub: "", pos: "object-[60%_center]" },
-  { src: "/photos/beyond-camp.png", alt: "Young people at an electrical systems camp", title: "Young Women in Electrical Systems Camp", sub: "", pos: "object-center" },
-  { src: "/photos/beyond-donation.png", alt: "Laboratory hardware donated to a school", title: "Laboratory Hardware Donate Distribution", sub: "", pos: "object-center" },
+  { src: "/photos/beyond-canal.webp", alt: "Volunteers restoring a canal towpath at dusk", title: "Urban Ecology Restoration", sub: "Canal Corridor Project", tag: "Est. 2024", pos: "object-center", big: true },
+  { src: "/photos/beyond-physics.webp", alt: "Volunteer engineers running a school physics outreach session", title: "Primary Physics Outreach", sub: "Classroom Demos", pos: "object-[70%_center]" },
+  { src: "/photos/beyond-clinic.webp", alt: "Engineers at a community emergency power readiness clinic", title: "Emergency Power Readiness Clinic", sub: "Tyne & Wear", pos: "object-center" },
+  { src: "/photos/beyond-audit.webp", alt: "Engineers advising a community group on electrical safety", title: "Pro Bono Energy Efficiency Audit", sub: "", pos: "object-[60%_center]" },
+  { src: "/photos/beyond-camp.webp", alt: "Young people at an electrical systems camp", title: "Young Women in Electrical Systems Camp", sub: "", pos: "object-center" },
+  { src: "/photos/beyond-donation.webp", alt: "Laboratory hardware donated to a school", title: "Laboratory Hardware Donate Distribution", sub: "", pos: "object-center" },
 ];
 
 function Tag({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -70,7 +70,7 @@ export function Beyond() {
             </Reveal>
             <Reveal from="right" delay={0.1} className="lg:col-span-6">
               <figure className="relative aspect-[4/3] card-lift overflow-hidden rounded-md ring-1 ring-graphite-950/10">
-                <ParallaxImage src="/photos/beyond-hero.png" alt="Volunteer engineers working with local students" priority sizes="(min-width: 1024px) 620px, 100vw" className="absolute inset-0" />
+                <ParallaxImage src="/photos/beyond-hero.webp" alt="Volunteer engineers working with local students" priority sizes="(min-width: 1024px) 620px, 100vw" className="absolute inset-0" />
                 <figcaption className="absolute bottom-3 left-3 max-w-[70%] rounded-sm bg-brand p-3 text-white">
                   <p className="text-[12px] font-bold">100% Employee-Led</p>
                   <p className="mt-1 text-[11px] leading-snug text-white/85">Every field program is directed by practising engineers and volunteered on company time.</p>
@@ -112,7 +112,7 @@ export function Beyond() {
 
           <Reveal from="scale" className="mt-6 grid overflow-hidden card-lift rounded-md border border-hairline bg-mist-blue/60 md:grid-cols-[1fr_1.1fr]">
             <div className="relative aspect-[16/10] md:aspect-auto md:min-h-[16rem]">
-              <ParallaxImage src="/photos/beyond-talk.png" alt="A volunteer engineer talking with community members" sizes="(min-width: 768px) 520px, 100vw" className="absolute inset-0" imgClassName="object-[70%_center]" />
+              <ParallaxImage src="/photos/beyond-talk.webp" alt="A volunteer engineer talking with community members" sizes="(min-width: 768px) 520px, 100vw" className="absolute inset-0" imgClassName="object-[70%_center]" />
             </div>
             <figure className="flex flex-col justify-center p-6 md:p-10">
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">Community engagement spotlight</p>

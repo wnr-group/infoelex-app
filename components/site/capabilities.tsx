@@ -50,7 +50,7 @@ const DISCIPLINES: Discipline[] = [
     href: "/services/power-system-analysis",
     visual: {
       kind: "telemetry",
-      image: "/photos/edge-control-room.png",
+      image: "/photos/edge-control-room.webp",
       alt: "Engineers reviewing network simulation waveforms",
       caption: ["Real-time simulation | Study room", "RTDS • PSCAD"],
       telemetry: { label: "Fault clearing time", value: "0.54 s", note: "Verified against relay and breaker ratings", series: [8, 10, 9, 14, 24, 40, 30, 18, 12, 10, 9, 9] },
@@ -72,7 +72,7 @@ const DISCIPLINES: Discipline[] = [
     href: "/services/earthing-grounding",
     visual: {
       kind: "spec",
-      image: "/photos/cap-electrical.png",
+      image: "/photos/cap-electrical.webp",
       alt: "Engineer walking along a row of gas-insulated switchgear in an indoor substation hall",
       caption: ["GIS | Electrical | Balanced plant", "Substation design"],
       spec: { tag: "Design envelope", headline: "LV to 400kV", rows: [["System voltage", "Up to 400 kV"], ["Calculation set", "IEC 60364 / IEEE 80"], ["Review", "Chartered engineer"]], foot: "Balanced plant arrangement verified" },
@@ -94,7 +94,7 @@ const DISCIPLINES: Discipline[] = [
     href: "/services/protection-arc-flash",
     visual: {
       kind: "table",
-      image: "/photos/cap-protection.png",
+      image: "/photos/cap-protection.webp",
       alt: "Gloved technician connecting test leads to the test block of a numerical protection relay",
       caption: ["Relay testing | Secondary injection", "Numerical relay"],
       title: "Relay coordination | Trip schedule",
@@ -124,7 +124,7 @@ const DISCIPLINES: Discipline[] = [
     href: "/services/dynamic-transients-rms",
     visual: {
       kind: "spec",
-      image: "/photos/edge-control-room.png",
+      image: "/photos/edge-control-room.webp",
       alt: "Control room supervising a power network",
       caption: ["IEC 62443 | Control layer", "SCADA • EMS"],
       spec: { tag: "Control layer", headline: "99.99% availability", rows: [["Protocols", "IEC 61850 / 60870"], ["Cyber zoning", "IEC 62443"], ["Data points", "Synchrophasor ready"]], foot: "Supervision and control in one system" },
@@ -168,7 +168,7 @@ const DISCIPLINES: Discipline[] = [
     href: "/services/specialist-studies",
     visual: {
       kind: "spec",
-      image: "/photos/cap-consultancy.png",
+      image: "/photos/cap-consultancy.webp",
       alt: "Two consulting engineers reviewing drawings beside a 132 kV substation at sunset",
       caption: ["Independent advisory | Site review", "Design review"],
       anchor: "right",
