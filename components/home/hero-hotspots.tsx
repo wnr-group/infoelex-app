@@ -145,7 +145,7 @@ export function HeroHotspots() {
                 <span
                   aria-hidden
                   className={cn(
-                    "block w-px bg-white shadow-[0_0_3px_rgba(0,0,0,0.5)] transition-[height] duration-300",
+                    "block w-px bg-brand shadow-[0_0_0_0.5px_rgba(255,255,255,0.7)] transition-[height] duration-300",
                     isActive ? "h-4 sm:h-6" : "h-3 sm:h-5"
                   )}
                 />

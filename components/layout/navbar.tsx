@@ -23,6 +23,9 @@ const NAV_ITEMS: NavItem[] = [
 /** Routes whose first screen is a dark image, so the transparent header needs the light logo and light text. */
 const DARK_TOP = ["/about", "/our-edge", "/critical-power"];
 
+/** Routes built on the 1280px content grid; their header lines up with it so the logo shares the content's left edge. */
+const CONTENT_GRID = ["/our-edge", "/capabilities", "/critical-power", "/projects", "/our-signature", "/beyond-engineering", "/contact"];
+
 export function Logo({ floating = false, isDarkBg = false }: { floating?: boolean; isDarkBg?: boolean }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -42,6 +45,8 @@ export function Navbar() {
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const isDarkBg = !scrolled && DARK_TOP.includes(pathname);
+  const onContentGrid = CONTENT_GRID.includes(pathname);
+  const gutter = onContentGrid ? "px-4 sm:px-6 lg:px-10" : "px-6 md:px-10 lg:px-14 xl:px-16";
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
@@ -72,7 +77,7 @@ export function Navbar() {
             : "bg-transparent shadow-none"
         )}
       >
-        <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14 xl:px-16">
+        <div className={cn("mx-auto flex h-20 items-center justify-between", onContentGrid ? "max-w-[1280px]" : "max-w-[1440px]", gutter)}>
           {/* LOGO */}
           <Link href="/" className="flex-shrink-0" aria-label="Infoelex home">
             <Logo floating={!scrolled} isDarkBg={isDarkBg} />
@@ -149,7 +154,7 @@ export function Navbar() {
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white xl:hidden"
           >
-            <div className="relative flex h-20 items-center justify-between border-b border-gray-100 px-6">
+            <div className={cn("relative flex h-20 items-center justify-between border-b border-gray-100", gutter)}>
               <Link href="/" onClick={() => setMobileOpen(false)} aria-label="Infoelex home">
                 <Logo />
               </Link>
